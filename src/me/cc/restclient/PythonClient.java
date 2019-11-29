@@ -72,6 +72,23 @@ public class PythonClient {
 				.request(MediaType.APPLICATION_JSON).post(Entity.json(bs));
 		String jsonString =  response.readEntity(String.class);
 		System.out.println(jsonString);
+		int bStart = jsonString.indexOf("<body>");
+		int bEnd = jsonString.lastIndexOf("</body>");
         return;		
 	}
+	
+	public String recomputeAll() {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target(PythonClient.url);
+		Response response = target
+				.queryParam("pass", "kacke")
+				.path("compall")
+				.request(MediaType.APPLICATION_JSON).get();
+		String jsonString =  response.readEntity(String.class);
+		System.out.println(jsonString);
+        return jsonString;
+		
+	}
+
+
 }

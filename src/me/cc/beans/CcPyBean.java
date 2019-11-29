@@ -12,8 +12,6 @@ import javax.faces.event.ActionEvent;
 
 import me.cc.restclient.PythonClient;
 
-
-
 @SessionScoped
 @ManagedBean(name = "ccPyBean")
 public class CcPyBean implements Serializable {
@@ -25,30 +23,33 @@ public class CcPyBean implements Serializable {
 	static Logger logger = Logger.getLogger(CcPyBean.class);
 
 	private List<String> documents;
-	private String path =""; 
-	private String html ="";
+	private String path = "";
+	private String html = "";
 	public static PythonClient pycl = new PythonClient();
 
-	public CcPyBean()  { 
-		documents = pycl.getPaths();
+	public CcPyBean() {
 	}
-	
-	public void finalize()  {
-		//pyc.finalize();
+	public void finalize() {
+		// pyc.finalize();
 	}
-	
-	public void changePath(ActionEvent ae){
+
+	public void changePath(ActionEvent ae) {
 		path = (String) ((CommandLink) ae.getSource()).getValue();
 		System.out.println("path..." + path);
-        loadHtml(path);
+		loadHtml(path);
 	}
-	
+
 	private void loadHtml(String path2) {
-			html = pycl.getHTML(path);
+		html = pycl.getHTML(path);
 	};
 
 	public List<String> getDocuments() {
+		documents = pycl.getPaths();
 		return documents;
+	}
+
+	public void compAll() {
+		html = pycl.recomputeAll();
 	}
 
 	public void setDocuments(List<String> documents) {
