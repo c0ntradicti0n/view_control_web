@@ -6,9 +6,9 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import me.cc.model.League;
-import me.cc.model.Country;
-import me.cc.model.Sport;
+import me.cc.model.Meta;
+import me.cc.model.Document;
+import me.cc.model.Topic;
 
 @ManagedBean
 @ViewScoped
@@ -16,47 +16,47 @@ public class SimpleMasterDetailController implements Serializable {
 
 	private static final long serialVersionUID = 20111120L;
 
-	private List<Sport> sports;
+	private List<Topic> topics;
 	private int currentLevel = 1;
 
 	public SimpleMasterDetailController() {
-		if (sports == null) {
-			sports = new ArrayList<Sport>();
+		if (topics == null) {
+			topics = new ArrayList<Topic>();
 
 			// football
-			List<Country> countries = new ArrayList<Country>();
-			Country country = new Country("Switzerland", "CH", "Football", getLeagues("Switzerland"));
-			countries.add(country);
-			country = new Country("England", "UK", "Football", getLeagues("England"));
-			countries.add(country);
-			country = new Country("Spain", "ES", "Football", getLeagues("Spain"));
-			countries.add(country);
-			country = new Country("Netherlands", "NL", "Football", getLeagues("Netherlands"));
-			countries.add(country);
-			sports.add(new Sport("Football", countries));
+			List<Document> documents = new ArrayList<Document>();
+			Document document = new Document("Switzerland", "CH", "Football", getmetas("Switzerland"));
+			documents.add(document);
+			document = new Document("England", "UK", "Football", getmetas("England"));
+			documents.add(document);
+			document = new Document("Spain", "ES", "Football", getmetas("Spain"));
+			documents.add(document);
+			document = new Document("Netherlands", "NL", "Football", getmetas("Netherlands"));
+			documents.add(document);
+			topics.add(new Topic("Football", documents));
 
 			//basketball
-			countries = new ArrayList<Country>();
-			country = new Country("Germany", "DE", "Basketball", getLeagues("Germany"));
-			countries.add(country);
-			country = new Country("USA", "US", "Basketball", getLeagues("USA"));
-			countries.add(country);
-			country = new Country("Poland", "PL", "Basketball", getLeagues("Poland"));
-			countries.add(country);
-			sports.add(new Sport("Basketball", countries));
+			documents = new ArrayList<Document>();
+			document = new Document("Germany", "DE", "Basketball", getmetas("Germany"));
+			documents.add(document);
+			document = new Document("USA", "US", "Basketball", getmetas("USA"));
+			documents.add(document);
+			document = new Document("Poland", "PL", "Basketball", getmetas("Poland"));
+			documents.add(document);
+			topics.add(new Topic("Basketball", documents));
 
 			// ice hockey
-			countries = new ArrayList<Country>();
-			country = new Country("Russia", "RU", "Ice Hockey", getLeagues("Russia"));
-			countries.add(country);
-			country = new Country("Canada", "CA", "Ice Hockey", getLeagues("Canada"));
-			countries.add(country);
-			sports.add(new Sport("Ice Hockey", countries));
+			documents = new ArrayList<Document>();
+			document = new Document("Russia", "RU", "Ice Hockey", getmetas("Russia"));
+			documents.add(document);
+			document = new Document("Canada", "CA", "Ice Hockey", getmetas("Canada"));
+			documents.add(document);
+			topics.add(new Topic("Ice Hockey", documents));
 		}
 	}
 
-	public List<Sport> getSports() {
-		return sports;
+	public List<Topic> gettopics() {
+		return topics;
 	}
 
 	public int getCurrentLevel() {
@@ -67,14 +67,14 @@ public class SimpleMasterDetailController implements Serializable {
 		this.currentLevel = currentLevel;
 	}
 
-	private List<League> getLeagues(String country) {
-		List<League> leagues = new ArrayList<League>();
+	private List<Meta> getmetas(String document) {
+		List<Meta> metas = new ArrayList<Meta>();
 
-		leagues.add(new League(country + " SuperLeague", 20));
-		leagues.add(new League(country + " NotBadLeague", 15));
-		leagues.add(new League(country + " CrapLeague", 30));
+		metas.add(new Meta(document + " Supermeta", 20));
+		metas.add(new Meta(document + " NotBadmeta", 15));
+		metas.add(new Meta(document + " Crapmeta", 30));
 
-		return leagues;
+		return metas;
 	}
 }
             

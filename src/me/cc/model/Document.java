@@ -3,16 +3,16 @@ package me.cc.model;
 import java.io.Serializable;
 import java.util.List;
 
-public class Country implements Serializable {
+public class Document implements Serializable {
 
 	private static final long serialVersionUID = 20111120L;
 
 	private String name;
 	private String code;
 	private String sport;
-	private List<League> leagues;
+	private List<Meta> leagues;
 
-	public Country(String name, String code, String sport, List<League> leagues) {
+	public Document(String name, String code, String sport, List<Meta> leagues) {
 		this.name = name;
 		this.code = code;
 		this.sport = sport;
@@ -31,7 +31,7 @@ public class Country implements Serializable {
 		return sport;
 	}
 
-	public List<League> getLeagues() {
+	public List<Meta> getLeagues() {
 		return leagues;
 	}
 }
