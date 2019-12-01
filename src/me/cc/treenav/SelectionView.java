@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.model.TreeNode;
  
-@ManagedBean(name="treeSelectionView")
+@ManagedBean(name="navBean")
 @ViewScoped
 public class SelectionView implements Serializable {
      
@@ -21,6 +21,7 @@ public class SelectionView implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private TreeNode root;
     private TreeNode[] selectedNodes;
+    private TreeNode singleSelectedNode;
      
     @ManagedProperty("#{documentService}")
     private DocumentService service;
@@ -45,6 +46,8 @@ public class SelectionView implements Serializable {
     public void setService(DocumentService service) {
         this.service = service;
     }
+    
+    
  
     public void displaySelectedNodes(TreeNode[] nodes) {
         if(nodes != null && nodes.length > 0) {
@@ -61,4 +64,12 @@ public class SelectionView implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
+
+	public TreeNode getSingleSelectedNode() {
+		return singleSelectedNode;
+	}
+
+	public void setSingleSelectedNode(TreeNode singleSelectedNode) {
+		this.singleSelectedNode = singleSelectedNode;
+	}
 }

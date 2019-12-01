@@ -57,6 +57,11 @@ public class PythonClient {
 				.request(MediaType.APPLICATION_JSON).get();
 		String jsonString =  response.readEntity(String.class);
 		System.out.println(jsonString);
+		
+		int bStart = jsonString.indexOf("<body>") +6;
+		int bEnd = jsonString.lastIndexOf("</body>");
+		jsonString = jsonString.substring(bStart, bEnd);
+		
         return jsonString;
 		
 	}
@@ -72,8 +77,7 @@ public class PythonClient {
 				.request(MediaType.APPLICATION_JSON).post(Entity.json(bs));
 		String jsonString =  response.readEntity(String.class);
 		System.out.println(jsonString);
-		int bStart = jsonString.indexOf("<body>");
-		int bEnd = jsonString.lastIndexOf("</body>");
+
         return;		
 	}
 	

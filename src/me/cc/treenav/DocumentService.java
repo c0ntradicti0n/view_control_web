@@ -21,9 +21,6 @@ public class DocumentService {
     public TreeNode createCheckboxDocuments() {
         TreeNode root = new CheckboxTreeNode(new Document("Files"), null);
          
-       
-        TreeNode cars = new CheckboxTreeNode(new Document("Cars"), root);
-        TreeNode documents = new CheckboxTreeNode(new Document("Documents"), root);
         PythonClient pycl = new PythonClient();
   		ArrayList<String> paths = pycl.getPaths();
 		for (String p:paths)  {

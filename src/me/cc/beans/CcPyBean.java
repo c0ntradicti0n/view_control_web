@@ -2,15 +2,20 @@ package me.cc.beans;
 
 import org.apache.log4j.Logger;
 import org.primefaces.component.commandlink.CommandLink;
+import org.primefaces.model.TreeNode;
 
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import me.cc.restclient.PythonClient;
+import me.cc.treenav.Document;
+import me.cc.treenav.SelectionView;
 
 @SessionScoped
 @ManagedBean(name = "ccPyBean")
@@ -26,18 +31,15 @@ public class CcPyBean implements Serializable {
 	private String path = "";
 	private String html = "";
 	public static PythonClient pycl = new PythonClient();
-
-	public CcPyBean() {
-	}
-	public void finalize() {
-		// pyc.finalize();
-	}
-
-	public void changePath(ActionEvent ae) {
-		path = (String) ((CommandLink) ae.getSource()).getValue();
-		System.out.println("path..." + path);
-		loadHtml(path);
-	}
+	
+	public void displaySelectedNode(TreeNode node) {
+        if(node != null) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Your choices:", "" + node);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+    		path = ((Document) node.getData()).getName();
+    		loadHtml(path);
+        }
+    }    
 
 	private void loadHtml(String path2) {
 		html = pycl.getHTML(path);
@@ -71,4 +73,5 @@ public class CcPyBean implements Serializable {
 	public void setHtml(String html) {
 		this.html = html;
 	}
+
 }
