@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Java3</title>
+</h:head>
+
+
+<h:body>
+	<p:growl id="growl" showDetail="true" />
+
+	<h:form>
+		<h3 style="margin-top: 0">Basic</h3>
+		<h:panelGrid columns="1" style="width: 400px">
+			<p:inputText id="txt0" value="#{sliderView.number0}"
+				style="width: 400px" type="hidden" />
+			<p:inputText id="txt1" value="#{sliderView.number1}"
+				style="width: 400px" type="hidden" />
+
+			<p:slider for="txt0">
+				<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
+					update="growl" />
+			</p:slider>
+			<p:slider for="txt1">
+				<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd1}"
+					update="growl" />
+			</p:slider>
+		</h:panelGrid>
+	</h:form>
+	
+		<h:form>
+		<h3 style="margin-top: 0">Basic</h3>
+		<h:panelGrid columns="1" style="width: 400px">
+			<p:inputText id="txt0" value="#{sliderView.number0}"
+				style="width: 400px" type="hidden" />
+			<p:inputText id="txt1" value="#{sliderView.number1}"
+				style="width: 400px" type="hidden" />
+
+			<p:slider for="txt0">
+				<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
+					update="growl" />
+			</p:slider>
+			<p:slider for="txt1">
+				<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd1}"
+					update="growl" />
+			</p:slider>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>
