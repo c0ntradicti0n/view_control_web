@@ -5,7 +5,8 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:cc="http://java.sun.com/jsf/composite"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Java3</title>
 </h:head>
@@ -14,42 +15,45 @@
 <h:body>
 	<p:growl id="growl" showDetail="true" />
 
-	<h:form>
-		<h3 style="margin-top: 0">Basic</h3>
-		<h:panelGrid columns="1" style="width: 400px">
-			<p:inputText id="txt0" value="#{sliderView.number0}"
-				style="width: 400px" type="hidden" />
-			<p:inputText id="txt1" value="#{sliderView.number1}"
-				style="width: 400px" type="hidden" />
+	<h:outputText value="#{ccPyBean.annotationMarkup}" />
 
-			<p:slider for="txt0">
-				<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
-					update="growl" />
-			</p:slider>
-			<p:slider for="txt1">
-				<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd1}"
-					update="growl" />
-			</p:slider>
-		</h:panelGrid>
-	</h:form>
-	
-		<h:form>
-		<h3 style="margin-top: 0">Basic</h3>
-		<h:panelGrid columns="1" style="width: 400px">
-			<p:inputText id="txt0" value="#{sliderView.number0}"
-				style="width: 400px" type="hidden" />
-			<p:inputText id="txt1" value="#{sliderView.number1}"
-				style="width: 400px" type="hidden" />
+	<p:separator />
+	<h:form id="f">
+		<h:dataTable value="#{ccPyBean.annotationSets}" var="annotationTags">
+			<h:column>
+				<p:separator />
+				<h:dataTable value="#{annotationTags}" var="annotationTag">
+					<h:column>
 
-			<p:slider for="txt0">
-				<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
-					update="growl" />
-			</p:slider>
-			<p:slider for="txt1">
-				<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd1}"
-					update="growl" />
-			</p:slider>
-		</h:panelGrid>
+						<h3 style="margin-top: 0">
+							<h:outputText value="#{annotationTag.name}" />
+						</h3>
+
+						<h:panelGrid columns="1" style="width: 90%">
+							<p:inputText id="start${annotationTag.name}" value="#{sliderView.number0}"
+								style="width: 400px" type="hidden" />
+							<p:inputText id="end" value="#{sliderView.number1}"
+								style="width: 400px" type="hidden" />
+							<p:inputText id="index" value="#{annotationTag.no}"
+								style="width: 400px" type="hidden" />
+							<p:inputText id="name" value="#{annotationTag.name}"
+								style="width: 400px" type="hidden" />
+
+						1<p:slider for="start#{annotationTag.name}">
+								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
+									update="growl f" binding="#{sliderView.sliderStart}" />
+							</p:slider>
+						2<p:slider for="end">
+								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd1}"
+									update="growl f" binding="#{sliderView.sliderEnd}" />
+							</p:slider>
+						</h:panelGrid>
+					</h:column>
+				</h:dataTable>
+			</h:column>
+		</h:dataTable>
 	</h:form>
+
+
 </h:body>
 </html>

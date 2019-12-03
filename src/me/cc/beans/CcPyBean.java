@@ -5,6 +5,8 @@ import org.primefaces.component.commandlink.CommandLink;
 import org.primefaces.model.TreeNode;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -13,6 +15,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import me.cc.model.Tag;
+import me.cc.model.annotationTagsFactory;
 import me.cc.restclient.PythonClient;
 import me.cc.treenav.Document;
 import me.cc.treenav.SelectionView;
@@ -26,6 +30,10 @@ public class CcPyBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	static Logger logger = Logger.getLogger(CcPyBean.class);
+	
+	private ArrayList<ArrayList<Tag>> annotationSets = annotationTagsFactory.produce(2, Arrays.asList("Contrast", "Subject"));
+	private String annotationMarkup = "?";
+  
 
 	private List<String> documents;
 	private String path = "";
@@ -72,6 +80,22 @@ public class CcPyBean implements Serializable {
 
 	public void setHtml(String html) {
 		this.html = html;
+	}
+
+	public ArrayList<ArrayList<Tag>> getAnnotationSets() {
+		return annotationSets;
+	}
+
+	public void setAnnotationSets(ArrayList<ArrayList<Tag>> annotationSets) {
+		this.annotationSets = annotationSets;
+	}
+
+	public String getAnnotationMarkup() {
+		return annotationMarkup;
+	}
+
+	public void setAnnotationMarkup(String annotationMarkup) {
+		this.annotationMarkup = annotationMarkup;
 	}
 
 }
