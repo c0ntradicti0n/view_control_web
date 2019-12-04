@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -33,6 +34,11 @@ public class CcPyBean implements Serializable {
 	
 	private ArrayList<ArrayList<Tag>> annotationSets = annotationTagsFactory.produce(2, Arrays.asList("Contrast", "Subject"));
 	private String annotationMarkup = "?";
+	
+	@PostConstruct
+	public void init()  {
+		System.out.println(annotationSets);
+	}
   
 
 	private List<String> documents;

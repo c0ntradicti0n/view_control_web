@@ -18,19 +18,19 @@
 	<h:outputText value="#{ccPyBean.annotationMarkup}" />
 
 	<p:separator />
-	<h:form id="f">
-		<h:dataTable value="#{ccPyBean.annotationSets}" var="annotationTags">
-			<h:column>
-				<p:separator />
-				<h:dataTable value="#{annotationTags}" var="annotationTag">
-					<h:column>
+	<h:dataTable value="#{ccPyBean.annotationSets}" var="annotationTags">
+		<h:column>
+			<p:separator />
+			<h:dataTable value="#{annotationTags}" var="annotationTag">
+				<h:column>
+					<h:form id="f">
 
 						<h3 style="margin-top: 0">
 							<h:outputText value="#{annotationTag.name}" />
 						</h3>
 
 						<h:panelGrid columns="1" style="width: 90%">
-							<p:inputText id="start${annotationTag.name}" value="#{sliderView.number0}"
+							<p:inputText id="start" value="#{sliderView.number0}"
 								style="width: 400px" type="hidden" />
 							<p:inputText id="end" value="#{sliderView.number1}"
 								style="width: 400px" type="hidden" />
@@ -39,20 +39,27 @@
 							<p:inputText id="name" value="#{annotationTag.name}"
 								style="width: 400px" type="hidden" />
 
-						1<p:slider for="start#{annotationTag.name}">
+						1<p:slider for="start">
+								<f:attribute name="i" value="#{annotationTag.no}" />
+								<f:attribute name="name" value="#{annotationTag.name}" />
+
 								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
-									update="growl f" binding="#{sliderView.sliderStart}" />
+									update="growl" binding="#{sliderView.sliderStart}" />
 							</p:slider>
 						2<p:slider for="end">
+								<f:attribute name="i" value="#{annotationTag.no}" />
+								<f:attribute name="name" value="#{annotationTag.name}" />
+
 								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd1}"
-									update="growl f" binding="#{sliderView.sliderEnd}" />
+									update="growl" binding="#{sliderView.sliderEnd}" />
 							</p:slider>
 						</h:panelGrid>
-					</h:column>
-				</h:dataTable>
-			</h:column>
-		</h:dataTable>
-	</h:form>
+					</h:form>
+
+				</h:column>
+			</h:dataTable>
+		</h:column>
+	</h:dataTable>
 
 
 </h:body>

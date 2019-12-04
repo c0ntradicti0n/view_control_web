@@ -64,7 +64,7 @@ public class Tag {
 
 	@Override
 	public String toString() {
-		return "Tag [no=" + no + ", name=" + name + "]";
+		return name+no;
 	}
 
 	@SuppressWarnings("unchecked")
