@@ -13,45 +13,49 @@
 
 
 <h:body>
+	<h:outputStylesheet name="css/format.css" />
+	<h:outputStylesheet name="css/diff_markup.css" />
+	<h:outputStylesheet name="css/nav.css" />
 	<p:growl id="growl" showDetail="true" />
+<h:panelGroup id="sample">
+				<h:outputText escape="false" value="#{ccPyBean.annotationMarkup}" />
+			
+		</h:panelGroup>
 
-	<h:outputText value="#{ccPyBean.annotationMarkup}" />
-
-	<p:separator />
 	<h:dataTable value="#{ccPyBean.annotationSets}" var="annotationTags">
 		<h:column>
-			<p:separator />
-			<h:dataTable value="#{annotationTags}" var="annotationTag">
+			<p:separator style="width:90vw" />
+			<h:dataTable value="#{annotationTags.entrySet().toArray()}" var="annotationTag">
 				<h:column>
 					<h:form id="f">
 
 						<h3 style="margin-top: 0">
-							<h:outputText value="#{annotationTag.name}" />
+							<h:outputText value="#{annotationTag.key}" />
 						</h3>
 
-						<h:panelGrid columns="1" style="width: 90%">
+						<h:panelGrid columns="1" >
 							<p:inputText id="start" value="#{sliderView.number0}"
-								style="width: 400px" type="hidden" />
+								 type="hidden" />
 							<p:inputText id="end" value="#{sliderView.number1}"
-								style="width: 400px" type="hidden" />
-							<p:inputText id="index" value="#{annotationTag.no}"
-								style="width: 400px" type="hidden" />
-							<p:inputText id="name" value="#{annotationTag.name}"
-								style="width: 400px" type="hidden" />
+								type="hidden" />
+							<p:inputText id="index" value="#{annotationTag.value.no}"
+								 type="hidden" />
+							<p:inputText id="kind" value="#{annotationTag.value.kind}"
+								 type="hidden" />
 
-						1<p:slider for="start">
-								<f:attribute name="i" value="#{annotationTag.no}" />
-								<f:attribute name="name" value="#{annotationTag.name}" />
+						1<p:slider for="start" style="width:90vw">
+								<f:attribute name="i" value="#{annotationTag.value.no}" />
+								<f:attribute name="kind" value="#{annotationTag.value.kind}" />
 
 								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
-									update="growl" binding="#{sliderView.sliderStart}" />
+									update="growl sample" binding="#{sliderView.sliderStart}" />
 							</p:slider>
-						2<p:slider for="end">
-								<f:attribute name="i" value="#{annotationTag.no}" />
-								<f:attribute name="name" value="#{annotationTag.name}" />
+						2<p:slider for="end" style="width:90vw">
+								<f:attribute name="i" value="#{annotationTag.value.no}" />
+								<f:attribute name="kind" value="#{annotationTag.value.kind}" />
 
 								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd1}"
-									update="growl" binding="#{sliderView.sliderEnd}" />
+									update="growl sample" binding="#{sliderView.sliderEnd}" />
 							</p:slider>
 						</h:panelGrid>
 					</h:form>

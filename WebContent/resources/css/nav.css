@@ -1,16 +1,21 @@
 * {
-  font-family: "Arial", Arial, sans-serif;
+	font-family: "Arial", Arial, sans-serif;
 }
 
-#controls {clear:both;float:right;width:30%}
+#controls {
+	clear: both;
+	float: right;
+	width: 30%
+}
 
 .ui-tree {
-width: 100%;
-position: relative;
+	width: 100%;
+	position: relative;
 }
+
 .ui-tree .ui-tree-container {
-margin: 0;
-padding: 3px;
-white-space: nowrap;
-overflow: auto;
+	margin: 0;
+	padding: 3px;
+	white-space: nowrap;
+	overflow: auto;
 }

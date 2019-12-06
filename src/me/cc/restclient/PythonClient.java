@@ -1,6 +1,7 @@
 package me.cc.restclient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ws.rs.client.Client;
@@ -12,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 import org.glassfish.jersey.client.ClientResponse;
+import org.json.simple.JSONObject;
 import org.primefaces.model.UploadedFile;
 
 import com.google.gson.Gson;
@@ -19,6 +21,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import me.cc.beans.CcPyBean;
+import me.cc.model.Tag;
 
 import java.lang.reflect.Type;
 
@@ -92,6 +95,43 @@ public class PythonClient {
 		System.out.println(jsonString);
         return jsonString;
 		
+	}
+
+	public String getMarkup(String text, ArrayList<HashMap<String, Tag>> annotationSet) {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target(PythonClient.url);
+        Gson gson = new Gson();
+
+        HashMap<String, Object> param = new HashMap<String,  Object>();
+        param.put("text", text);
+        param.put("spans", annotationSet);
+
+		Response response = target
+				.path("markup")
+				.request(MediaType.APPLICATION_JSON).post(Entity.json(param));
+		String jsonString =  response.readEntity(String.class);
+		System.out.println(jsonString);
+        return jsonString;
+	}
+
+	public HashMap<String,Object> PredictionAnnotationAndMarkup(String text) {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target(PythonClient.url);
+
+        HashMap<String, Object> param = new HashMap<String,  Object>();
+        param.put("text", text);
+        System.out.println("TEXT:" + text);
+        
+		Response response = target
+				.path("predictmarkup")
+				.request(MediaType.APPLICATION_JSON).post(Entity.json(param));
+		String jsonString =  response.readEntity(String.class);
+		System.out.println(jsonString);
+		Gson gson = new GsonBuilder().create();
+        Type list = new TypeToken<HashMap<String, Object>>(){}.getType();	        
+        HashMap<String, Object> ret =  gson.fromJson(jsonString, list );
+        logger.info(ret);
+		return ret;
 	}
 
 

@@ -1,12 +1,14 @@
 package me.cc.beans;
 
 import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
 import org.primefaces.component.commandlink.CommandLink;
 import org.primefaces.model.TreeNode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -32,8 +34,15 @@ public class CcPyBean implements Serializable {
 
 	static Logger logger = Logger.getLogger(CcPyBean.class);
 	
-	private ArrayList<ArrayList<Tag>> annotationSets = annotationTagsFactory.produce(2, Arrays.asList("Contrast", "Subject"));
+	private ArrayList<HashMap<String, Tag>> annotationSets = annotationTagsFactory.produce(2, Arrays.asList("Contrast", "Subject"));
 	private String annotationMarkup = "?";
+	private String text = "Abstract and surrealism arose out of unrelated ideas and "
+			+ "different influences. Each was first used in a different artistic medium, "
+			+ "even though both are most evident today in paintings. They also differ in "
+			+ "the specific norm or idea that they are rejecting or departing from. And "
+			+ "although each artwork can be seen as being from the artist’s imagination, "
+			+ "the idea and goal behind each artistic style is also different. Abstract "
+			+ "and surrealism are discussed further below as well as their differences.";
 	
 	@PostConstruct
 	public void init()  {
@@ -44,6 +53,9 @@ public class CcPyBean implements Serializable {
 	private List<String> documents;
 	private String path = "";
 	private String html = "";
+	public JSONObject spans = new JSONObject();
+	private String inputTextAreaSelectedText;
+
 	public static PythonClient pycl = new PythonClient();
 	
 	public void displaySelectedNode(TreeNode node) {
@@ -55,6 +67,12 @@ public class CcPyBean implements Serializable {
         }
     }    
 
+	public void updateAnnotation(String text)  {		
+		HashMap<String, Object> ret = pycl.PredictionAnnotationAndMarkup(text);
+		Object prediction = ret.get("prediction");
+		String annotation = (String) ret.get("markup");
+	}
+	
 	private void loadHtml(String path2) {
 		html = pycl.getHTML(path);
 	};
@@ -88,11 +106,11 @@ public class CcPyBean implements Serializable {
 		this.html = html;
 	}
 
-	public ArrayList<ArrayList<Tag>> getAnnotationSets() {
+	public ArrayList<HashMap<String, Tag>> getAnnotationSets() {
 		return annotationSets;
 	}
 
-	public void setAnnotationSets(ArrayList<ArrayList<Tag>> annotationSets) {
+	public void setAnnotationSets(ArrayList<HashMap<String, Tag>> annotationSets) {
 		this.annotationSets = annotationSets;
 	}
 
@@ -102,6 +120,22 @@ public class CcPyBean implements Serializable {
 
 	public void setAnnotationMarkup(String annotationMarkup) {
 		this.annotationMarkup = annotationMarkup;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getInputTextAreaSelectedText() {
+		return inputTextAreaSelectedText;
+	}
+
+	public void setInputTextAreaSelectedText(String inputTextAreaSelectedText) {
+		this.inputTextAreaSelectedText = inputTextAreaSelectedText;
 	}
 
 }

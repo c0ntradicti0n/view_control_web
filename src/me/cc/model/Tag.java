@@ -4,22 +4,26 @@ import org.json.simple.JSONObject;
 
 public class Tag {
 	private  int no;
-	private  String name;
+	private  String kind;
 	private  int start;
 	private  int end;
 	private  String id;
+	private  boolean able = true;
+
 	
 
 	public Tag(int n, String tag) {
 		setNo(n);
-		setName(tag);
+		setKind(tag);
+		setId();
 	}
 
 	public Tag(int no, String name, int number0, int number1) {
 		this.no = no;
-		this.name = name;
+		this.kind = name;
 		this.start = Math.min(number0, number1);
 		this.end =   Math.max(number0, number1);
+		setId();
 	}
 
 	public int getNo() {
@@ -30,12 +34,12 @@ public class Tag {
 		this.no = no;
 	}
 
-	public String getName() {
-		return name;
+	public String getKind() {
+		return kind;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setKind(String kind) {
+		this.kind = kind;
 	}
 
 	public int getStart() {
@@ -62,9 +66,10 @@ public class Tag {
         this.id = toString();
 	}
 
+
 	@Override
 	public String toString() {
-		return name+no;
+		return "Tag [no=" + no + ", kind=" + kind + ", start=" + start + ", end=" + end + "]";
 	}
 
 	@SuppressWarnings("unchecked")
@@ -72,8 +77,16 @@ public class Tag {
 		JSONObject jo = new JSONObject();
 		jo.put("start", start);
 		jo.put("end", end);
-		jo.put("name", name);
+		jo.put("kind", kind);
 		jo.put("set", no);
 		return jo;
+	}
+
+	public boolean isAble() {
+		return able;
+	}
+
+	public void setAble(boolean able) {
+		this.able = able;
 	}
 }
