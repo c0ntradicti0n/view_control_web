@@ -72,49 +72,21 @@
 		<p:commandLink action="#{commandBean.take_it}">
 			<h:graphicImage name="images/annotate_icon.png" />
 		</p:commandLink>
-				<p:commandLink action="#{commandBean.zero_annotation_selection_first_corpus}">
+		<p:commandLink
+			action="#{commandBean.zero_annotation_selection_first_corpus}">
 			<h:graphicImage name="images/zero_annotation.png" />
 		</p:commandLink>
-				<p:commandLink action="#{commandBean.annotation_in_between}">
+		<p:commandLink action="#{commandBean.annotation_in_between}">
 			<h:graphicImage name="images/between.png" />
 		</p:commandLink>
-				<p:commandLink action="#{commandBean.zero_annotation_selection_second_corpus}">
+		<p:commandLink
+			action="#{commandBean.zero_annotation_selection_second_corpus}">
 			<h:graphicImage name="images/zero_annotation.png" />
 		</p:commandLink>
-				<p:commandLink action="#{commandBean.trash}">
+		<p:commandLink action="#{commandBean.trash}">
 			<h:graphicImage name="images/ignore.jpg" />
 		</p:commandLink>
 	</h:form>
-SquareButton:
-                text: "from here"
-                on_press: root.manager.annotation_from_here()
-                background_normal: "./images/from_here.png"
-            SquareButton:
-                text: "ok"
-                on_press: root.manager.ok()
-                background_normal: "./images/annotate_icon.png"
-            SquareButton:
-                text: "zero"
-                on_press: root.manager.zero_annotation_selection(text=root.manager.ids.manip.ids.sample.text, which="first")
-                background_normal: "./images/zero_annotation.png"
-            InfoLabel:
-                text: "Recursive-logic-annotation"
-            SquareButton:
-                text: "in between"
-                on_press: root.manager.annotation_in_between()
-                background_normal: "./images/between.png"
-            SquareButton:
-                text: "zero"
-                on_press: root.manager.zero_annotation_selection(text=root.manager.ids.manip.ids.sample.text, which="over")
-                background_normal: "./images/zero_annotation.png"
-            InfoLabel:
-                text: ""
-            SquareButton:
-                text: "trash"
-                background_normal: "./images/ignore.jpg"
-                on_press: root.manager.shit()
-            InfoLabel:
-                text: ""
 
 </h:body>
 </html>

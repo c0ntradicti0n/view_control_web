@@ -31,6 +31,7 @@ public class SliderView {
 	private Slider sliderEnd;
 	
 	CcPyBean ccPyBean;
+	
 	@PostConstruct
 	public void init()  {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
