@@ -71,7 +71,6 @@ public class CcPyBean implements Serializable {
 		HashMap<String, Object> ret = pycl.stdCall("predictmarkup", text);
 		annotationMarkup = (String) ret.get("markup");
 		annotationSets = (ArrayList<HashMap<String, Tag>>) ret.get("spans");
-
 	}
 	
 	private void loadHtml(String path2) {
