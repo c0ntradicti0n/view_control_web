@@ -36,11 +36,11 @@ public class CcPyBean implements Serializable {
 	
 	private ArrayList<HashMap<String, Tag>> annotationSets = annotationTagsFactory.produce(2, Arrays.asList("Contrast", "Subject"));
 	private String annotationMarkup = "?";
-	private String text = "Abstract and surrealism arose out of unrelated ideas and "
+	public String text = "Abstract and surrealism arose out of unrelated ideas and "
 			+ "different influences. Each was first used in a different artistic medium, "
 			+ "even though both are most evident today in paintings. They also differ in "
 			+ "the specific norm or idea that they are rejecting or departing from. And "
-			+ "although each artwork can be seen as being from the artist’s imagination, "
+			+ "although each artwork can be seen as being from the artistï¿½s imagination, "
 			+ "the idea and goal behind each artistic style is also different. Abstract "
 			+ "and surrealism are discussed further below as well as their differences.";
 	
@@ -67,10 +67,11 @@ public class CcPyBean implements Serializable {
         }
     }    
 
-	public void updateAnnotation(String text)  {		
-		HashMap<String, Object> ret = pycl.PredictionAnnotationAndMarkup(text);
-		Object prediction = ret.get("prediction");
-		String annotation = (String) ret.get("markup");
+	public void updateAnnotation()  {		
+		HashMap<String, Object> ret = pycl.stdCall("predictmarkup", text);
+		annotationMarkup = (String) ret.get("markup");
+		annotationSets = (ArrayList<HashMap<String, Tag>>) ret.get("spans");
+
 	}
 	
 	private void loadHtml(String path2) {

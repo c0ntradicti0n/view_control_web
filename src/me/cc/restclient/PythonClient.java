@@ -114,19 +114,19 @@ public class PythonClient {
         return jsonString;
 	}
 
-	public HashMap<String,Object> PredictionAnnotationAndMarkup(String text) {
+	public HashMap<String,Object> stdCall(String command, String text) {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(PythonClient.url);
 
         HashMap<String, Object> param = new HashMap<String,  Object>();
         param.put("text", text);
-        System.out.println("TEXT:" + text);
+        logger.info("calling " + command + " on text '" + text + "'");
         
 		Response response = target
-				.path("predictmarkup")
+				.path(command)
 				.request(MediaType.APPLICATION_JSON).post(Entity.json(param));
 		String jsonString =  response.readEntity(String.class);
-		System.out.println(jsonString);
+        logger.info("finally got an answer: '" + jsonString + "'");
 		Gson gson = new GsonBuilder().create();
         Type list = new TypeToken<HashMap<String, Object>>(){}.getType();	        
         HashMap<String, Object> ret =  gson.fromJson(jsonString, list );

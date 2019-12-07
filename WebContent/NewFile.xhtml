@@ -17,15 +17,16 @@
 	<h:outputStylesheet name="css/diff_markup.css" />
 	<h:outputStylesheet name="css/nav.css" />
 	<p:growl id="growl" showDetail="true" />
-<h:panelGroup id="sample">
-				<h:outputText escape="false" value="#{ccPyBean.annotationMarkup}" />
-			
-		</h:panelGroup>
+	<h:panelGroup id="sample">
+		<h:outputText escape="false" value="#{ccPyBean.annotationMarkup}" />
+
+	</h:panelGroup>
 
 	<h:dataTable value="#{ccPyBean.annotationSets}" var="annotationTags">
 		<h:column>
 			<p:separator style="width:90vw" />
-			<h:dataTable value="#{annotationTags.entrySet().toArray()}" var="annotationTag">
+			<h:dataTable value="#{annotationTags.entrySet().toArray()}"
+				var="annotationTag">
 				<h:column>
 					<h:form id="f">
 
@@ -33,15 +34,14 @@
 							<h:outputText value="#{annotationTag.key}" />
 						</h3>
 
-						<h:panelGrid columns="1" >
+						<h:panelGrid columns="1">
 							<p:inputText id="start" value="#{sliderView.number0}"
-								 type="hidden" />
-							<p:inputText id="end" value="#{sliderView.number1}"
 								type="hidden" />
+							<p:inputText id="end" value="#{sliderView.number1}" type="hidden" />
 							<p:inputText id="index" value="#{annotationTag.value.no}"
-								 type="hidden" />
+								type="hidden" />
 							<p:inputText id="kind" value="#{annotationTag.value.kind}"
-								 type="hidden" />
+								type="hidden" />
 
 						1<p:slider for="start" style="width:90vw">
 								<f:attribute name="i" value="#{annotationTag.value.no}" />
@@ -65,6 +65,56 @@
 		</h:column>
 	</h:dataTable>
 
+	<h:form>
+		<p:commandLink action="#{commandBean.annotation_from_here}">
+			<h:graphicImage name="images/images/from_here.png" />
+		</p:commandLink>
+		<p:commandLink action="#{commandBean.take_it}">
+			<h:graphicImage name="images/annotate_icon.png" />
+		</p:commandLink>
+				<p:commandLink action="#{commandBean.zero_annotation_selection_first_corpus}">
+			<h:graphicImage name="images/zero_annotation.png" />
+		</p:commandLink>
+				<p:commandLink action="#{commandBean.annotation_in_between}">
+			<h:graphicImage name="images/between.png" />
+		</p:commandLink>
+				<p:commandLink action="#{commandBean.zero_annotation_selection_second_corpus}">
+			<h:graphicImage name="images/zero_annotation.png" />
+		</p:commandLink>
+				<p:commandLink action="#{commandBean.trash}">
+			<h:graphicImage name="images/ignore.jpg" />
+		</p:commandLink>
+	</h:form>
+SquareButton:
+                text: "from here"
+                on_press: root.manager.annotation_from_here()
+                background_normal: "./images/from_here.png"
+            SquareButton:
+                text: "ok"
+                on_press: root.manager.ok()
+                background_normal: "./images/annotate_icon.png"
+            SquareButton:
+                text: "zero"
+                on_press: root.manager.zero_annotation_selection(text=root.manager.ids.manip.ids.sample.text, which="first")
+                background_normal: "./images/zero_annotation.png"
+            InfoLabel:
+                text: "Recursive-logic-annotation"
+            SquareButton:
+                text: "in between"
+                on_press: root.manager.annotation_in_between()
+                background_normal: "./images/between.png"
+            SquareButton:
+                text: "zero"
+                on_press: root.manager.zero_annotation_selection(text=root.manager.ids.manip.ids.sample.text, which="over")
+                background_normal: "./images/zero_annotation.png"
+            InfoLabel:
+                text: ""
+            SquareButton:
+                text: "trash"
+                background_normal: "./images/ignore.jpg"
+                on_press: root.manager.shit()
+            InfoLabel:
+                text: ""
 
 </h:body>
 </html>

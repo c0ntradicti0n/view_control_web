@@ -57,7 +57,7 @@
 		<h:form>
 			<p:inputText id="kind" value="#{ccPyBean.inputTextAreaSelectedText}" />
 			
-			<p:remoteCommand name="rc" update="msgs" action="#{ccPyBean.updateAnnotation}" />
+			<p:remoteCommand name="rc" action="#{ccPyBean.updateAnnotation}" />
      		<p:commandButton type="button" onclick="document.getElementById('kind').value = getSelectionText(); rc()" value="Annotate Selection"/>
 	
 		</h:form>
