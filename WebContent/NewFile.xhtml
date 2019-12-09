@@ -43,14 +43,14 @@
 							<p:inputText id="kind" value="#{annotationTag.value.kind}"
 								type="hidden" />
 
-						1<p:slider for="start" style="width:90vw">
+						<p:slider for="start" style="width:90vw">
 								<f:attribute name="i" value="#{annotationTag.value.no}" />
 								<f:attribute name="kind" value="#{annotationTag.value.kind}" />
 
 								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
 									update="growl sample" binding="#{sliderView.sliderStart}" />
 							</p:slider>
-						2<p:slider for="end" style="width:90vw">
+						<p:slider for="end" style="width:90vw">
 								<f:attribute name="i" value="#{annotationTag.value.no}" />
 								<f:attribute name="kind" value="#{annotationTag.value.kind}" />
 
@@ -67,21 +67,21 @@
 
 	<h:form>
 		<p:commandLink action="#{commandBean.annotation_from_here}">
-			<h:graphicImage name="images/images/from_here.png" />
+			<h:graphicImage name="images/from_here.png" />
 		</p:commandLink>
 		<p:commandLink action="#{commandBean.take_it}">
 			<h:graphicImage name="images/annotate_icon.png" />
 		</p:commandLink>
 		<p:commandLink
 			action="#{commandBean.zero_annotation_selection_first_corpus}">
-			<h:graphicImage name="images/zero_annotation.png" />
+			<h:graphicImage name="images/zero_annotation.jpg" />
 		</p:commandLink>
 		<p:commandLink action="#{commandBean.annotation_in_between}">
 			<h:graphicImage name="images/between.png" />
 		</p:commandLink>
 		<p:commandLink
 			action="#{commandBean.zero_annotation_selection_second_corpus}">
-			<h:graphicImage name="images/zero_annotation.png" />
+			<h:graphicImage name="images/zero_annotation.jpg" />
 		</p:commandLink>
 		<p:commandLink action="#{commandBean.trash}">
 			<h:graphicImage name="images/ignore.jpg" />

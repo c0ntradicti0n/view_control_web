@@ -1,8 +1,11 @@
 package me.cc.restclient;
 
 import java.util.ArrayList;
+
+
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -25,10 +28,23 @@ import me.cc.model.Tag;
 
 import java.lang.reflect.Type;
 
+import me.cc.model.*;
+
 public class PythonClient {
 	static Logger logger = Logger.getLogger(PythonClient.class);
 
 	private final static String url = "http://127.0.0.1:5000";
+	
+	Gson gson;
+	
+	public PythonClient() {
+		RuntimeTypeAdapterFactory<BaseClass> typeAdapterFactory = RuntimeTypeAdapterFactory
+		        .of(BaseClass.class, "type")
+		        .registerSubtype(Tag.class, "span");
+
+		 gson = new GsonBuilder().registerTypeAdapterFactory(typeAdapterFactory)
+		                .create();
+		 	}
 	
 	public ArrayList<String> getPaths()  {
 			
@@ -38,8 +54,8 @@ public class PythonClient {
 					.path("paths")
 					.request(MediaType.APPLICATION_JSON).get();
 			String jsonString =  response.readEntity(String.class);
-	        Gson gson = new GsonBuilder().create();
-	        Type list = new TypeToken<List<String>>(){}.getType();	        
+
+			Type list = new TypeToken<List<String>>(){}.getType();	        
 	        ArrayList<String> ret =  gson.fromJson(jsonString, list );
 	        logger.info(ret);
 	        return ret;
@@ -114,7 +130,7 @@ public class PythonClient {
         return jsonString;
 	}
 
-	public HashMap<String,Object> stdCall(String command, String text) {
+	public HashMap<String,Object> stdCall(String command, String text, Map exampleReturnObject) {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(PythonClient.url);
 
@@ -127,8 +143,8 @@ public class PythonClient {
 				.request(MediaType.APPLICATION_JSON).post(Entity.json(param));
 		String jsonString =  response.readEntity(String.class);
         logger.info("finally got an answer: '" + jsonString + "'");
-		Gson gson = new GsonBuilder().create();
-        Type list = new TypeToken<HashMap<String, Object>>(){}.getType();	        
+
+        Type list = new TypeToken<HashMap<String, ?>>(){}.getType();	        
         HashMap<String, Object> ret =  gson.fromJson(jsonString, list );
         logger.info(ret);
 		return ret;

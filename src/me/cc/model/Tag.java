@@ -2,7 +2,7 @@ package me.cc.model;
 
 import org.json.simple.JSONObject;
 
-public class Tag {
+public class Tag extends BaseClass {
 	private  int no;
 	private  String kind;
 	private  int start;

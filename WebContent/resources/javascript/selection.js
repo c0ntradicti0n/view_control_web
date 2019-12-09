@@ -12,7 +12,10 @@
 	        text = window.getSelection().toString();
 	    }
 	    alert( text);
-        alert (document.getElementById('kind').value);
+        //var inp = document.getElementById('xorm:kind');
+        //inp.value = text
+	    //document.getElementById('kind').value = text
+        //alert (document.getElementById('kind').value);
 	    return text;
 	}
 

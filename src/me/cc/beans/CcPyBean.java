@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -67,10 +69,23 @@ public class CcPyBean implements Serializable {
         }
     }    
 
-	public void updateAnnotation()  {		
+	
+
+
+	public String updateAnnotation()  {		
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        text = params.get("selectedText");
+
+        logger.info("Annotating the following text: '" + text + "'");
+
 		HashMap<String, Object> ret = pycl.stdCall("predictmarkup", text);
-		annotationMarkup = (String) ret.get("markup");
+		annotationMarkup = (String) ret.get("marked_up");
 		annotationSets = (ArrayList<HashMap<String, Tag>>) ret.get("spans");
+		
+		System.out.println("updateding the markup thing:" + annotationMarkup);
+		
+		System.out.println(annotationSets);
+		return "ReaderAnnotation";
 	}
 	
 	private void loadHtml(String path2) {

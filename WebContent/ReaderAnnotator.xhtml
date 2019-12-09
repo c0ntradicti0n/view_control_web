@@ -54,12 +54,15 @@
 			<p:commandButton value="Recompute all" ajax="false"
 				action="#{ccPyBean.compAll}" />
 		</h:form>
-		<h:form>
-			<p:inputText id="kind" value="#{ccPyBean.inputTextAreaSelectedText}" />
-			
+		<h:form id="xorm">
 			<p:remoteCommand name="rc" action="#{ccPyBean.updateAnnotation}" />
-     		<p:commandButton type="button" onclick="document.getElementById('kind').value = getSelectionText(); rc()" value="Annotate Selection"/>
-	
+			<p:commandButton type="button"
+				onclick="rc([{'name':'selectedText','value':getSelectionText()}]);"
+				value="Annotate Selection" update="xorm" />
+			<h:panelGroup id="sample">
+				<h:outputText escape="false" value="#{ccPyBean.annotationMarkup}" />
+
+			</h:panelGroup>
 		</h:form>
 
 	</div>
