@@ -5,8 +5,8 @@ import org.json.simple.JSONObject;
 public class Tag extends BaseClass {
 	private  int no;
 	private  String kind;
-	private  int start;
-	private  int end;
+	private  float start;
+	private  float end;
 	private  String id;
 	private  boolean able = true;
 
@@ -18,9 +18,9 @@ public class Tag extends BaseClass {
 		setId();
 	}
 
-	public Tag(int no, String name, int number0, int number1) {
+	public Tag(int no, String kind, int number0, int number1) {
 		this.no = no;
-		this.kind = name;
+		this.kind = kind;
 		this.start = Math.min(number0, number1);
 		this.end =   Math.max(number0, number1);
 		setId();
@@ -42,19 +42,19 @@ public class Tag extends BaseClass {
 		this.kind = kind;
 	}
 
-	public int getStart() {
+	public float getStart() {
 		return start;
 	}
 
-	public void setStart(int start) {
+	public void setStart(float start) {
 		this.start = start;
 	}
 
-	public int getEnd() {
+	public float getEnd() {
 		return end;
 	}
 
-	public void setEnd(int end) {
+	public void setEnd(float end) {
 		this.end = end;
 	}
 

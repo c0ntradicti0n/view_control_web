@@ -5,7 +5,10 @@ import org.json.simple.JSONObject;
 import org.primefaces.component.commandlink.CommandLink;
 import org.primefaces.model.TreeNode;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -35,8 +38,9 @@ public class CcPyBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	static Logger logger = Logger.getLogger(CcPyBean.class);
-	
-	private ArrayList<HashMap<String, Tag>> annotationSets = annotationTagsFactory.produce(2, Arrays.asList("Contrast", "Subject"));
+
+	private ArrayList<HashMap<String, Tag>> annotationSets = annotationTagsFactory.produce(2,
+			Arrays.asList("Contrast", "Subject"));
 	private String annotationMarkup = "?";
 	public String text = "Abstract and surrealism arose out of unrelated ideas and "
 			+ "different influences. Each was first used in a different artistic medium, "
@@ -45,12 +49,11 @@ public class CcPyBean implements Serializable {
 			+ "although each artwork can be seen as being from the artist�s imagination, "
 			+ "the idea and goal behind each artistic style is also different. Abstract "
 			+ "and surrealism are discussed further below as well as their differences.";
-	
+
 	@PostConstruct
-	public void init()  {
+	public void init() {
 		System.out.println(annotationSets);
 	}
-  
 
 	private List<String> documents;
 	private String path = "";
@@ -59,35 +62,31 @@ public class CcPyBean implements Serializable {
 	private String inputTextAreaSelectedText;
 
 	public static PythonClient pycl = new PythonClient();
-	
+
 	public void displaySelectedNode(TreeNode node) {
-        if(node != null) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Your choices:", "" + node);
-            FacesContext.getCurrentInstance().addMessage(null, message);
-    		path = ((Document) node.getData()).getName();
-    		loadHtml(path);
-        }
-    }    
-
-	
-
-
-	public String updateAnnotation()  {		
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        text = params.get("selectedText");
-
-        logger.info("Annotating the following text: '" + text + "'");
-
-		HashMap<String, Object> ret = pycl.stdCall("predictmarkup", text);
-		annotationMarkup = (String) ret.get("marked_up");
-		annotationSets = (ArrayList<HashMap<String, Tag>>) ret.get("spans");
-		
-		System.out.println("updateding the markup thing:" + annotationMarkup);
-		
-		System.out.println(annotationSets);
-		return "ReaderAnnotation";
+		if (node != null) {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Your choices:", "" + node);
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			path = ((Document) node.getData()).getName();
+			loadHtml(path);
+		}
 	}
-	
+
+	public String updateAnnotation() {
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		text = params.get("selectedText");
+
+		logger.info("Annotating the following text: '" + text + "'");
+
+		annotationSets = (ArrayList<HashMap<String, Tag>>) pycl.stdCall("predict", text, annotationSets);
+		annotationMarkup = pycl.getMarkup(text, annotationSets);
+
+		System.out.println("updateding the markup thing:" + annotationMarkup);
+
+		System.out.println(annotationSets);
+		return "ManipulationScreen";
+	}
+
 	private void loadHtml(String path2) {
 		html = pycl.getHTML(path);
 	};

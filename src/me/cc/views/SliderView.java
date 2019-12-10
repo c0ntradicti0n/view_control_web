@@ -12,6 +12,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 
+
+
 import org.json.simple.JSONObject;
 import org.primefaces.component.slider.Slider;
 import org.primefaces.event.SlideEndEvent;
@@ -22,9 +24,9 @@ import me.cc.model.Tag;
 @ViewScoped
 @ManagedBean(name = "sliderView")
 public class SliderView {
-	private int number0 = 0;
-	private int number1 = 1;
-	private int no = 0;
+	private float number0 = 0;
+	private float number1 = 1;
+	private int  no = 0;
 	private String kind;
 
 	private Slider sliderStart;
@@ -40,7 +42,7 @@ public class SliderView {
 		      .createValueBinding("#{ccPyBean}").getValue(facesContext);
 	}
 
-	public int getNumber0() {
+	public  float  getNumber0() {
 		return number0;
 	}
 
@@ -50,16 +52,16 @@ public class SliderView {
 
 	}
 
-	public int getNumber1() {
+	public float getNumber1() {
 		return number1;
 	}
 
 	public void setNumber1(int number1) {
 		this.number1 = (int) number1;
-		ccPyBean.getAnnotationSets().get(no).get(kind).setEnd(number1);
+		(ccPyBean.getAnnotationSets().get(no)).get(kind).setEnd(number1);
 	}
 
-	public int getNo() {
+	public float getNo() {
 		return no;
 	}
 
@@ -83,9 +85,9 @@ public class SliderView {
 
 	public void onSlideEnd0(SlideEndEvent event) {
 
-		int n = number0;
+		 float  n = number0;
 		kind = (String) event.getComponent().getAttributes().get("kind");
-		no = (int) event.getComponent().getAttributes().get("i");
+		no = (int) (double)event.getComponent().getAttributes().get("i");
 
 		System.out.println(kind + no);
 
@@ -109,9 +111,9 @@ public class SliderView {
 
 	public void onSlideEnd1(SlideEndEvent event) {
 
-		int n = number1;
+		 float  n = number1;
 		kind = (String) event.getComponent().getAttributes().get("kind");
-		no = (int) event.getComponent().getAttributes().get("i");
+		no = (int)  (double) event.getComponent().getAttributes().get("i");
 
 		System.out.println(kind + no);
 
