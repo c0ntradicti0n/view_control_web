@@ -41,7 +41,8 @@ public class PythonClient {
 		WebTarget target = client.target(PythonClient.url);
 		Response response = target.path("paths").request(MediaType.APPLICATION_JSON).get();
 		String jsonData = response.readEntity(String.class);
-
+        logger.info("got paths=" + jsonData);
+		
 		ArrayList<String> ret = null;
 		try {
 			ret = objectMapper.readValue(jsonData,

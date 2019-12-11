@@ -25,7 +25,7 @@ public class DocumentService {
         PythonClient pycl = new PythonClient();
   		ArrayList<String> paths = pycl.getPaths();
 		for (String p:paths)  {
-        	TreeNode tn = new CheckboxTreeNode(new Document(p), root);
+        	new CheckboxTreeNode(new Document(p), root);
 		}
 
         return root;
