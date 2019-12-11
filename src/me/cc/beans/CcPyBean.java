@@ -1,33 +1,25 @@
 package me.cc.beans;
 
 import org.apache.log4j.Logger;
-import org.json.simple.JSONObject;
-import org.primefaces.component.commandlink.CommandLink;
 import org.primefaces.model.TreeNode;
 
-import com.google.gson.reflect.TypeToken;
-
 import java.io.Serializable;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-
 import me.cc.model.Tag;
 import me.cc.model.annotationTagsFactory;
 import me.cc.restclient.PythonClient;
+import me.cc.run.Exec;
 import me.cc.treenav.Document;
-import me.cc.treenav.SelectionView;
 
 @SessionScoped
 @ManagedBean(name = "ccPyBean")
@@ -39,9 +31,9 @@ public class CcPyBean implements Serializable {
 
 	static Logger logger = Logger.getLogger(CcPyBean.class);
 
-	private ArrayList<HashMap<String, Tag>> annotationSets = annotationTagsFactory.produce(2,
+	public ArrayList<HashMap<String, Tag>> annotationSets = annotationTagsFactory.produce(2,
 			Arrays.asList("Contrast", "Subject"));
-	private String annotationMarkup = "?";
+	public String annotationMarkup = "?";
 	public String text = "Abstract and surrealism arose out of unrelated ideas and "
 			+ "different influences. Each was first used in a different artistic medium, "
 			+ "even though both are most evident today in paintings. They also differ in "
@@ -58,7 +50,6 @@ public class CcPyBean implements Serializable {
 	private List<String> documents;
 	private String path = "";
 	private String html = "";
-	public JSONObject spans = new JSONObject();
 	private String inputTextAreaSelectedText;
 
 	public static PythonClient pycl = new PythonClient();
@@ -78,8 +69,14 @@ public class CcPyBean implements Serializable {
 
 		logger.info("Annotating the following text: '" + text + "'");
 
-		annotationSets = (ArrayList<HashMap<String, Tag>>) pycl.stdCall("predict", text, annotationSets);
-		annotationMarkup = pycl.getMarkup(text, annotationSets);
+		ArrayList<?> t = new ArrayList<HashMap<String, Tag>>();
+
+		annotationSets = (ArrayList<HashMap<String, Tag>>) pycl.stdCall("predict", text, annotationSets, null);
+		logger.info("got: " +  Exec.nestedToString(annotationSets));
+
+		annotationMarkup =  pycl.stdCall("markup", text, annotationMarkup, annotationSets);
+		logger.info("got: " +  annotationMarkup);
+
 
 		System.out.println("updateding the markup thing:" + annotationMarkup);
 
@@ -92,7 +89,7 @@ public class CcPyBean implements Serializable {
 	};
 
 	public List<String> getDocuments() {
-		documents = pycl.getPaths();
+		documents = new ArrayList( Arrays.asList( pycl.getPaths()));
 		return documents;
 	}
 

@@ -1,6 +1,8 @@
 package me.cc.model;
 
-import org.json.simple.JSONObject;
+import org.primefaces.json.JSONObject;
+
+import com.google.gson.JsonObject;
 
 public class Tag extends BaseClass {
 	private  int no;
@@ -72,15 +74,6 @@ public class Tag extends BaseClass {
 		return "Tag [no=" + no + ", kind=" + kind + ", start=" + start + ", end=" + end + "]";
 	}
 
-	@SuppressWarnings("unchecked")
-	public Object toJSON() {
-		JSONObject jo = new JSONObject();
-		jo.put("start", start);
-		jo.put("end", end);
-		jo.put("kind", kind);
-		jo.put("set", no);
-		return jo;
-	}
 
 	public boolean isAble() {
 		return able;

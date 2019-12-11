@@ -14,18 +14,19 @@ import javax.faces.view.ViewScoped;
 
 
 
-import org.json.simple.JSONObject;
 import org.primefaces.component.slider.Slider;
 import org.primefaces.event.SlideEndEvent;
 
 import me.cc.beans.CcPyBean;
 import me.cc.model.Tag;
 /* */
-@ViewScoped
+@RequestScoped
 @ManagedBean(name = "sliderView")
 public class SliderView {
-	private float number0 = 0;
-	private float number1 = 1;
+	private int number0 = 0;
+	private int number1 = 100;
+	private int minlen=0;
+	private int maxlen=100;
 	private int  no = 0;
 	private String kind;
 
@@ -42,7 +43,7 @@ public class SliderView {
 		      .createValueBinding("#{ccPyBean}").getValue(facesContext);
 	}
 
-	public  float  getNumber0() {
+	public int getNumber0() {
 		return number0;
 	}
 
@@ -52,16 +53,16 @@ public class SliderView {
 
 	}
 
-	public float getNumber1() {
+	public int getNumber1() {
 		return number1;
 	}
 
 	public void setNumber1(int number1) {
 		this.number1 = (int) number1;
-		(ccPyBean.getAnnotationSets().get(no)).get(kind).setEnd(number1);
+		ccPyBean.getAnnotationSets().get(no).get(kind).setEnd(number1);
 	}
 
-	public float getNo() {
+	public int getNo() {
 		return no;
 	}
 
@@ -85,9 +86,9 @@ public class SliderView {
 
 	public void onSlideEnd0(SlideEndEvent event) {
 
-		 float  n = number0;
+		 int n = number0;
 		kind = (String) event.getComponent().getAttributes().get("kind");
-		no = (int) (double)event.getComponent().getAttributes().get("i");
+		no = (int) event.getComponent().getAttributes().get("i");
 
 		System.out.println(kind + no);
 
@@ -111,9 +112,9 @@ public class SliderView {
 
 	public void onSlideEnd1(SlideEndEvent event) {
 
-		 float  n = number1;
+		 int  n = number1;
 		kind = (String) event.getComponent().getAttributes().get("kind");
-		no = (int)  (double) event.getComponent().getAttributes().get("i");
+		no = (int) event.getComponent().getAttributes().get("i");
 
 		System.out.println(kind + no);
 
@@ -123,7 +124,7 @@ public class SliderView {
 		FacesMessage message = new FacesMessage("Slide Ended", "Before n=" + n + " after " + event.getValue());
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		
-		String markup = ccPyBean.pycl.getMarkup(ccPyBean.getText(), ccPyBean.getAnnotationSets());
+		String markup = ccPyBean.pycl.stdCall("markup", ccPyBean.text, ccPyBean.annotationMarkup, ccPyBean.annotationSets);
 		System.out.println("'" + markup + "'");
 		ccPyBean.setAnnotationMarkup(markup);
 	}
@@ -142,6 +143,43 @@ public class SliderView {
 
 	public void setSliderEnd(Slider sliderEnd) {
 		this.sliderEnd = sliderEnd;
+	}
+	
+	
+	
+	public void onSlideEnd(SlideEndEvent event) {
+
+		int n = number1;
+		kind = (String) event.getComponent().getAttributes().get("kind");
+		no = (int)  (double) event.getComponent().getAttributes().get("i");
+
+		System.out.println(kind + no);
+
+		setNumber1((int) event.getValue());
+		System.out.println("second before " + n + " after " + number1+ ccPyBean.getAnnotationSets());
+
+		FacesMessage message = new FacesMessage("Slide Ended", "Before n=" + n + " after " + event.getValue());
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		
+		String markup = ccPyBean.pycl.stdCall("markup", ccPyBean.text, ccPyBean.annotationMarkup, ccPyBean.annotationSets);
+		System.out.println("'" + markup + "'");
+		ccPyBean.setAnnotationMarkup(markup);
+	}
+
+	public int getMinlen() {
+		return minlen;
+	}
+
+	public void setMinlen(int minlen) {
+		this.minlen = minlen;
+	}
+
+	public int getMaxlen() {
+		return maxlen;
+	}
+
+	public void setMaxlen(int maxlen) {
+		this.maxlen = maxlen;
 	}
 
 }

@@ -35,28 +35,34 @@
 						</h3>
 
 						<h:panelGrid columns="1">
+
+
 							<p:inputText id="start" value="#{sliderView.number0}"
 								type="hidden" />
-							<p:inputText id="end" value="#{sliderView.number1}" type="hidden" />
+							<p:inputText id="end" value="#{sliderView.number1}" 
+							    type="hidden" />
 							<p:inputText id="index" value="#{annotationTag.value.no}"
 								type="hidden" />
 							<p:inputText id="kind" value="#{annotationTag.value.kind}"
 								type="hidden" />
 
-						<p:slider for="start" style="width:90vw">
+							<p:slider for="start" style="width:90vw" 
+								minValue="#{sliderView.minlen}" maxValue="#{sliderView.maxlen}">
 								<f:attribute name="i" value="#{annotationTag.value.no}" />
 								<f:attribute name="kind" value="#{annotationTag.value.kind}" />
 
 								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
 									update="growl sample" binding="#{sliderView.sliderStart}" />
 							</p:slider>
-						<p:slider for="end" style="width:90vw">
+							<p:slider for="end" style="width:90vw"
+								minValue="#{sliderView.minlen}" maxValue="#{sliderView.maxlen}">
 								<f:attribute name="i" value="#{annotationTag.value.no}" />
 								<f:attribute name="kind" value="#{annotationTag.value.kind}" />
 
 								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd1}"
 									update="growl sample" binding="#{sliderView.sliderEnd}" />
 							</p:slider>
+
 						</h:panelGrid>
 					</h:form>
 

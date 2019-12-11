@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -14,32 +13,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
-import org.glassfish.jersey.client.ClientResponse;
-import org.json.simple.JSONObject;
-import org.primefaces.model.UploadedFile;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.internal.LinkedHashTreeMap;
-import com.google.gson.reflect.TypeToken;
-
-import me.cc.beans.CcPyBean;
 import me.cc.model.Tag;
 
-import java.lang.reflect.Type;
-
-import me.cc.model.*;
+import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 
 public class PythonClient {
 	static Logger logger = Logger.getLogger(PythonClient.class);
 
 	private final static String url = "http://127.0.0.1:5000";
 
-	Gson gson;
+	ObjectMapper objectMapper = new ObjectMapper();
 
 	public PythonClient() {
-		gson = new GsonBuilder().create();
+
 	}
 
 	public ArrayList<String> getPaths() {
@@ -47,11 +40,22 @@ public class PythonClient {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(PythonClient.url);
 		Response response = target.path("paths").request(MediaType.APPLICATION_JSON).get();
-		String jsonString = response.readEntity(String.class);
+		String jsonData = response.readEntity(String.class);
 
-		Type list = new TypeToken<List<String>>() {
-		}.getType();
-		ArrayList<String> ret = gson.fromJson(jsonString, list);
+		ArrayList<String> ret = null;
+		try {
+			ret = objectMapper.readValue(jsonData,
+					TypeFactory.defaultInstance().constructCollectionType(List.class, String.class));
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		logger.info(ret);
 		return ret;
 	}
@@ -67,7 +71,7 @@ public class PythonClient {
 		WebTarget target = client.target(PythonClient.url);
 		Response response = target.queryParam("path", path).path("html").request(MediaType.APPLICATION_JSON).get();
 		String jsonString = response.readEntity(String.class);
-		System.out.println(jsonString);
+		logger.info(jsonString);
 
 		int bStart = jsonString.indexOf("<body>") + 6;
 		int bEnd = jsonString.lastIndexOf("</body>");
@@ -85,7 +89,7 @@ public class PythonClient {
 		Response response = target.path("docload").queryParam("filename", filename).request(MediaType.APPLICATION_JSON)
 				.post(Entity.json(bs));
 		String jsonString = response.readEntity(String.class);
-		System.out.println(jsonString);
+		logger.info(jsonString);
 
 		return;
 	}
@@ -96,7 +100,7 @@ public class PythonClient {
 		Response response = target.queryParam("pass", "kacke").path("compall").request(MediaType.APPLICATION_JSON)
 				.get();
 		String jsonString = response.readEntity(String.class);
-		System.out.println(jsonString);
+		logger.info(jsonString);
 		return jsonString;
 
 	}
@@ -104,7 +108,6 @@ public class PythonClient {
 	public String getMarkup(String text, ArrayList<HashMap<String, Tag>> annotationSets) {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(PythonClient.url);
-		Gson gson = new Gson();
 
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("text", text);
@@ -112,32 +115,48 @@ public class PythonClient {
 
 		Response response = target.path("markup").request(MediaType.APPLICATION_JSON).post(Entity.json(param));
 		String jsonString = response.readEntity(String.class);
-		System.out.println(jsonString);
+		logger.info(jsonString);
 		return jsonString;
 	}
 
-	public <T> T stdCall(String command, String text, T t) {
+	public <_T> _T stdCall(String command, String text, _T SampleTargetTypeObject, Object data) {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(PythonClient.url);
 
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("text", text);
+		param.put("data", data);
 		logger.info("calling " + command + " on text '" + text + "'");
+		ObjectMapper mapper = new ObjectMapper();
 
-		Response response = target.path(command).request(MediaType.APPLICATION_JSON).post(Entity.json(param));
-		String jsonString = response.readEntity(String.class);
-		logger.info("finally got an answer: '" + jsonString + "'");
-
-
-		try { 
-			T ret =  (T) (t.getClass().cast( (Object) gson.fromJson(jsonString, t.getClass())));
-			System.out.println("type ");
-			logger.info(ret);
-			return ret;
-		} catch (JsonSyntaxException e) {
-			logger.error("unable to call, strange value: '" + t.toString() + "'");
-			return t;
+		String paramJson = null;
+		try {
+			paramJson = mapper.writeValueAsString(param);
+		} catch (JsonProcessingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+
+		Entity ent = Entity.entity(paramJson, MediaType.TEXT_PLAIN_TYPE);
+		Response response = target.path(command).request(MediaType.APPLICATION_JSON).post(ent);
+		String jsonData = response.readEntity(String.class);
+		logger.info("finally got an answer: '" + jsonData + "'");
+		logger.info("type"+SampleTargetTypeObject.getClass());
+		try {
+			return (_T) objectMapper.readValue(jsonData, SampleTargetTypeObject.getClass());
+		} catch (JsonParseException e) {
+			logger.info("Json Parse Error " + command + " " + " text=" + text + " type example obj="
+					+ SampleTargetTypeObject + " data=" + data + "\n\nJson was: " + jsonData  + "\n\nassume it's string... ");
+			return (_T) jsonData;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			logger.error("Null Pointer? Maybe something is null, maybe the TypeSampleObject, that the type is taken of "
+					+ command + " " + " text=" + text + " type example obj=" + SampleTargetTypeObject + " data="
+					+ data);
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

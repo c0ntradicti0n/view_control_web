@@ -1,6 +1,9 @@
 package me.cc.run;
 
 import java.io.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 
@@ -45,5 +48,34 @@ public class Exec {
 		} catch (Exception e) {
 			logger.error("Something Went wrong with server");
 		}
+	}
+	
+	public static <A extends Collection<B>, B> String nestedToString(A collection) {
+	    if (collection == null)
+	        return "null";
+
+	    String ret = "";
+
+	    Iterator<B> colIterator = collection.iterator();
+	    if (colIterator.hasNext()) {
+	        ret += '[';
+	        while (colIterator.hasNext()) {
+	            B object = colIterator.next();
+	            if (object == null) {
+	                ret += "null";
+	            } else if (object instanceof Collection) {
+	                ret += nestedToString((Collection) object);
+	            } else if (object instanceof Object[]) {
+	                ret += Arrays.deepToString((Object[]) object);
+	            } else {
+	                ret += object;
+	            }
+	            if (colIterator.hasNext()) {
+	                ret += ", ";
+	            }
+	        }
+	        ret += ']';
+	    }
+	    return ret;
 	}
 }
