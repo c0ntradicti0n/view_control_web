@@ -57,7 +57,7 @@
 		<h:form id="xorm">
 			<p:remoteCommand name="rc" action="#{ccPyBean.updateAnnotation}" />
 			<p:commandButton type="button"
-				onclick="rc([{'name':'selectedText','value':getSelectionText()}]);"
+				onclick="rc([{'name':'selectedText','value':getSelectionText(200)}]);"
 				value="Annotate Selection" update="xorm" />
 			<h:panelGroup id="sample">
 				<h:outputText escape="false" value="#{ccPyBean.annotationMarkup}" />

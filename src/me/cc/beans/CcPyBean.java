@@ -3,6 +3,9 @@ package me.cc.beans;
 import org.apache.log4j.Logger;
 import org.primefaces.model.TreeNode;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,17 +33,14 @@ public class CcPyBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	static Logger logger = Logger.getLogger(CcPyBean.class);
+	
+	private  List<String> possibleTags = Arrays.asList("Contrast", "Subject");
 
-	public ArrayList<HashMap<String, Tag>> annotationSets = annotationTagsFactory.produce(2,
+	public ArrayList<ArrayList<Tag>> annotationSets = annotationTagsFactory.produce(2,
 			Arrays.asList("Contrast", "Subject"));
 	public String annotationMarkup = "?";
-	public String text = "Abstract and surrealism arose out of unrelated ideas and "
-			+ "different influences. Each was first used in a different artistic medium, "
-			+ "even though both are most evident today in paintings. They also differ in "
-			+ "the specific norm or idea that they are rejecting or departing from. And "
-			+ "although each artwork can be seen as being from the artist�s imagination, "
-			+ "the idea and goal behind each artistic style is also different. Abstract "
-			+ "and surrealism are discussed further below as well as their differences.";
+	public String text = "---- Text not set ----";
+	public Integer textlen;
 
 	@PostConstruct
 	public void init() {
@@ -63,6 +63,11 @@ public class CcPyBean implements Serializable {
 		}
 	}
 
+	public TypeReference String_Type =  new TypeReference<String>() { };
+	public TypeReference AS_Type = new TypeReference<ArrayList<ArrayList<Tag>>>() { };
+	public TypeReference Int_Type = new TypeReference<Integer>()  { };
+		
+	
 	public String updateAnnotation() {
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		text = params.get("selectedText");
@@ -71,10 +76,16 @@ public class CcPyBean implements Serializable {
 
 		ArrayList<?> t = new ArrayList<HashMap<String, Tag>>();
 
-		annotationSets = (ArrayList<HashMap<String, Tag>>) pycl.stdCall("predict", text, annotationSets, null);
+		
+		textlen = (Integer) pycl.stdCall("textlen", text, textlen , null, Int_Type);
+		logger.info("got: " +  textlen);
+
+		
+		annotationSets = (ArrayList<ArrayList<Tag>>) pycl.stdCall("predict", text, annotationSets, null, AS_Type);
 		logger.info("got: " +  Exec.nestedToString(annotationSets));
 
-		annotationMarkup =  pycl.stdCall("markup", text, annotationMarkup, annotationSets);
+
+		annotationMarkup =  pycl.stdCall("markup", text, annotationMarkup, annotationSets, String_Type);
 		logger.info("got: " +  annotationMarkup);
 
 
@@ -117,11 +128,11 @@ public class CcPyBean implements Serializable {
 		this.html = html;
 	}
 
-	public ArrayList<HashMap<String, Tag>> getAnnotationSets() {
+	public ArrayList<ArrayList<Tag>> getAnnotationSets() {
 		return annotationSets;
 	}
 
-	public void setAnnotationSets(ArrayList<HashMap<String, Tag>> annotationSets) {
+	public void setAnnotationSets(ArrayList<ArrayList<Tag>> annotationSets) {
 		this.annotationSets = annotationSets;
 	}
 
@@ -147,6 +158,14 @@ public class CcPyBean implements Serializable {
 
 	public void setInputTextAreaSelectedText(String inputTextAreaSelectedText) {
 		this.inputTextAreaSelectedText = inputTextAreaSelectedText;
+	}
+
+	public List<String> getPossibleTags() {
+		return possibleTags;
+	}
+
+	public void setPossibleTags(List<String> possibleTags) {
+		this.possibleTags = possibleTags;
 	}
 
 }

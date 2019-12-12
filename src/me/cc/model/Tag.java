@@ -1,18 +1,26 @@
 package me.cc.model;
 
-import org.primefaces.json.JSONObject;
-
-import com.google.gson.JsonObject;
-
 public class Tag extends BaseClass {
-	private  int no;
+	private  int no; // set
+	private  int _i; // position in set
 	private  String kind;
 	private  float start;
+	public int get_i() {
+		return _i;
+	}
+
+	public void set_i(int _i) {
+		this._i = _i;
+	}
+
 	private  float end;
 	private  String id;
 	private  boolean able = true;
 
 	
+	public Tag() {
+
+	}
 
 	public Tag(int n, String tag) {
 		setNo(n);
@@ -20,8 +28,9 @@ public class Tag extends BaseClass {
 		setId();
 	}
 
-	public Tag(int no, String kind, int number0, int number1) {
+	public Tag(int no, int _i, String kind, int number0, int number1) {
 		this.no = no;
+		this._i = _i;
 		this.kind = kind;
 		this.start = Math.min(number0, number1);
 		this.end =   Math.max(number0, number1);
@@ -71,9 +80,9 @@ public class Tag extends BaseClass {
 
 	@Override
 	public String toString() {
-		return "Tag [no=" + no + ", kind=" + kind + ", start=" + start + ", end=" + end + "]";
+		return "Tag [no=" + no + ", _i=" + _i + ", kind=" + kind + ", start=" + start + ", end=" + end + ", id=" + id
+				+ ", able=" + able + "]";
 	}
-
 
 	public boolean isAble() {
 		return able;

@@ -15,6 +15,8 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -29,7 +31,7 @@ public class PythonClient {
 
 	private final static String url = "http://127.0.0.1:5000";
 
-	ObjectMapper objectMapper = new ObjectMapper();
+	public ObjectMapper objectMapper = new ObjectMapper();
 
 	public PythonClient() {
 
@@ -106,13 +108,13 @@ public class PythonClient {
 
 	}
 
-	public String getMarkup(String text, ArrayList<HashMap<String, Tag>> annotationSets) {
+	public String getMarkup(String text, ArrayList<ArrayList<Tag>> arrayList) {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(PythonClient.url);
 
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("text", text);
-		param.put("spans", annotationSets);
+		param.put("spans", arrayList);
 
 		Response response = target.path("markup").request(MediaType.APPLICATION_JSON).post(Entity.json(param));
 		String jsonString = response.readEntity(String.class);
@@ -120,7 +122,7 @@ public class PythonClient {
 		return jsonString;
 	}
 
-	public <_T> _T stdCall(String command, String text, _T SampleTargetTypeObject, Object data) {
+	public <_T> _T stdCall(String command, String text, _T SampleTargetTypeObject, Object data,  TypeReference type) {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(PythonClient.url);
 
@@ -142,9 +144,9 @@ public class PythonClient {
 		Response response = target.path(command).request(MediaType.APPLICATION_JSON).post(ent);
 		String jsonData = response.readEntity(String.class);
 		logger.info("finally got an answer: '" + jsonData + "'");
-		logger.info("type"+SampleTargetTypeObject.getClass());
+		logger.info("type "+  type);
 		try {
-			return (_T) objectMapper.readValue(jsonData, SampleTargetTypeObject.getClass());
+			return (_T) objectMapper.readValue(jsonData,  type);
 		} catch (JsonParseException e) {
 			logger.info("Json Parse Error " + command + " " + " text=" + text + " type example obj="
 					+ SampleTargetTypeObject + " data=" + data + "\n\nJson was: " + jsonData  + "\n\nassume it's string... ");
