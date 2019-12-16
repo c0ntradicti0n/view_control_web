@@ -20,6 +20,8 @@
 	<h:outputStylesheet name="css/nav.css" />
 
 	<div id="controls">
+		<div id="selectionLog"></div>
+
 		<h:form>
 			<p:growl id="msgs" showDetail="true" escape="false" />
 
@@ -57,7 +59,7 @@
 		<h:form id="xorm">
 			<p:remoteCommand name="rc" action="#{ccPyBean.updateAnnotation}" />
 			<p:commandButton type="button"
-				onclick="rc([{'name':'selectedText','value':getSelectionText(200)}]);"
+				onclick="rc([{'name':'selectedText','value':getSelectionText()}]);"
 				value="Annotate Selection" update="xorm" />
 			<h:panelGroup id="sample">
 				<h:outputText escape="false" value="#{ccPyBean.annotationMarkup}" />
@@ -68,15 +70,16 @@
 	</div>
 
 
-	<div id="text_window">
-		<h:panelGroup id="text" rendered="#{ccPyBean.path!=null}">
-			<h4>
-				<h:outputText id="out" value="#{ccPyBean.path}" />
-			</h4>
-			4<h:outputText value="#{ccPyBean.html}" escape="false" />
+	<h:panelGroup id="text" rendered="#{ccPyBean.path!=null}">
+		<h4>
+			<h:outputText id="out" value="#{ccPyBean.path}" />
+		</h4>
+		<div id="text_window">
 
-		</h:panelGroup>
-	</div>
+			<h:outputText value="#{ccPyBean.html}" escape="false" />
+		</div>
+
+	</h:panelGroup>
 
 
 

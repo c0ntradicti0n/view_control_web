@@ -3,9 +3,13 @@ package me.cc.beans;
 import org.apache.log4j.Logger;
 import org.primefaces.model.TreeNode;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +22,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
+import me.cc.model.Spot;
 import me.cc.model.Tag;
 import me.cc.model.annotationTagsFactory;
 import me.cc.restclient.PythonClient;
@@ -67,30 +73,35 @@ public class CcPyBean implements Serializable {
 	public TypeReference AS_Type = new TypeReference<ArrayList<ArrayList<Tag>>>() { };
 	public TypeReference Int_Type = new TypeReference<Integer>()  { };
 		
+	ObjectMapper om = new ObjectMapper();
+	
+	public Spot spot;
 	
 	public String updateAnnotation() {
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		text = params.get("selectedText");
-
+		String spotJson = params.get("selectedText");
+		try {
+			setSpot(om.readValue(spotJson, Spot.class));
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		logger.info("Annotating the following text: '" + text + "'");
-
-		ArrayList<?> t = new ArrayList<HashMap<String, Tag>>();
-
-		
-		textlen = (Integer) pycl.stdCall("textlen", text, textlen , null, Int_Type);
+		System.out.println("Annotating the following text: '" + text + "'");
+		textlen = (Integer) pycl.stdCall("textlen", spot, textlen , null, Int_Type);
 		logger.info("got: " +  textlen);
-
-		
-		annotationSets = (ArrayList<ArrayList<Tag>>) pycl.stdCall("predict", text, annotationSets, null, AS_Type);
+		annotationSets = (ArrayList<ArrayList<Tag>>) pycl.stdCall("predict", spot, annotationSets, null, AS_Type);
 		logger.info("got: " +  Exec.nestedToString(annotationSets));
-
-
-		annotationMarkup =  pycl.stdCall("markup", text, annotationMarkup, annotationSets, String_Type);
+		annotationMarkup =  pycl.stdCall("markup", spot, annotationMarkup, annotationSets, String_Type);
 		logger.info("got: " +  annotationMarkup);
-
-
-		System.out.println("updateding the markup thing:" + annotationMarkup);
-
+		text = getSpot().getText();
+		System.out.println("updating the markup thing:" + annotationMarkup);
 		System.out.println(annotationSets);
 		return "ManipulationScreen";
 	}
@@ -166,6 +177,14 @@ public class CcPyBean implements Serializable {
 
 	public void setPossibleTags(List<String> possibleTags) {
 		this.possibleTags = possibleTags;
+	}
+
+	public Spot getSpot() {
+		return spot;
+	}
+
+	public void setSpot(Spot spot) {
+		this.spot = spot;
 	}
 
 }

@@ -21,28 +21,28 @@ public class CommandBean {
 	}
 
 	public String annotation_from_here () {
-		String ans = ccPyBean.pycl.stdCall("annotation_from_here", ccPyBean.text, ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);	
+		String ans = ccPyBean.pycl.stdCall("annotation_from_here", ccPyBean.getSpot(), ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);	
         return "ReaderScreen";
 
 	}
 	public String take_it_as_is () {
-		String ans = ccPyBean.pycl.stdCall("take_it_as_is", ccPyBean.text, ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);	
+		String ans = ccPyBean.pycl.stdCall("take_it_as_is", ccPyBean.getSpot(), ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);	
         return "ReaderScreen";
 
 	}
 	public String zero_annotation_selection_first_corpus () {
-		String ans = ccPyBean.pycl.stdCall("zero_annotation_selection_first_corpus", ccPyBean.text, ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);	
+		String ans = ccPyBean.pycl.stdCall("zero_annotation_selection_first_corpus", ccPyBean.getSpot(), ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);	
 
         return "ReaderScreen";
 
 	}
 	public String annotation_in_between () {
-		String ans = ccPyBean.pycl.stdCall("annotation_in_between", ccPyBean.text, ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);	
+		String ans = ccPyBean.pycl.stdCall("annotation_in_between", ccPyBean.getSpot(), ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);	
         return "ReaderScreen";
 
 	}
 	public String zero_annotation_selection_second_corpus () {
-		String ans = ccPyBean.pycl.stdCall("zero_annotation_selection_second_corpus", ccPyBean.text, ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);	
+		String ans = ccPyBean.pycl.stdCall("zero_annotation_selection_second_corpus", ccPyBean.getSpot(), ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);	
         return "ReaderScreen";
 
 	}

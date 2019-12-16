@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
+import me.cc.model.Spot;
 import me.cc.model.Tag;
 
 import java.io.IOException;
@@ -122,21 +123,20 @@ public class PythonClient {
 		return jsonString;
 	}
 
-	public <_T> _T stdCall(String command, String text, _T SampleTargetTypeObject, Object data,  TypeReference type) {
+	public <_T> _T stdCall(String command, Spot spot, _T SampleTargetTypeObject, Object data,  TypeReference type) {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(PythonClient.url);
 
 		HashMap<String, Object> param = new HashMap<String, Object>();
-		param.put("text", text);
+		param.put("spot", spot);
 		param.put("data", data);
-		logger.info("calling " + command + " on text '" + text + "'");
+		logger.info("calling " + command + " on text '" + spot + "'");
 		ObjectMapper mapper = new ObjectMapper();
 
 		String paramJson = null;
 		try {
 			paramJson = mapper.writeValueAsString(param);
 		} catch (JsonProcessingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -148,14 +148,14 @@ public class PythonClient {
 		try {
 			return (_T) objectMapper.readValue(jsonData,  type);
 		} catch (JsonParseException e) {
-			logger.info("Json Parse Error " + command + " " + " text=" + text + " type example obj="
+			logger.info("Json Parse Error " + command + " " + " text=" + spot + " type example obj="
 					+ SampleTargetTypeObject + " data=" + data + "\n\nJson was: " + jsonData  + "\n\nassume it's string... ");
 			return (_T) jsonData;
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (NullPointerException e) {
 			logger.error("Null Pointer? Maybe something is null, maybe the TypeSampleObject, that the type is taken of "
-					+ command + " " + " text=" + text + " type example obj=" + SampleTargetTypeObject + " data="
+					+ command + " " + " text=" + spot + " type example obj=" + SampleTargetTypeObject + " data="
 					+ data);
 			e.printStackTrace();
 		}
