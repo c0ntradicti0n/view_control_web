@@ -42,28 +42,57 @@
 				</p:treeNode>
 			</p:tree>
 			<br />
-			<p:commandButton value="Show selected" update="msgs text"
-				icon="ui-icon-newwin"
-				actionListener="#{ccPyBean.displaySelectedNode(navBean.singleSelectedNode)}" />
+			<p:commandLink
+				action="#{ccPyBean.displaySelectedNode(navBean.singleSelectedNode)}"
+				update="metadata text">
+				<h:graphicImage name="images/show_document.png" ajax="false"
+					styleClass="img_button" />
+			</p:commandLink>
 		</h:form>
 		<h:form enctype="multipart/form-data">
+			<p:commandLink action="#{fileUploadView.upload}">
+				<h:graphicImage name="images/cloud_activity.png" ajax="false"
+					styleClass="img_button" />
+			</p:commandLink>
 			<p:fileUpload value="#{fileUploadView.file}" mode="simple"
 				skinSimple="true" />
-			<p:commandButton value="Submit" ajax="false"
-				action="#{fileUploadView.upload}" />
+
 		</h:form>
 		<h:form>
-			<p:commandButton value="Recompute all" ajax="false"
-				action="#{ccPyBean.compAll}" />
+			<p:commandLink action="#{ccPyBean.compAll}">
+				<h:graphicImage name="images/redo_all.png" ajax="false"
+					styleClass="img_button" />
+			</p:commandLink>
+
 		</h:form>
 		<h:form id="xorm">
 			<p:remoteCommand name="rc" action="#{ccPyBean.updateAnnotation}" />
-			<p:commandButton type="button"
-				onclick="rc([{'name':'selectedText','value':getSelectionText()}]);"
-				value="Annotate Selection" update="xorm" />
-			<h:panelGroup id="sample">
-				<h:outputText escape="false" value="#{ccPyBean.annotationMarkup}" />
 
+			<p:commandLink
+				onclick="rc([{'name':'selectedText','value':getSelectionText()}]);">
+				<h:graphicImage name="images/annotate.png" ajax="false"
+					styleClass="img_button" />
+			</p:commandLink>
+
+		</h:form>
+		<h:panelGroup id="metadata" rendered="#{ccPyBean.path!=null}">
+			<h4>
+				<h:outputText id="out" value="#{ccPyBean.path}" />
+			</h4>
+		</h:panelGroup>
+
+		<h:form>
+			<h:panelGroup id="active">
+			    REST 
+				<h:graphicImage rendered="#{ccPyBean.restActive==false}" name="images/ping_off.png" styleClass="sm_img_status" />
+				<h:graphicImage rendered="#{ccPyBean.restActive==true}" name="images/ping_on.png" styleClass="sm_img_status" />
+				PREDICTION
+				<h:graphicImage rendered="#{ccPyBean.annoActive==false}" name="images/ping_off.png" styleClass="sm_img_status" />
+				<h:graphicImage rendered="#{ccPyBean.annoActive==true}" name="images/ping_on.png" styleClass="sm_img_status" />
+				TRAIN
+				<h:graphicImage rendered="#{ccPyBean.trainActive==false}" name="images/ping_off.png" styleClass="sm_img_status" />
+				<h:graphicImage rendered="#{ccPyBean.trainActive==true}" name="images/ping_on.png" styleClass="sm_img_status" />
+		
 			</h:panelGroup>
 		</h:form>
 
@@ -71,11 +100,8 @@
 
 
 	<h:panelGroup id="text" rendered="#{ccPyBean.path!=null}">
-		<h4>
-			<h:outputText id="out" value="#{ccPyBean.path}" />
-		</h4>
-		<div id="text_window">
 
+		<div id="text_window">
 			<h:outputText value="#{ccPyBean.html}" escape="false" />
 		</div>
 

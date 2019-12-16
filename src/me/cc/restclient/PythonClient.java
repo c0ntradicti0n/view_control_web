@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
+import me.cc.model.AnyAnswer;
 import me.cc.model.Spot;
 import me.cc.model.Tag;
 
@@ -44,8 +45,8 @@ public class PythonClient {
 		WebTarget target = client.target(PythonClient.url);
 		Response response = target.path("paths").request(MediaType.APPLICATION_JSON).get();
 		String jsonData = response.readEntity(String.class);
-        logger.info("got paths=" + jsonData);
-		
+		logger.info("got paths=" + jsonData);
+
 		ArrayList<String> ret = null;
 		try {
 			ret = objectMapper.readValue(jsonData,
@@ -123,7 +124,8 @@ public class PythonClient {
 		return jsonString;
 	}
 
-	public <_T> _T stdCall(String command, Spot spot, _T SampleTargetTypeObject, Object data,  TypeReference type) {
+	@SuppressWarnings("unchecked")
+	public <_T> _T stdCall(String command, Spot spot, _T SampleTargetTypeObject, Object data, TypeReference type) {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(PythonClient.url);
 
@@ -140,16 +142,15 @@ public class PythonClient {
 			e1.printStackTrace();
 		}
 
-		Entity ent = Entity.entity(paramJson, MediaType.TEXT_PLAIN_TYPE);
+		Entity<String> ent = Entity.entity(paramJson, MediaType.TEXT_PLAIN_TYPE);
 		Response response = target.path(command).request(MediaType.APPLICATION_JSON).post(ent);
 		String jsonData = response.readEntity(String.class);
 		logger.info("finally got an answer: '" + jsonData + "'");
-		logger.info("type "+  type);
+		logger.info("type " + type);
 		try {
-			return (_T) objectMapper.readValue(jsonData,  type);
+			return (_T) objectMapper.readValue(jsonData, type);
 		} catch (JsonParseException e) {
-			logger.info("Json Parse Error " + command + " " + " text=" + spot + " type example obj="
-					+ SampleTargetTypeObject + " data=" + data + "\n\nJson was: " + jsonData  + "\n\nassume it's string... ");
+			logger.info("JPE, so this is a String: '" + jsonData + "'");
 			return (_T) jsonData;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -160,6 +161,26 @@ public class PythonClient {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public boolean ping() {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target(PythonClient.url);
+		Response response = target.path("ping/").request(MediaType.APPLICATION_JSON).get();
+		String jsonString = response.readEntity(String.class);
+		ObjectMapper mapper = new ObjectMapper();
+		AnyAnswer ans = new AnyAnswer();
+		try {
+			ans = mapper.readValue(jsonString, AnyAnswer.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (ans.getDone().equalsIgnoreCase("yes")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

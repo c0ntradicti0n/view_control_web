@@ -1,6 +1,10 @@
 package me.cc.model;
 
 public class Spot {
+@Override
+	public String toString() {
+		return "Spot [text=" + text + ", before=" + before + ", after=" + after + "]";
+	}
 private String text;
 private String before;
 private String after;

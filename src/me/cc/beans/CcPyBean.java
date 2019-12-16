@@ -23,6 +23,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import me.cc.model.AnyAnswer;
 import me.cc.model.Spot;
 import me.cc.model.Tag;
 import me.cc.model.annotationTagsFactory;
@@ -51,6 +52,7 @@ public class CcPyBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		System.out.println(annotationSets);
+		pingStatus ();
 	}
 
 	private List<String> documents;
@@ -59,6 +61,27 @@ public class CcPyBean implements Serializable {
 	private String inputTextAreaSelectedText;
 
 	public static PythonClient pycl = new PythonClient();
+	private boolean restActive = false;
+	private boolean annoActive = false;
+	private boolean trainActive = false;
+
+
+
+	public boolean getRestActive() {
+		return restActive;
+	}
+
+	public void setRestActive(boolean restActive) {
+		restActive = restActive;
+	}
+
+	public boolean getAnnoActive() {
+		return annoActive;
+	}
+
+	public void setAnnoActive(boolean annoActive) {
+		annoActive = annoActive;
+	}
 
 	public void displaySelectedNode(TreeNode node) {
 		if (node != null) {
@@ -72,12 +95,14 @@ public class CcPyBean implements Serializable {
 	public TypeReference String_Type =  new TypeReference<String>() { };
 	public TypeReference AS_Type = new TypeReference<ArrayList<ArrayList<Tag>>>() { };
 	public TypeReference Int_Type = new TypeReference<Integer>()  { };
-		
+	public TypeReference AnyAnswerList_Type = new TypeReference<ArrayList<AnyAnswer>>() { };
+	
 	ObjectMapper om = new ObjectMapper();
 	
 	public Spot spot;
 	
 	public String updateAnnotation() {
+		pingStatus ();
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String spotJson = params.get("selectedText");
 		try {
@@ -94,6 +119,7 @@ public class CcPyBean implements Serializable {
 		}
 		logger.info("Annotating the following text: '" + text + "'");
 		System.out.println("Annotating the following text: '" + text + "'");
+		System.out.println(spot);
 		textlen = (Integer) pycl.stdCall("textlen", spot, textlen , null, Int_Type);
 		logger.info("got: " +  textlen);
 		annotationSets = (ArrayList<ArrayList<Tag>>) pycl.stdCall("predict", spot, annotationSets, null, AS_Type);
@@ -108,7 +134,24 @@ public class CcPyBean implements Serializable {
 
 	private void loadHtml(String path2) {
 		html = pycl.getHTML(path);
+		pingStatus ();
 	};
+	
+	public void pingStatus ()  {
+		System.out.println("ping");
+		System.out.println("rest: " + restActive + " aa " + annoActive);
+		documents = new ArrayList( Arrays.asList( pycl.getPaths()));
+		if (documents.size()>0)  {
+			restActive = true;
+			annoActive = pycl.ping();
+		}
+		else  
+		{
+			restActive = false;
+		}
+		System.out.println("rest: " + restActive + " aa " + annoActive);
+
+	}
 
 	public List<String> getDocuments() {
 		documents = new ArrayList( Arrays.asList( pycl.getPaths()));
@@ -185,6 +228,14 @@ public class CcPyBean implements Serializable {
 
 	public void setSpot(Spot spot) {
 		this.spot = spot;
+	}
+
+	public boolean getTrainActive() {
+		return trainActive;
+	}
+
+	public void setTrainActive(boolean trainActive) {
+		this.trainActive = trainActive;
 	}
 
 }

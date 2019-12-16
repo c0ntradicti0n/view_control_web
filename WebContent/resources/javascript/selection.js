@@ -36,7 +36,6 @@ function stripHtml(html)
 
 function getBeforeAfterText(element, intervall, startend)  {
 	var wt = stripHtml(element.textContent);
-	alert(wt);
 	text = wt.slice(startend.start, startend.end);
 	b_start = startend.start-intervall<0 ? 0:startend.start-intervall
 	a_end = startend.end+intervall >= wt.length? wt.length: startend.end+intervall
