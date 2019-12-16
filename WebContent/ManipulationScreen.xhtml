@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Annotation Manipulation</title>
+</h:head>
+
+
+<h:body>
+	<h:outputStylesheet name="css/format.css" />
+	<h:outputStylesheet name="css/diff_markup.css" />
+	<h:outputStylesheet name="css/nav.css" />
+	<p:growl id="growl" showDetail="true" />
+	<h:panelGroup id="sample">
+		<h:outputText escape="false" value="#{ccPyBean.annotationMarkup}" />
+
+	</h:panelGroup>
+
+	<h:form id="sliders">
+		<h:dataTable  value="#{ccPyBean.annotationSets}"
+			var="annotationTags">
+			<h:column>
+				<p:separator style="width:90vw" />
+				<h:dataTable value="#{ccPyBean.possibleTags}" var="possibleTag">
+					<h:column>
+
+						<p:commandLink
+							action="#{commandBean.more_kind(possibleTag, annotationTag.no)}"
+							update="@form">
+							<h:graphicImage name="images/more.jpg" styleClass="sm_img_button" />
+						</p:commandLink>
+						<h:outputText value="#{possibleTag}" />
+
+
+					</h:column>
+				</h:dataTable>
+				<h:dataTable value="#{annotationTags}" var="annotationTag">
+					<h:column>
+
+						<h3 style="margin-top: 0">
+
+							<p:commandLink
+								action="#{commandBean.less_kind(annotationTag.no, annotationTag._i, annotationTag.kind)}"
+								update="@form">
+								<h:graphicImage name="images/less.png"
+									styleClass="sm_img_button" />
+							</p:commandLink>
+
+							<h:outputText value="#{annotationTag.kind}" />
+
+						</h3>
+
+						<h:panelGrid columns="1">
+							<p:inputText id="start" value="#{annotationTag.start}"
+								type="hidden" />
+							<p:inputText id="end" value="#{annotationTag.end}" type="hidden" />
+							<p:inputText id="index" value="#{annotationTag.no}" type="hidden" />
+							<p:inputText id="kind" value="#{annotationTag.kind}"
+								type="hidden" />
+
+							<p:slider for="start" style="width:90vw"
+								minValue="#{sliderView.minlen}" maxValue="#{sliderView.maxlen}">
+								<f:attribute name="i" value="#{annotationTag.no}" />
+								<f:attribute name="_i" value="#{annotationTag._i}" />
+
+								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
+									update="growl sample" binding="#{sliderView.sliderStart}" />
+							</p:slider>
+							<p:slider for="end" style="width:90vw"
+								minValue="#{sliderView.minlen}" maxValue="#{sliderView.maxlen}">
+								<f:attribute name="i" value="#{annotationTag.no}" />
+								<f:attribute name="_i" value="#{annotationTag._i}" />
+
+								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd1}"
+									update="growl sample" binding="#{sliderView.sliderEnd}" />
+							</p:slider>
+
+						</h:panelGrid>
+
+					</h:column>
+				</h:dataTable>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+
+	<h:dataTable value="#{ccPyBean.possibleTags}" var="possibleTag">
+		<h:column>
+			<h:form>
+				<p:commandLink action="#{commandBean.more_set(possibleTag)}"
+					update="sliders">
+					<h:graphicImage name="images/more.jpg" styleClass="sm_img_button" />
+				</p:commandLink>
+				<h:outputText value="#{possibleTag}" />
+
+			</h:form>
+
+		</h:column>
+	</h:dataTable>
+	<h:form>
+		<p:commandLink action="#{commandBean.annotation_from_here}">
+			<h:graphicImage name="images/from_here.png" styleClass="img_button" />
+		</p:commandLink>
+		<p:commandLink action="#{commandBean.take_it_as_is}">
+			<h:graphicImage name="images/annotate_icon.png"
+				styleClass="img_button" />
+		</p:commandLink>
+		<p:commandLink
+			action="#{commandBean.zero_annotation_selection_first_corpus}">
+			<h:graphicImage name="images/zero_annotation.jpg"
+				styleClass="img_button" />
+		</p:commandLink>
+		<p:commandLink action="#{commandBean.annotation_in_between}">
+			<h:graphicImage name="images/between.png" styleClass="img_button" />
+		</p:commandLink>
+		<p:commandLink
+			action="#{commandBean.zero_annotation_selection_second_corpus}">
+			<h:graphicImage name="images/zero_annotation.jpg"
+				styleClass="img_button" />
+		</p:commandLink>
+		<p:commandLink action="#{commandBean.trash}">
+			<h:graphicImage name="images/ignore.jpg" styleClass="img_button" />
+		</p:commandLink>
+	</h:form>
+
+
+
+
+</h:body>
+</html>

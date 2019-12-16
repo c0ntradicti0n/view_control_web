@@ -1,0 +1,25 @@
+<!-- Double Slider fails because of validation error!!!
+						
+						
+							<p:inputText id="min" value="#{sliderView.number0}"
+								type="hidden" />
+							<p:inputText id="max" value="#{sliderView.number1}" type="hidden" />
+							<p:inputText id="index" value="#{annotationTag.value.no}"
+								type="hidden" />
+							<p:inputText id="kind" value="#{annotationTag.value.kind}"
+								type="hidden" />
+
+							<h:outputText id="displayValues"
+								value="#{sliderView.number0} - #{sliderView.number1}" />
+							<p:slider style="width:90vw" id="mySlider" for="min,max"
+								display="displayValues" range="true"
+								displayTemplate=" {min} - {max}" minValue="#{sliderView.minlen}"
+								maxValue="#{sliderView.maxlen}">
+								
+								<f:attribute name="i" value="#{annotationTag.value.no}" />
+								<f:attribute name="kind" value="#{annotationTag.value.kind}" />
+
+								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd}"
+									update="growl sample" binding="#{sliderView.sliderStart}" />
+							</p:slider>
+							...-->

@@ -1,0 +1,50 @@
+* {
+	font-family: "Arial", Arial, sans-serif;
+}
+
+#controls {
+	position: fixed;
+	clear: both;
+	float: right;
+	width: 30%;
+	top: 0;
+	right: 0;
+}
+
+.ui-tree {
+	width: 100%;
+	position: relative;
+}
+
+.ui-tree .ui-tree-container {
+	margin: 0;
+	padding: 3px;
+	white-space: nowrap;
+	overflow: auto;
+}
+
+.img_button {
+	max-height: 150px;
+	max-width: 200px;
+	width: 120px;
+	height: 120px;
+}
+
+.sm_img_button {
+	max-height: 150px;
+	max-width: 200px;
+	width: 30px;
+	height: 30px;
+}
+
+.sm_img_status {
+	max-height: 70px;
+	max-width: 70px;
+	width: 40px;
+	height: 40px;
+}
+
+#text_window {
+	width: 70%;
+	margin: 0;
+}

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Annotation Manipulation</title>
+</h:head>
+
+
+<h:body>
+	<h:outputStylesheet name="css/format.css" />
+	<h:outputStylesheet name="css/diff_markup.css" />
+	<h:outputStylesheet name="css/nav.css" />
+	<p:growl id="growl" showDetail="true" />
+	<h:panelGroup id="sample">
+		<h:outputText escape="false" value="#{ccPyBean.annotationMarkup}" />
+
+	</h:panelGroup>
+
+	<h:dataTable value="#{ccPyBean.annotationSets}" var="annotationTags">
+		<h:column>
+			<p:separator style="width:90vw" />
+			<h:dataTable value="#{annotationTags.entrySet().toArray()}"
+				var="annotationTag">
+				<h:column>
+					<h:form id="f">
+
+						<h3 style="margin-top: 0">
+							<h:outputText value="#{annotationTag.key}" />
+						</h3>
+
+						<h:panelGrid columns="1">
+
+
+							<p:inputText id="start" value="#{sliderView.number0}"
+								type="hidden" />
+							<p:inputText id="end" value="#{sliderView.number1}" 
+							    type="hidden" />
+							<p:inputText id="index" value="#{annotationTag.value.no}"
+								type="hidden" />
+							<p:inputText id="kind" value="#{annotationTag.value.kind}"
+								type="hidden" />
+
+							<p:slider for="start" style="width:90vw" 
+								minValue="#{sliderView.minlen}" maxValue="#{sliderView.maxlen}">
+								<f:attribute name="i" value="#{annotationTag.value.no}" />
+								<f:attribute name="kind" value="#{annotationTag.value.kind}" />
+
+								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
+									update="growl sample" binding="#{sliderView.sliderStart}" />
+							</p:slider>
+							<p:slider for="end" style="width:90vw"
+								minValue="#{sliderView.minlen}" maxValue="#{sliderView.maxlen}">
+								<f:attribute name="i" value="#{annotationTag.value.no}" />
+								<f:attribute name="kind" value="#{annotationTag.value.kind}" />
+
+								<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd1}"
+									update="growl sample" binding="#{sliderView.sliderEnd}" />
+							</p:slider>
+
+						</h:panelGrid>
+					</h:form>
+
+				</h:column>
+			</h:dataTable>
+		</h:column>
+	</h:dataTable>
+
+	<h:form>
+		<p:commandLink action="#{commandBean.annotation_from_here}">
+			<h:graphicImage name="images/from_here.png" />
+		</p:commandLink>
+		<p:commandLink action="#{commandBean.take_it}">
+			<h:graphicImage name="images/annotate_icon.png" />
+		</p:commandLink>
+		<p:commandLink
+			action="#{commandBean.zero_annotation_selection_first_corpus}">
+			<h:graphicImage name="images/zero_annotation.jpg" />
+		</p:commandLink>
+		<p:commandLink action="#{commandBean.annotation_in_between}">
+			<h:graphicImage name="images/between.png" />
+		</p:commandLink>
+		<p:commandLink
+			action="#{commandBean.zero_annotation_selection_second_corpus}">
+			<h:graphicImage name="images/zero_annotation.jpg" />
+		</p:commandLink>
+		<p:commandLink action="#{commandBean.trash}">
+			<h:graphicImage name="images/ignore.jpg" />
+		</p:commandLink>
+	</h:form>
+
+</h:body>
+</html>

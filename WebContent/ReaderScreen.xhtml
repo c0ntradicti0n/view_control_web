@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Document Reader</title>
+</h:head>
+
+
+<h:body>
+	<h:outputScript name="javascript/selection.js" target="body" />
+
+	<h:outputStylesheet name="css/format.css" />
+	<h:outputStylesheet name="css/diff_markup.css" />
+	<h:outputStylesheet name="css/nav.css" />
+
+	<div id="controls">
+		<div id="selectionLog"></div>
+
+		<h:form>
+			<p:growl id="msgs" showDetail="true" escape="false" />
+
+			<h3>Documents</h3>
+			<p:tree value="#{navBean.root}" var="doc" selectionMode="single"
+				selection="#{navBean.singleSelectedNode}">
+				<p:treeNode icon="ui-icon-note">
+					<h:outputText value="#{doc.name}" />
+				</p:treeNode>
+				<p:treeNode type="document" icon="ui-icon-document">
+					<h:outputText value="#{doc.name}" />
+				</p:treeNode>
+				<p:treeNode type="picture" icon="ui-icon-image">
+					<h:outputText value="#{doc.name}" />
+				</p:treeNode>
+				<p:treeNode type="mp3" icon="ui-icon-video">
+					<h:outputText value="#{doc.name}" />
+				</p:treeNode>
+			</p:tree>
+			<br />
+			<p:commandLink
+				action="#{ccPyBean.displaySelectedNode(navBean.singleSelectedNode)}"
+				update="metadata text">
+				<h:graphicImage name="images/show_document.png" ajax="false"
+					styleClass="img_button" />
+			</p:commandLink>
+		</h:form>
+		<h:form enctype="multipart/form-data">
+			<p:commandLink action="#{fileUploadView.upload}">
+				<h:graphicImage name="images/cloud_activity.png" ajax="false"
+					styleClass="img_button" />
+			</p:commandLink>
+			<p:fileUpload value="#{fileUploadView.file}" mode="simple"
+				skinSimple="true" />
+
+		</h:form>
+		<h:form>
+			<p:commandLink action="#{ccPyBean.compAll}">
+				<h:graphicImage name="images/redo_all.png" ajax="false"
+					styleClass="img_button" />
+			</p:commandLink>
+
+		</h:form>
+		<h:form id="xorm">
+			<p:remoteCommand name="rc" action="#{ccPyBean.updateAnnotation}" />
+
+			<p:commandLink
+				onclick="rc([{'name':'selectedText','value':getSelectionText()}]);">
+				<h:graphicImage name="images/annotate.png" ajax="false"
+					styleClass="img_button" />
+			</p:commandLink>
+
+		</h:form>
+		<h:panelGroup id="metadata" rendered="#{ccPyBean.path!=null}">
+			<h4>
+				<h:outputText id="out" value="#{ccPyBean.path}" />
+			</h4>
+		</h:panelGroup>
+
+		<h:form>
+			<h:panelGroup id="active">
+			    REST 
+				<h:graphicImage rendered="#{ccPyBean.restActive==false}" name="images/ping_off.png" styleClass="sm_img_status" />
+				<h:graphicImage rendered="#{ccPyBean.restActive==true}" name="images/ping_on.png" styleClass="sm_img_status" />
+				PREDICTION
+				<h:graphicImage rendered="#{ccPyBean.annoActive==false}" name="images/ping_off.png" styleClass="sm_img_status" />
+				<h:graphicImage rendered="#{ccPyBean.annoActive==true}" name="images/ping_on.png" styleClass="sm_img_status" />
+				TRAIN
+				<h:graphicImage rendered="#{ccPyBean.trainActive==false}" name="images/ping_off.png" styleClass="sm_img_status" />
+				<h:graphicImage rendered="#{ccPyBean.trainActive==true}" name="images/ping_on.png" styleClass="sm_img_status" />
+		
+			</h:panelGroup>
+		</h:form>
+
+	</div>
+
+
+	<h:panelGroup id="text" rendered="#{ccPyBean.path!=null}">
+
+		<div id="text_window">
+			<h:outputText value="#{ccPyBean.html}" escape="false" />
+		</div>
+
+	</h:panelGroup>
+
+
+
+</h:body>
+</html>
