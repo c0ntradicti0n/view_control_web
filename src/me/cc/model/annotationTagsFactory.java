@@ -16,4 +16,19 @@ public class annotationTagsFactory {
 		}
 		return annotationSets;
 	}
+	
+	public static void renumerate( ArrayList<ArrayList<Tag>> aSs)  { 
+		int _set = 0;
+		
+		for (ArrayList<Tag> aS : aSs)  {
+		    int _a=0;
+		    for (Tag t : aS)  {
+		    	t.setNo(_set);
+		    	t.set_i(_a);
+		    	_a += 1;
+
+		    }
+		    _set += 1;
+		}
+	}
 }

@@ -19,20 +19,22 @@
 	<p:growl id="growl" showDetail="true" />
 	<h:panelGroup id="sample">
 		<h:outputText escape="false" value="#{ccPyBean.annotationMarkup}" />
-
 	</h:panelGroup>
 
 	<h:form id="sliders">
-		<h:dataTable  value="#{ccPyBean.annotationSets}"
-			var="annotationTags">
+		<h:outputText value="#{sliderView.maxlen}" />
+
+		<h:dataTable value="#{ccPyBean.annotationSets}" var="annotationTags">
 			<h:column>
 				<p:separator style="width:90vw" />
 				<h:dataTable value="#{ccPyBean.possibleTags}" var="possibleTag">
 					<h:column>
+						<h:outputText
+							value="#{ccPyBean.annotationSets.indexOf(annotationTags)}" />
 
 						<p:commandLink
-							action="#{commandBean.more_kind(possibleTag, annotationTag.no)}"
-							update="@form">
+							action="#{commandBean.more_kind(possibleTag, ccPyBean.annotationSets.indexOf(annotationTags))}"
+							update="sliders">
 							<h:graphicImage name="images/more.jpg" styleClass="sm_img_button" />
 						</p:commandLink>
 						<h:outputText value="#{possibleTag}" />
@@ -47,10 +49,14 @@
 
 							<p:commandLink
 								action="#{commandBean.less_kind(annotationTag.no, annotationTag._i, annotationTag.kind)}"
-								update="@form">
+								update="sliders">
 								<h:graphicImage name="images/less.png"
 									styleClass="sm_img_button" />
 							</p:commandLink>
+
+							<h:outputText value="#{annotationTag.no}" />
+
+							<h:outputText value="#{annotationTag._i}" />
 
 							<h:outputText value="#{annotationTag.kind}" />
 

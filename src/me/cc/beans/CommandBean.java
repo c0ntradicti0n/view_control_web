@@ -10,6 +10,7 @@ import javax.faces.view.ViewScoped;
 
 import me.cc.model.AnyAnswer;
 import me.cc.model.Tag;
+import me.cc.model.annotationTagsFactory;
 
 @ViewScoped
 @ManagedBean(name = "commandBean")
@@ -87,6 +88,8 @@ public class CommandBean {
 
 		int size_up_to_now = ccPyBean.annotationSets.get(no).size();
 		ccPyBean.annotationSets.get(no).add(new Tag(no, size_up_to_now, kind, 0, ccPyBean.textlen-1));
+		annotationTagsFactory.renumerate(ccPyBean.annotationSets);
+
 		return "ManipulationScreen";
 
 	}
@@ -94,6 +97,8 @@ public class CommandBean {
 		System.out.println("delete " + kind + " set " +  no + " index " + _i);
 		ccPyBean.annotationSets.get(no).remove(_i);
 		ccPyBean.annotationSets.removeIf(p -> p.isEmpty());
+		annotationTagsFactory.renumerate(ccPyBean.annotationSets);
+
 		return "ManipulationScreen";
 
 	}
@@ -106,9 +111,12 @@ public class CommandBean {
 		annotationSet.add(new Tag(size_up_to_now, 0, kind, 0, ccPyBean.textlen-1));
 		
 		ccPyBean.annotationSets.add(annotationSet);
+		annotationTagsFactory.renumerate(ccPyBean.annotationSets);
 		return "ManipulationScreen";
 	}
 	public String less_set (int no, int _i, String kind) {
+		annotationTagsFactory.renumerate(ccPyBean.annotationSets);
+
 		return "ManipulationScreen";
 
 	}

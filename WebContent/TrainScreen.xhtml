@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>AI Command Panel</title>
+</h:head>
+
+
+<h:body>
+
+	<h:outputStylesheet name="css/format.css" />
+	<h:outputStylesheet name="css/diff_markup.css" />
+	<h:outputStylesheet name="css/nav.css" />
+	<h:outputStylesheet name="css/clean.css" />
+
+
+	<h:form>
+		<h:panelGroup id="active" >
+			<table  style="width:100%">
+
+				<tr>
+					<th>which prog</th>
+					<th>Inet</th>
+					<th>CorpusCookApp</th>
+					<th>CorpusCook</th>
+					<th>Distinctiopus</th>
+					<th>ScienceVideo</th>
+					<th>ScienceMap</th>
+
+				</tr>
+				<tr>
+					<td>active?</td>
+					<td><h:graphicImage id="status1" rendered="true"
+							name="images/ping_on.png" styleClass="sm_img_status" /></td>
+
+					<td><h:graphicImage id="status21"
+							rendered="#{ccPyBean.restActive==false}"
+							name="images/ping_off.png" styleClass="sm_img_status" /> <h:graphicImage
+							id="status22" rendered="#{ccPyBean.restActive==true}"
+							name="images/ping_on.png" styleClass="sm_img_status" /></td>
+					<td><h:graphicImage id="status31"
+							rendered="#{ccPyBean.annoActive==false}"
+							name="images/ping_off.png" styleClass="sm_img_status" /> <h:graphicImage
+							id="status32" rendered="#{ccPyBean.annoActive==true}"
+							name="images/ping_on.png" styleClass="sm_img_status" /></td>
+					<td><h:graphicImage id="status41"
+							rendered="#{ccPyBean.trainActive==false}"
+							name="images/ping_off.png" styleClass="sm_img_status" /> <h:graphicImage
+							id="status42" rendered="#{ccPyBean.trainActive==true}"
+							name="images/ping_on.png" styleClass="sm_img_status" />
+							</td>
+
+				</tr>
+				<tr>
+					<td>commands</td>
+					<td></td>
+
+					<td><ul>
+							<li><h:form>
+									<p:commandLink id="rc1" action="#{ccPyBean.migrateCorpus}">
+										<h:graphicImage name="images/migrate.png" ajax="false"
+											styleClass="img_button" />
+									</p:commandLink>
+									<p:tooltip id="toolTipGrow12" for="rc1"
+										value="Migrate corpus from CorpusCook to Distinctiopus"
+										showEffect="clip" hideEffect="explode" position="left" />
+
+								</h:form></li>
+						</ul></td>
+					<td><ul>
+							<li><h:form>
+									<p:commandLink id="rc" action="#{ccPyBean.compAll}">
+										<h:graphicImage name="images/redo_all.png" ajax="false"
+											styleClass="img_button" />
+									</p:commandLink>
+									<p:tooltip id="toolTipGrow9" for="rc"
+										value="Start annotation service to recompute all documents"
+										showEffect="clip" hideEffect="explode" position="left" />
+
+								</h:form></li>
+						</ul></td>
+					<td>
+						<ul>
+							<li><h:form>
+									<p:commandLink id="rc" action="#{ccPyBean.startTraining}">
+										<h:graphicImage name="images/train.png" ajax="false"
+											styleClass="img_button" />
+									</p:commandLink>
+									<p:tooltip id="qwe" for="rc" value="Start the training"
+										showEffect="clip" hideEffect="explode" position="left" />
+
+								</h:form></li>
+						</ul>
+					</td>
+
+				</tr>
+				<tr>
+					<td>logs</td>
+					<td><p:commandLink id="rcx4" action="#{ccPyBean.logs()}">
+							<h:graphicImage name="images/logs.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink></td>
+
+					<td><p:commandLink id="rcx5" action="#{ccPyBean.logs()}">
+							<h:graphicImage name="images/logs.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink></td>
+					<td><p:commandLink id="rcx6" action="#{ccPyBean.logs()}">
+							<h:graphicImage name="images/logs.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink></td>
+					<td><p:commandLink id="rcx7" action="#{ccPyBean.logs()}">
+							<h:graphicImage name="images/logs.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink></td>
+					<td><p:commandLink id="rcx8" action="#{ccPyBean.logs()}">
+							<h:graphicImage name="images/logs.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink></td>
+					<td><p:commandLink id="rcx9" action="#{ccPyBean.logs()}">
+							<h:graphicImage name="images/logs.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink></td>
+
+				</tr>
+
+			</table>
+			<p:tooltip id="toolTipGrow1" for="status1"
+				value="Servelet status on, if this page is visible"
+				showEffect="clip" hideEffect="explode" position="left" />
+			<p:tooltip id="toolTipGrow2" for="status21" value="Rest status off"
+				showEffect="clip" hideEffect="explode" position="left" />
+			<p:tooltip id="toolTipGrow3" for="status22" value="Rest status on"
+				showEffect="clip" hideEffect="explode" position="left" />
+			<p:tooltip id="toolTipGrow4" for="status31"
+				value="Prediction status off" showEffect="clip" hideEffect="explode"
+				position="left" />
+			<p:tooltip id="toolTipGrow5" for="status32"
+				value="Prediction status on" showEffect="clip" hideEffect="explode"
+				position="left" />
+			<p:tooltip id="toolTipGrow6" for="status41" value="Train status off"
+				showEffect="clip" hideEffect="explode" position="left" />
+			<p:tooltip id="toolTipGrow7" for="status42" value="Train status on"
+				showEffect="clip" hideEffect="explode" position="left" />
+
+
+		</h:panelGroup>
+	</h:form>
+
+</h:body>
+</html>

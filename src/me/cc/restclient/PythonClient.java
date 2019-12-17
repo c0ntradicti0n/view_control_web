@@ -176,7 +176,7 @@ public class PythonClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (ans.getDone().equalsIgnoreCase("yes")) {
+		if (ans != null && ans.getDone().equalsIgnoreCase("yes")) {
 			return true;
 		} else {
 			return false;
