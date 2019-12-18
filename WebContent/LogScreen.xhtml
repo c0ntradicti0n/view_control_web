@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>AI Command Panel</title>
+</h:head>
+
+
+<h:body>
+
+	<h:outputStylesheet name="css/format.css" />
+	<h:outputStylesheet name="css/diff_markup.css" />
+	<h:outputStylesheet name="css/nav.css" />
+	<h:outputStylesheet name="css/clean.css" />
+
+
+	<h:form>
+		<h:panelGroup id="active">
+			<h1>logging  <h:outputText id="which" value="#{ccPyBean.logs_which}" /></h1>
+			<pre>
+			<h:outputText id="txt" value="#{ccPyBean.logs}"  styleClass="log"  />
+			</pre>
+		</h:panelGroup>
+	</h:form>
+
+</h:body>
+</html>

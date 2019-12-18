@@ -21,12 +21,12 @@
 
 
 	<h:form>
-		<h:panelGroup id="active" >
-			<table  style="width:100%">
+		<h:panelGroup id="active">
+			<table style="width: 100%">
 
 				<tr>
 					<th>which prog</th>
-					<th>Inet</th>
+					<th>JavaFace</th>
 					<th>CorpusCookApp</th>
 					<th>CorpusCook</th>
 					<th>Distinctiopus</th>
@@ -53,77 +53,76 @@
 							rendered="#{ccPyBean.trainActive==false}"
 							name="images/ping_off.png" styleClass="sm_img_status" /> <h:graphicImage
 							id="status42" rendered="#{ccPyBean.trainActive==true}"
-							name="images/ping_on.png" styleClass="sm_img_status" />
-							</td>
+							name="images/ping_on.png" styleClass="sm_img_status" /></td>
 
 				</tr>
 				<tr>
 					<td>commands</td>
 					<td></td>
 
-					<td><ul>
-							<li><h:form>
-									<p:commandLink id="rc1" action="#{ccPyBean.migrateCorpus}">
-										<h:graphicImage name="images/migrate.png" ajax="false"
-											styleClass="img_button" />
-									</p:commandLink>
-									<p:tooltip id="toolTipGrow12" for="rc1"
-										value="Migrate corpus from CorpusCook to Distinctiopus"
-										showEffect="clip" hideEffect="explode" position="left" />
-
-								</h:form></li>
-						</ul></td>
-					<td><ul>
-							<li><h:form>
-									<p:commandLink id="rc" action="#{ccPyBean.compAll}">
-										<h:graphicImage name="images/redo_all.png" ajax="false"
-											styleClass="img_button" />
-									</p:commandLink>
-									<p:tooltip id="toolTipGrow9" for="rc"
-										value="Start annotation service to recompute all documents"
-										showEffect="clip" hideEffect="explode" position="left" />
-
-								</h:form></li>
-						</ul></td>
-					<td>
-						<ul>
-							<li><h:form>
-									<p:commandLink id="rc" action="#{ccPyBean.startTraining}">
-										<h:graphicImage name="images/train.png" ajax="false"
-											styleClass="img_button" />
-									</p:commandLink>
-									<p:tooltip id="qwe" for="rc" value="Start the training"
-										showEffect="clip" hideEffect="explode" position="left" />
-
-								</h:form></li>
-						</ul>
-					</td>
+					<td><p:commandLink id="rc" action="#{commandBean.compAll}">
+							<h:graphicImage name="images/redo_all.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink> <p:tooltip id="toolTipGsdrow9" for="rc"
+							value="Start annotation service to recompute all documents"
+							showEffect="clip" hideEffect="explode" position="left" /></td>
+					<td><p:commandLink id="rc14"
+							action="#{commandBean.mixCorpus}">
+							<h:graphicImage name="images/sorts.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink> <p:tooltip id="toolTipGrvfow124" for="rc14"
+							value="Mix corpus commits to train/test/valid" showEffect="clip"
+							hideEffect="explode" position="left" /> <br /> <p:commandLink
+							id="rc13" action="#{commandBean.migrateCorpus}">
+							<h:graphicImage name="images/migrate.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink> <p:tooltip id="toolTipGrow12vf3" for="rc13"
+							value="Migrate corpus from CorpusCook to Distinctiopus"
+							showEffect="clip" hideEffect="explode" position="left" /></td>
+					<td><p:commandLink id="r24c"
+							action="#{commandBean.startTraining}">
+							<h:graphicImage name="images/train.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink> <p:tooltip id="qwdfe" for="r24c" value="Start the training"
+							showEffect="clip" hideEffect="explode" position="left" /> <br />
+						<p:commandLink id="rc21" action="#{commandBean.migrateModel}">
+							<h:graphicImage name="images/migrate_model.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink> <p:tooltip id="toolTvipGrow12" for="rc21"
+							value="Deploy AI model after training to CorpusCook back"
+							showEffect="clip" hideEffect="explode" position="left" /></td>
 
 				</tr>
 				<tr>
 					<td>logs</td>
-					<td><p:commandLink id="rcx4" action="#{ccPyBean.logs()}">
+					<td><p:commandLink id="rcx4"
+							action="#{commandBean.logs('face')}">
 							<h:graphicImage name="images/logs.png" ajax="false"
 								styleClass="img_button" />
 						</p:commandLink></td>
 
-					<td><p:commandLink id="rcx5" action="#{ccPyBean.logs()}">
+					<td><p:commandLink id="rcx5"
+							action="#{commandBean.logs('ccapp')}">
 							<h:graphicImage name="images/logs.png" ajax="false"
 								styleClass="img_button" />
 						</p:commandLink></td>
-					<td><p:commandLink id="rcx6" action="#{ccPyBean.logs()}">
+					<td><p:commandLink id="rcx6"
+							action="#{commandBean.logs('cc')}">
 							<h:graphicImage name="images/logs.png" ajax="false"
 								styleClass="img_button" />
 						</p:commandLink></td>
-					<td><p:commandLink id="rcx7" action="#{ccPyBean.logs()}">
+					<td><p:commandLink id="rcx7"
+							action="#{commandBean.logs('dist')}">
 							<h:graphicImage name="images/logs.png" ajax="false"
 								styleClass="img_button" />
 						</p:commandLink></td>
-					<td><p:commandLink id="rcx8" action="#{ccPyBean.logs()}">
+					<td><p:commandLink id="rcx8"
+							action="#{commandBean.logs('scvid')}">
 							<h:graphicImage name="images/logs.png" ajax="false"
 								styleClass="img_button" />
 						</p:commandLink></td>
-					<td><p:commandLink id="rcx9" action="#{ccPyBean.logs()}">
+					<td><p:commandLink id="rcx9"
+							action="#{commandBean.logs('scmap')}">
 							<h:graphicImage name="images/logs.png" ajax="false"
 								styleClass="img_button" />
 						</p:commandLink></td>

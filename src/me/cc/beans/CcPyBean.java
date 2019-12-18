@@ -100,6 +100,9 @@ public class CcPyBean implements Serializable {
 	ObjectMapper om = new ObjectMapper();
 	
 	public Spot spot;
+
+	public String logs;
+	public String logs_which;
 	
 	public String updateAnnotation() {
 		pingStatus ();
@@ -237,5 +240,23 @@ public class CcPyBean implements Serializable {
 	public void setTrainActive(boolean trainActive) {
 		this.trainActive = trainActive;
 	}
+
+	public String getLogs() {
+		return logs;
+	}
+
+	public void setLogs(String logs) {
+		this.logs = logs;
+	}
+
+	public String getLogs_which() {
+		return logs_which;
+	}
+
+	public void setLogs_which(String logs_which) {
+		this.logs_which = logs_which;
+	}
+
+
 
 }
