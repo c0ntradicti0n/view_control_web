@@ -41,3 +41,10 @@
 .dropdown:hover .dropbtn {
 	background-color: #3e8e41;
 }
+table.sliders {
+  border-collapse: collapse;
+}
+
+table.sliders, th.sliders, td.sliders {
+  border: 1px solid black;
+}

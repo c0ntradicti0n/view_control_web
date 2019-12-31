@@ -51,6 +51,7 @@ public class SliderView {
 		ccPyBean
 		    = (CcPyBean)facesContext.getApplication()
 		      .createValueBinding("#{ccPyBean}").getValue(facesContext);
+		maxlen = ccPyBean.textlen;
 	}
 
 	public int getNumber0() {
