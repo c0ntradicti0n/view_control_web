@@ -26,6 +26,13 @@ public class CommandBean {
 
 	}
 
+	
+	public String compAll() {
+		ccPyBean.pycl.sglCall("recompute_all", "whatever");
+		return "TrainScreen";
+	}
+	
+	
 	public String logs(String which) {
 		ccPyBean.logs_which = which;
 		ccPyBean.setLogs(ccPyBean.pycl.getLogs(which));

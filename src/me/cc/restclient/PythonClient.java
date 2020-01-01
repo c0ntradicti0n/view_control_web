@@ -114,7 +114,7 @@ public class PythonClient {
 	public String recomputeAll() {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(PythonClient.url);
-		Response response = target.queryParam("pass", "kacke").path("compall").request(MediaType.APPLICATION_JSON)
+		Response response = target.queryParam("pass", "kacke").path("recompute_all").request(MediaType.APPLICATION_JSON)
 				.get();
 		String jsonString = response.readEntity(String.class);
 		logger.info(jsonString);

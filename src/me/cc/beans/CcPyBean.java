@@ -161,10 +161,6 @@ public class CcPyBean implements Serializable {
 		return documents;
 	}
 
-	public void compAll() {
-		html = pycl.recomputeAll();
-	}
-
 	public void setDocuments(List<String> documents) {
 		this.documents = documents;
 	}

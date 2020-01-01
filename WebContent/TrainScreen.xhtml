@@ -66,8 +66,7 @@
 						</p:commandLink> <p:tooltip id="toolTipGsdrow9" for="rc"
 							value="Start annotation service to recompute all documents"
 							showEffect="clip" hideEffect="explode" position="left" /></td>
-					<td><p:commandLink id="rc14"
-							action="#{commandBean.mixCorpus}">
+					<td><p:commandLink id="rc14" action="#{commandBean.mixCorpus}">
 							<h:graphicImage name="images/sorts.png" ajax="false"
 								styleClass="img_button" />
 						</p:commandLink> <p:tooltip id="toolTipGrvfow124" for="rc14"
@@ -84,6 +83,11 @@
 							<h:graphicImage name="images/train.png" ajax="false"
 								styleClass="img_button" />
 						</p:commandLink> <p:tooltip id="qwdfe" for="r24c" value="Start the training"
+							showEffect="clip" hideEffect="explode" position="left" /> <br />
+						<p:commandLink id="r242c" action="#{commandBean.stopTraining}">
+							<h:graphicImage name="images/train_stop.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink> <p:tooltip id="qwdfe" for="r242c" value="Kill the training processes while running"
 							showEffect="clip" hideEffect="explode" position="left" /> <br />
 						<p:commandLink id="rc21" action="#{commandBean.migrateModel}">
 							<h:graphicImage name="images/migrate_model.png" ajax="false"
