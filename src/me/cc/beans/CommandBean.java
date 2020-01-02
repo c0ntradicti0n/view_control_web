@@ -97,6 +97,15 @@ public class CommandBean {
 		return "TrainScreen";
 
 	}
+	
+
+	public String stopTraining() {
+		String which = "this";
+		ccPyBean.setLogs(ccPyBean.pycl.sglCall("stop_training", which));
+		return "TrainScreen";
+
+	}
+	
 	public String migrateModel() {
 		String which = "this";
 		ccPyBean.setLogs(ccPyBean.pycl.sglCall("migrate_model", which));	
