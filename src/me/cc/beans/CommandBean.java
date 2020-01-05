@@ -113,6 +113,23 @@ public class CommandBean {
 
 		}
 	
+	
+	public String scienceMap() {
+		String which = "this";
+		ccPyBean.setLogs(ccPyBean.pycl.sglCall("science_map", which));	
+		return "TrainScreen";
+		}
+	
+	public String scienceCoords() {
+		String which = "this";
+		ccPyBean.setLogs(ccPyBean.pycl.sglCall("science_coords", which));	
+		return "TrainScreen";
+		}
+	public String scienceVideo() {
+		String which = "this";
+		ccPyBean.setLogs(ccPyBean.pycl.sglCall("science_video", which));	
+		return "TrainScreen";
+		}
 
 	public String more_kind(String kind, int no) {
 		System.out.println("add more " + kind + " set number " + no);

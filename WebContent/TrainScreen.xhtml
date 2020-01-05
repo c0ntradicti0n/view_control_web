@@ -30,8 +30,8 @@
 					<th>CorpusCookApp</th>
 					<th>CorpusCook</th>
 					<th>Distinctiopus</th>
-					<th>ScienceVideo</th>
 					<th>ScienceMap</th>
+					<th>ScienceVideo</th>
 
 				</tr>
 				<tr class="sliders">
@@ -95,6 +95,29 @@
 						</p:commandLink> <p:tooltip id="toolTvipGrow12" for="rc21"
 							value="Deploy AI model after training to CorpusCook back"
 							showEffect="clip" hideEffect="explode" position="left" /></td>
+					<td>
+					<p:commandLink id="r24cmap"
+							action="#{commandBean.scienceMap}">
+							<h:graphicImage name="images/combine.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink> <p:tooltip id="qwdfef" for="r24cmap" value="Combine all marked difference statements"
+							showEffect="clip" hideEffect="explode" position="left" /> <br />
+					<p:commandLink id="r24cmapp"
+							action="#{commandBean.scienceCoords}">
+							<h:graphicImage name="images/projection.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink> <p:tooltip id="qwdfefgh" for="r24cmapp" value="Project them to 3D space"
+							showEffect="clip" hideEffect="explode" position="left" /> <br />
+					
+					</td>
+					<td>
+					<p:commandLink id="r24cvid"
+							action="#{commandBean.scienceVideo}">
+							<h:graphicImage name="images/video_cut.png" ajax="false"
+								styleClass="img_button" />
+						</p:commandLink> <p:tooltip id="qwdfefghh" for="r24cvid" value="Generate a journey"
+							showEffect="clip" hideEffect="explode" position="left" /> <br />
+					</td>
 
 				</tr>
 				<tr class="sliders">
@@ -120,13 +143,13 @@
 							<h:graphicImage name="images/logs.png" ajax="false"
 								styleClass="img_button" />
 						</p:commandLink></td>
-					<td><p:commandLink id="rcx8"
-							action="#{commandBean.logs('scvid')}">
+					<td><p:commandLink id="rcx9"
+							action="#{commandBean.logs('scmap')}">
 							<h:graphicImage name="images/logs.png" ajax="false"
 								styleClass="img_button" />
 						</p:commandLink></td>
-					<td><p:commandLink id="rcx9"
-							action="#{commandBean.logs('scmap')}">
+					<td><p:commandLink id="rcx8"
+							action="#{commandBean.logs('scvid')}">
 							<h:graphicImage name="images/logs.png" ajax="false"
 								styleClass="img_button" />
 						</p:commandLink></td>
