@@ -65,6 +65,18 @@ public class PythonClient {
 		return ret;
 	}
 
+	public String getLogs(String which) {
+
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target(PythonClient.url);
+		Response response = target.queryParam("which", which).path("get_logs").request(MediaType.APPLICATION_JSON)
+				.get();
+		String jsonString = response.readEntity(String.class);
+		logger.info("got log for " + which);
+		return jsonString;
+
+	}
+
 	public static void main(String... args) {
 		PythonClient rc = new PythonClient();
 		logger.info(rc.getPaths());
@@ -102,7 +114,7 @@ public class PythonClient {
 	public String recomputeAll() {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(PythonClient.url);
-		Response response = target.queryParam("pass", "kacke").path("compall").request(MediaType.APPLICATION_JSON)
+		Response response = target.queryParam("pass", "kacke").path("recompute_all").request(MediaType.APPLICATION_JSON)
 				.get();
 		String jsonString = response.readEntity(String.class);
 		logger.info(jsonString);
@@ -176,11 +188,21 @@ public class PythonClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (ans.getDone().equalsIgnoreCase("yes")) {
+		if (ans != null && ans.getDone().equalsIgnoreCase("yes")) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	public String sglCall(String what, String which) {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target(PythonClient.url);
+		Response response = target.queryParam("which", which).path(what).request(MediaType.APPLICATION_JSON)
+				.get();
+		String jsonString = response.readEntity(String.class);
+		logger.info("Called Rest Client with command '" + what + "' for '" + which + "'");
+		return jsonString;
 	}
 
 }
