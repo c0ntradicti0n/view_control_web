@@ -40,8 +40,18 @@ public class CcPyBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	static Logger logger = Logger.getLogger(CcPyBean.class);
-	
-	private  List<String> possibleTags = Arrays.asList("Contrast", "Subject");
+
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
+	}
+
+	private boolean loggedIn = false;
+
+    private  List<String> possibleTags = Arrays.asList("Contrast", "Subject");
 
 	public ArrayList<ArrayList<Tag>> annotationSets = annotationTagsFactory.produce(2,
 			Arrays.asList("Contrast", "Subject"));
@@ -60,10 +70,12 @@ public class CcPyBean implements Serializable {
 	private String html = "";
 	private String inputTextAreaSelectedText;
 
-	public static PythonClient pycl = new PythonClient();
+	public static PythonClient pycl = new PythonClient("http://127.0.0.1:5000");
 	private boolean restActive = false;
 	private boolean annoActive = false;
 	private boolean trainActive = false;
+	public PythonClient fileREST  = new PythonClient( "http://127.0.0.1:5555");
+
 
 
 
@@ -130,9 +142,9 @@ public class CcPyBean implements Serializable {
 		annotationMarkup =  pycl.stdCall("markup", spot, annotationMarkup, annotationSets, String_Type);
 		logger.info("got: " +  annotationMarkup);
 		text = getSpot().getText();
-		System.out.println("updating the markup thing:" + annotationMarkup);
-		System.out.println(annotationSets);
-		return "ManipulationScreen";
+		logger.info("updating the markup thing:" + annotationMarkup);
+		logger.info(annotationSets);
+		return "manipulator";
 	}
 
 	private void loadHtml(String path2) {

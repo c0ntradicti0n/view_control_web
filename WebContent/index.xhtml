@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>AI Command Panel</title>
+</h:head>
+
+
+<h:body>
+
+    <h:outputStylesheet name="css/format.css"/>
+    <h:outputStylesheet name="css/diff_markup.css"/>
+    <h:outputStylesheet name="css/nav.css"/>
+    <p:growl id="growl" showDetail="true"/>
+    <h:form>
+        <h1>Welcome to the science annotation platform</h1>
+        It's made to use more intense computer linguistics to help science in every field.
+
+        And to build a hair-splitter-app.
+        <h2>Newest difference</h2>
+
+        Our newest found difference is:
+
+        <h2>Annotate Science for more science</h2>
+        <a href="reader.xhtml">Go to the Science Reader</a>
+
+        <h2>Flight</h2>
+        To have a flight, watch the actual video. It's composed of all marked phrases, that people on this site marked
+        as relevant difference utterances.
+
+        <h2>Login</h2>
+        <a href="login.xhtml">Go to the Science reader</a>
+
+
+        <h:outputStylesheet name="css/format.css"/>
+        <h:outputStylesheet name="css/diff_markup.css"/>
+        <h:outputStylesheet name="css/nav.css"/>
+        <h:outputStylesheet name="css/clean.css"/>
+
+        <video id="myVideo" width="100%" controls="controls">
+            <source src="./record.mp4" type="video/mp4"/>
+        </video>
+
+    </h:form>
+
+</h:body>
+</html>

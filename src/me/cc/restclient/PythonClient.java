@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -26,23 +25,21 @@ import me.cc.model.Spot;
 import me.cc.model.Tag;
 
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
 
 public class PythonClient {
 	static Logger logger = Logger.getLogger(PythonClient.class);
 
-	private final static String url = "http://127.0.0.1:5000";
-
+	private String url = "";
 	public ObjectMapper objectMapper = new ObjectMapper();
 
-	public PythonClient() {
-
+	public PythonClient(String _url) {
+		url = _url;
 	}
 
 	public ArrayList<String> getPaths() {
 
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(PythonClient.url);
+		WebTarget target = client.target(url);
 		Response response = target.path("paths").request(MediaType.APPLICATION_JSON).get();
 		String jsonData = response.readEntity(String.class);
 		logger.info("got paths=" + jsonData);
@@ -68,7 +65,7 @@ public class PythonClient {
 	public String getLogs(String which) {
 
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(PythonClient.url);
+		WebTarget target = client.target(url);
 		Response response = target.queryParam("which", which).path("get_logs").request(MediaType.APPLICATION_JSON)
 				.get();
 		String jsonString = response.readEntity(String.class);
@@ -77,15 +74,11 @@ public class PythonClient {
 
 	}
 
-	public static void main(String... args) {
-		PythonClient rc = new PythonClient();
-		logger.info(rc.getPaths());
 
-	}
 
 	public String getHTML(String path) {
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(PythonClient.url);
+		WebTarget target = client.target(url);
 		Response response = target.queryParam("path", path).path("html").request(MediaType.APPLICATION_JSON).get();
 		String jsonString = response.readEntity(String.class);
 		logger.info(jsonString);
@@ -101,7 +94,7 @@ public class PythonClient {
 	public void sendTextFile(byte[] bs, String filename) {
 		logger.info(bs.toString());
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(PythonClient.url);
+		WebTarget target = client.target(url);
 
 		Response response = target.path("docload").queryParam("filename", filename).request(MediaType.APPLICATION_JSON)
 				.post(Entity.json(bs));
@@ -113,7 +106,7 @@ public class PythonClient {
 
 	public String recomputeAll() {
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(PythonClient.url);
+		WebTarget target = client.target(url);
 		Response response = target.queryParam("pass", "kacke").path("recompute_all").request(MediaType.APPLICATION_JSON)
 				.get();
 		String jsonString = response.readEntity(String.class);
@@ -124,7 +117,7 @@ public class PythonClient {
 
 	public String getMarkup(String text, ArrayList<ArrayList<Tag>> arrayList) {
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(PythonClient.url);
+		WebTarget target = client.target(url);
 
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("text", text);
@@ -139,7 +132,7 @@ public class PythonClient {
 	@SuppressWarnings("unchecked")
 	public <_T> _T stdCall(String command, Spot spot, _T SampleTargetTypeObject, Object data, TypeReference type) {
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(PythonClient.url);
+		WebTarget target = client.target(url);
 
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("spot", spot);
@@ -176,8 +169,9 @@ public class PythonClient {
 	}
 
 	public boolean ping() {
+		try {
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(PythonClient.url);
+		WebTarget target = client.target(url);
 		Response response = target.path("ping/").request(MediaType.APPLICATION_JSON).get();
 		String jsonString = response.readEntity(String.class);
 		ObjectMapper mapper = new ObjectMapper();
@@ -192,12 +186,15 @@ public class PythonClient {
 			return true;
 		} else {
 			return false;
+		}}
+		catch (NullPointerException e) {
+			return false;
 		}
 	}
 
 	public String sglCall(String what, String which) {
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(PythonClient.url);
+		WebTarget target = client.target(url);
 		Response response = target.queryParam("which", which).path(what).request(MediaType.APPLICATION_JSON)
 				.get();
 		String jsonString = response.readEntity(String.class);

@@ -11,13 +11,9 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.html.HtmlForm;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.AjaxBehaviorEvent;
+
 
 import org.apache.log4j.Logger;
-import org.primefaces.component.commandlink.CommandLink;
 
 @SessionScoped
 @ManagedBean(name = "htmlRenderBean")

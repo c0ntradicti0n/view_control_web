@@ -29,7 +29,7 @@ public class FileUploadView {
 	    String contentType = uploadedFile.getContentType();
 	    byte[] contents = uploadedFile.getContents(); // Or getInputStream()
 	    
-        centralBean.pycl.sendTextFile(contents, fileName);
+        centralBean.fileREST.sendTextFile(contents, fileName);
     }
 
 
