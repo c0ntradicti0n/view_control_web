@@ -101,7 +101,7 @@ public class SliderView {
 		FacesMessage message = new FacesMessage("Slide Ended", "Before n=" + n + " after " + event.getValue());
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		
-		String markup = ccPyBean.pycl.stdCall("markup", ccPyBean.spot, ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);
+		String markup = ccPyBean.annotationREST.stdCall("markup", ccPyBean.spot, ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);
 		System.out.println("'" + markup + "'");
 		ccPyBean.setAnnotationMarkup(markup);
 	}
@@ -127,7 +127,7 @@ public class SliderView {
 		FacesMessage message = new FacesMessage("Slide Ended", "Before n=" + n + " after " + event.getValue());
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		
-		String markup = ccPyBean.pycl.stdCall("markup", ccPyBean.spot, ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);
+		String markup = ccPyBean.annotationREST.stdCall("markup", ccPyBean.spot, ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);
 		System.out.println("'" + markup + "'");
 		ccPyBean.setAnnotationMarkup(markup);
 	}
@@ -164,7 +164,7 @@ public class SliderView {
 		FacesMessage message = new FacesMessage("Slide Ended", "Before n=" + n + " after " + event.getValue());
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		
-		String markup = ccPyBean.pycl.stdCall("markup", ccPyBean.spot, ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);
+		String markup = ccPyBean.annotationREST.stdCall("markup", ccPyBean.spot, ccPyBean.annotationMarkup, ccPyBean.annotationSets, ccPyBean.String_Type);
 		System.out.println("'" + markup + "'");
 		ccPyBean.setAnnotationMarkup(markup);
 	}

@@ -18,8 +18,8 @@ public class DocumentService {
     public TreeNode createCheckboxDocuments() {
         TreeNode root = new CheckboxTreeNode(new Document("Files"), null);
          
-        PythonClient pycl = new PythonClient( "http://127.0.0.1:5000");
-  		ArrayList<String> paths = pycl.getPaths();
+        PythonClient fileREST = new PythonClient( "http://127.0.0.1:5555");
+  		ArrayList<String> paths = fileREST.getPaths();
 		for (String p:paths)  {
         	new CheckboxTreeNode(new Document(p), root);
 		}

@@ -70,7 +70,7 @@ public class CcPyBean implements Serializable {
 	private String html = "";
 	private String inputTextAreaSelectedText;
 
-	public static PythonClient pycl = new PythonClient("http://127.0.0.1:5000");
+	public static PythonClient annotationREST = new PythonClient("http://127.0.0.1:5000");
 	private boolean restActive = false;
 	private boolean annoActive = false;
 	private boolean trainActive = false;
@@ -135,11 +135,11 @@ public class CcPyBean implements Serializable {
 		logger.info("Annotating the following text: '" + text + "'");
 		System.out.println("Annotating the following text: '" + text + "'");
 		System.out.println(spot);
-		textlen = (Integer) pycl.stdCall("textlen", spot, textlen , null, Int_Type);
+		textlen = (Integer) annotationREST.stdCall("textlen", spot, textlen , null, Int_Type);
 		logger.info("got: " +  textlen);
-		annotationSets = (ArrayList<ArrayList<Tag>>) pycl.stdCall("predict", spot, annotationSets, null, AS_Type);
+		annotationSets = (ArrayList<ArrayList<Tag>>) annotationREST.stdCall("predict", spot, annotationSets, null, AS_Type);
 		logger.info("got: " +  Exec.nestedToString(annotationSets));
-		annotationMarkup =  pycl.stdCall("markup", spot, annotationMarkup, annotationSets, String_Type);
+		annotationMarkup =  annotationREST.stdCall("markup", spot, annotationMarkup, annotationSets, String_Type);
 		logger.info("got: " +  annotationMarkup);
 		text = getSpot().getText();
 		logger.info("updating the markup thing:" + annotationMarkup);
@@ -148,17 +148,17 @@ public class CcPyBean implements Serializable {
 	}
 
 	private void loadHtml(String path2) {
-		html = pycl.getHTML(path);
+		html = fileREST.getHTML(path);
 		pingStatus ();
 	};
 	
 	public void pingStatus ()  {
 		System.out.println("ping");
 		System.out.println("rest: " + restActive + " aa " + annoActive);
-		documents = new ArrayList( Arrays.asList( pycl.getPaths()));
+		documents = new ArrayList( Arrays.asList( fileREST.getPaths()));
 		if (documents.size()>0)  {
 			restActive = true;
-			annoActive = pycl.ping();
+			annoActive = annotationREST.ping();
 		}
 		else  
 		{
@@ -169,7 +169,7 @@ public class CcPyBean implements Serializable {
 	}
 
 	public List<String> getDocuments() {
-		documents = new ArrayList( Arrays.asList( pycl.getPaths()));
+		documents = new ArrayList( Arrays.asList( fileREST.getPaths()));
 		return documents;
 	}
 

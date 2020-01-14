@@ -28,47 +28,47 @@ public class CommandBean {
 
 	
 	public String compAll() {
-		ccPyBean.pycl.sglCall("recompute_all", "whatever");
+		ccPyBean.annotationREST.sglCall("recompute_all", "whatever");
 		return "trainer";
 	}
 	
 	
 	public String logs(String which) {
 		ccPyBean.logs_which = which;
-		ccPyBean.setLogs(ccPyBean.pycl.getLogs(which));
+		ccPyBean.setLogs(ccPyBean.annotationREST.getLogs(which));
 		return "LogScreen";
 	};
 
 	public String annotation_from_here() {
-		ccPyBean.pycl.stdCall("annotation_from_here", ccPyBean.getSpot(), dummy_ans, ccPyBean.annotationSets,
+		ccPyBean.annotationREST.stdCall("annotation_from_here", ccPyBean.getSpot(), dummy_ans, ccPyBean.annotationSets,
 				ccPyBean.AnyAnswerList_Type);
 		return "reader";
 
 	}
 
 	public String take_it_as_is() {
-		ccPyBean.pycl.stdCall("take_it_as_is", ccPyBean.getSpot(), dummy_ans, ccPyBean.annotationSets,
+		ccPyBean.annotationREST.stdCall("take_it_as_is", ccPyBean.getSpot(), dummy_ans, ccPyBean.annotationSets,
 				ccPyBean.AnyAnswerList_Type);
 		return "reader";
 
 	}
 
 	public String zero_annotation_selection_first_corpus() {
-		ccPyBean.pycl.stdCall("zero_annotation_selection_first_corpus", ccPyBean.getSpot(), dummy_ans,
+		ccPyBean.annotationREST.stdCall("zero_annotation_selection_first_corpus", ccPyBean.getSpot(), dummy_ans,
 				ccPyBean.annotationSets, ccPyBean.AnyAnswerList_Type);
 		return "reader";
 
 	}
 
 	public String annotation_in_between() {
-		ccPyBean.pycl.stdCall("annotation_in_between", ccPyBean.getSpot(), dummy_ans, ccPyBean.annotationSets,
+		ccPyBean.annotationREST.stdCall("annotation_in_between", ccPyBean.getSpot(), dummy_ans, ccPyBean.annotationSets,
 				ccPyBean.AnyAnswerList_Type);
 		return "reader";
 
 	}
 
 	public String zero_annotation_selection_second_corpus() {
-		ccPyBean.pycl.stdCall("zero_annotation_selection_second_corpus", ccPyBean.getSpot(), dummy_ans,
+		ccPyBean.annotationREST.stdCall("zero_annotation_selection_second_corpus", ccPyBean.getSpot(), dummy_ans,
 				ccPyBean.annotationSets, ccPyBean.AnyAnswerList_Type);
 		return "reader";
 	}
@@ -79,21 +79,21 @@ public class CommandBean {
 
 	public String migrateCorpus() {
 		String which = "this";
-		ccPyBean.setLogs(ccPyBean.pycl.sglCall("migrate_corpus", which));	
+		ccPyBean.setLogs(ccPyBean.annotationREST.sglCall("migrate_corpus", which));
 		return "trainer";
 
 		}
 
 	public String mixCorpus() {
 		String which = "this";
-		ccPyBean.setLogs(ccPyBean.pycl.sglCall("mix_corpus", which));
+		ccPyBean.setLogs(ccPyBean.annotationREST.sglCall("mix_corpus", which));
 		return "trainer";
 
 	}
 	
 	public String startTraining() {
 		String which = "this";
-		ccPyBean.setLogs(ccPyBean.pycl.sglCall("start_training", which));
+		ccPyBean.setLogs(ccPyBean.annotationREST.sglCall("start_training", which));
 		return "trainer";
 
 	}
@@ -101,14 +101,14 @@ public class CommandBean {
 
 	public String stopTraining() {
 		String which = "this";
-		ccPyBean.setLogs(ccPyBean.pycl.sglCall("stop_training", which));
+		ccPyBean.setLogs(ccPyBean.annotationREST.sglCall("stop_training", which));
 		return "trainer";
 
 	}
 	
 	public String migrateModel() {
 		String which = "this";
-		ccPyBean.setLogs(ccPyBean.pycl.sglCall("migrate_model", which));	
+		ccPyBean.setLogs(ccPyBean.annotationREST.sglCall("migrate_model", which));
 		return "trainer";
 
 		}
@@ -116,18 +116,18 @@ public class CommandBean {
 	
 	public String scienceMap() {
 		String which = "this";
-		ccPyBean.setLogs(ccPyBean.pycl.sglCall("science_map", which));	
+		ccPyBean.setLogs(ccPyBean.annotationREST.sglCall("science_map", which));
 		return "trainer";
 		}
 	
 	public String scienceCoords() {
 		String which = "this";
-		ccPyBean.setLogs(ccPyBean.pycl.sglCall("science_coords", which));	
+		ccPyBean.setLogs(ccPyBean.annotationREST.sglCall("science_coords", which));
 		return "trainer";
 		}
 	public String scienceVideo() {
 		String which = "this";
-		ccPyBean.setLogs(ccPyBean.pycl.sglCall("science_video", which));	
+		ccPyBean.setLogs(ccPyBean.annotationREST.sglCall("science_video", which));
 		return "trainer";
 		}
 
