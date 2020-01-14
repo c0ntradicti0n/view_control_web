@@ -1,1 +1,10 @@
 /target/
+*.mp4
+*.ogg
+*.so
+.project
+.classpath
+.idea
+.metadata
+.settings
+./build
