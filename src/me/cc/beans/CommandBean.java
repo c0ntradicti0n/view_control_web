@@ -116,7 +116,7 @@ public class CommandBean {
 	
 	public String scienceMap() {
 		String which = "this";
-		ccPyBean.setLogs(ccPyBean.annotationREST.sglCall("science_map", which));
+		ccPyBean.setLogs(ccPyBean.scienceREST.sglCall("science_map", which));
 		return "trainer";
 		}
 	
