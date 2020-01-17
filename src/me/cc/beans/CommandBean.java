@@ -28,7 +28,7 @@ public class CommandBean {
 
 	
 	public String compAll() {
-		ccPyBean.annotationREST.sglCall("recompute_all", "whatever");
+		ccPyBean.fileREST.sglCall("recompute_all", "whatever");
 		return "trainer";
 	}
 	
