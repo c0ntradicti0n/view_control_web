@@ -1,6 +1,7 @@
 package me.cc.beans;
 
 import me.cc.model.AnyAnswer;
+import org.apache.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
@@ -10,25 +11,48 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Properties;
 
 @SessionScoped
 @ManagedBean(name = "pedantLogin")
 public class PedantLogin implements Serializable {
+    static Logger logger = Logger.getLogger(PedantLogin.class);
+
     private String user;
     private String password;
     private String _user;
     private String _password;
     CcPyBean ccPyBean;
+    private String admin_user;
+    private String admin_password;
+
 
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ccPyBean = (CcPyBean) facesContext.getApplication().createValueBinding("#{ccPyBean}").getValue(facesContext);
-        System.out.println("345678909iuhjinbjh");
+        read_config();
 
+    }
 
+    private void read_config() {
+        Properties prop = new Properties();
+        String fileName = "app.config";
+        InputStream is = null;
+        try {
+            is = new FileInputStream(fileName);
+        } catch (FileNotFoundException ex) {
+            logger.info("config file not found in " + System.getProperty("user.dir"));
+        }
+        try {
+            prop.load(is);
+        } catch (IOException ex) {
+            logger.info("config file not readable " + System.getProperty("user.dir"));
+        }
+        admin_user = prop.getProperty("app.admin_user");
+        admin_password = prop.getProperty("app.admin_password");
     }
 
     public PedantLogin() {
@@ -45,7 +69,7 @@ public class PedantLogin implements Serializable {
         FacesMessage message = null;
         boolean loggedIn = false;
 
-        if(user != null && user.equals("admin") && password != null && password.equals("admin")) {
+        if(user != null && user.equals(admin_user) && password != null && password.equals(admin_password)) {
             ccPyBean.setLoggedIn(true);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", user);
         } else {
