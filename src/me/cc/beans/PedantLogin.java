@@ -66,6 +66,14 @@ public class PedantLogin implements Serializable {
     }
 
     public String login() {
+        String myCurrentDir = System.getProperty("user.dir")
+                + File.separator
+                + System.getProperty("sun.java.command")
+                .substring(0, System.getProperty("sun.java.command").lastIndexOf("."))
+                .replace(".", File.separator);
+        System.out.println(myCurrentDir);
+
+
         FacesMessage message = null;
         boolean loggedIn = false;
 
@@ -74,7 +82,7 @@ public class PedantLogin implements Serializable {
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", user);
         } else {
             ccPyBean.setLoggedIn(false);
-            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Invalid credentials" +  System.getProperty("user.dir"));
+            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Invalid credentials" +  myCurrentDir  + admin_user + admin_password);
         }
 
         FacesContext.getCurrentInstance().addMessage(null, message);

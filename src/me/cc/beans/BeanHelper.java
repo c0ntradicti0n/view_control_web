@@ -2,7 +2,7 @@ package me.cc.beans;
 
 import javax.faces.context.FacesContext;
 
-public class BeanHelper {
+public class BeanHelper  {
 	@SuppressWarnings("unchecked")
 	public static <T> T findBean(String beanName) {
 	    FacesContext context = FacesContext.getCurrentInstance();

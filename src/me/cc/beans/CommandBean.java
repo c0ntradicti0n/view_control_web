@@ -1,5 +1,6 @@
 package me.cc.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import me.cc.model.annotationTagsFactory;
 
 @ViewScoped
 @ManagedBean(name = "commandBean")
-public class CommandBean {
+public class CommandBean  implements Serializable {
 	CcPyBean ccPyBean;
 	ArrayList<AnyAnswer> dummy_ans;
 
