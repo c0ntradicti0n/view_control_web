@@ -74,7 +74,7 @@ public class PedantLogin implements Serializable {
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", user);
         } else {
             ccPyBean.setLoggedIn(false);
-            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Invalid credentials");
+            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Invalid credentials" +  System.getProperty("user.dir"));
         }
 
         FacesContext.getCurrentInstance().addMessage(null, message);
