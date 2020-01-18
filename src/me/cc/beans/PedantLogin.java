@@ -48,7 +48,7 @@ public class PedantLogin implements Serializable {
         }
         try {
             prop.load(is);
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             logger.info("config file not readable " + System.getProperty("user.dir"));
         }
         admin_user = prop.getProperty("app.admin_user");
