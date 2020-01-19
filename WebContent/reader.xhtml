@@ -62,20 +62,32 @@
 		<h:form>
 			<p:growl id="msgs" showDetail="true" escape="false" />
 			<h3>Documents</h3>
+
 			<h:panelGroup id="metadata" rendered="#{ccPyBean.path!=null}">
 				<b>Shown Document </b>
 				<h:outputText id="out" value="#{ccPyBean.path}" />
 			</h:panelGroup>
 			<div id="selectionLog" style="display:none;"></div>
 
-			<p:tree value="#{navBean.root}" var="doc" selectionMode="single"
-				selection="#{navBean.singleSelectedNode}">
+			<p:tree value="#{DocumentBean.root}" var="doc" selectionMode="single"
+				selection="#{DocumentBean.singleSelectedNode}">
 				<p:treeNode icon="ui-icon-document">
 					<h:outputText value="#{doc.name}" />
 				</p:treeNode>
 				<p:ajax event="select"
-					listener="#{ccPyBean.displaySelectedNode(navBean.singleSelectedNode)}"
+					 listener="#{DocumentBean.displaySelectedNode(DocumentBean.singleSelectedNode)}"
 					update="text" />
+
+			</p:tree>
+
+			<p:tree value="#{DifBetBean.root}" var="doc" selectionMode="single"
+					selection="#{DocumentBean.singleSelectedNode}">
+				<p:treeNode icon="ui-icon-document">
+					<h:outputText value="#{doc.name}" />
+				</p:treeNode>
+				<p:ajax event="select"
+						listener="#{DifBetBean.displaySelectedNode(DifBetBean.singleSelectedNode)}"
+						update="text" />
 
 			</p:tree>
 		</h:form>
@@ -85,26 +97,8 @@
 				auto="true" label="Upload new Document" />
 		</h:form>
 
-		<h:form>
-			<h:panelGroup id="active">
-			    REST 
-				<h:graphicImage rendered="#{ccPyBean.restActive==false}"
-					name="images/ping_off.png" styleClass="sm_img_status" />
-				<h:graphicImage rendered="#{ccPyBean.restActive==true}"
-					name="images/ping_on.png" styleClass="sm_img_status" />
-				PREDICTION
-				<h:graphicImage rendered="#{ccPyBean.annoActive==false}"
-					name="images/ping_off.png" styleClass="sm_img_status" />
-				<h:graphicImage rendered="#{ccPyBean.annoActive==true}"
-					name="images/ping_on.png" styleClass="sm_img_status" />
-				TRAIN
-				<h:graphicImage rendered="#{ccPyBean.trainActive==false}"
-					name="images/ping_off.png" styleClass="sm_img_status" />
-				<h:graphicImage rendered="#{ccPyBean.trainActive==true}"
-					name="images/ping_on.png" styleClass="sm_img_status" />
 
-			</h:panelGroup>
-		</h:form>
+
 
 	</div>
 
@@ -116,6 +110,10 @@
 		</div>
 
 	</h:panelGroup>
+
+
+
+
 
 
 

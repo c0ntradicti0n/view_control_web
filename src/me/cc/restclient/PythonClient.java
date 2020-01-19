@@ -48,19 +48,32 @@ public class PythonClient {
 		try {
 			ret = objectMapper.readValue(jsonData,
 					TypeFactory.defaultInstance().constructCollectionType(List.class, String.class));
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		logger.info(ret);
 		return ret;
 	}
+
+	public ArrayList<String> getDifBetPaths() {
+
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target(url);
+		Response response = target.path("difbet_paths").request(MediaType.APPLICATION_JSON).get();
+		String jsonData = response.readEntity(String.class);
+		logger.info("got paths=" + jsonData);
+
+		ArrayList<String> ret = null;
+		try {
+			ret = objectMapper.readValue(jsonData,
+					TypeFactory.defaultInstance().constructCollectionType(List.class, String.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info(ret);
+		return ret;
+	}
+
 
 	public String getLogs(String which) {
 
@@ -86,9 +99,21 @@ public class PythonClient {
 		int bStart = jsonString.indexOf("<body>") + 6;
 		int bEnd = jsonString.lastIndexOf("</body>");
 		jsonString = jsonString.substring(bStart, bEnd);
-
 		return jsonString;
+	}
 
+
+	public String getDifBet(String path) {
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target(url);
+		Response response = target.queryParam("path", path).path("difbet_html").request(MediaType.APPLICATION_JSON).get();
+		String jsonString = response.readEntity(String.class);
+		logger.info(jsonString);
+
+		int bStart = jsonString.indexOf("<body>") + 6;
+		int bEnd = jsonString.lastIndexOf("</body>");
+		jsonString = jsonString.substring(bStart, bEnd);
+		return jsonString;
 	}
 
 	public void sendTextFile(byte[] bs, String filename) {

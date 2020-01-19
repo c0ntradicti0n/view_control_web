@@ -67,7 +67,7 @@ public class CcPyBean implements Serializable {
 
 	private List<String> documents;
 	private String path = "";
-	private String html = "";
+	public String html = "";
 	private String inputTextAreaSelectedText;
 
 	private boolean restActive = false;
@@ -96,14 +96,7 @@ public class CcPyBean implements Serializable {
 		annoActive = annoActive;
 	}
 
-	public void displaySelectedNode(TreeNode node) {
-		if (node != null) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Your choices:", "" + node);
-			FacesContext.getCurrentInstance().addMessage(null, message);
-			path = ((Document) node.getData()).getName();
-			loadHtml(path);
-		}
-	}
+
 
 	public TypeReference String_Type =  new TypeReference<String>() { };
 	public TypeReference AS_Type = new TypeReference<ArrayList<ArrayList<Tag>>>() { };
@@ -148,11 +141,6 @@ public class CcPyBean implements Serializable {
 		return "manipulator";
 	}
 
-	private void loadHtml(String path2) {
-		html = fileREST.getHTML(path);
-		pingStatus ();
-	};
-	
 	public void pingStatus ()  {
 		System.out.println("ping");
 		System.out.println("rest: " + restActive + " aa " + annoActive);
