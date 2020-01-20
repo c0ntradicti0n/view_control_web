@@ -14,6 +14,9 @@ import org.primefaces.model.TreeNode;
 @ManagedBean(name = "DocumentBean")
 @ViewScoped
 public class DocumentBean extends AbstractTextBean implements Serializable {
-    @ManagedProperty("#{documentService}")
-    private AbstractTextService service = new DocumentService();
+    @Override
+    public void initService() {
+        service = new DocumentService();
+
+    }
 }

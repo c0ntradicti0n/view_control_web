@@ -15,36 +15,119 @@
     <h:outputStylesheet name="css/diff_markup.css"/>
     <h:outputStylesheet name="css/nav.css"/>
     <p:growl id="growl" showDetail="true"/>
-    <h:form>
-        <h1>Welcome to the science annotation platform</h1>
-        It's made to use more intense computer linguistics to help science in every field.
+        <h1>Everything makes a difference</h1>
+        <p>
+        Welcome to the hair-splitters and nitpickers of science.
+        This is the protopye how to use "artificial intelligence" to collect and combine distinctions in science and
+        everywhere to think more accurate.
+        </p>
 
-        And to build a hair-splitter-app.
-        <h2>Newest difference</h2>
+        <p>
+            The goal is to make an to make smart alecks from us all, that uses the collected distinctions to make inferences by
+            <a href="https://plato.stanford.edu/entries/logic-nonmonotonic/">non-monotonic logic</a>.
+            Non-monotonic logic means to break with some inferences.
+            Normal formal logic assumes, that premisses are definitively clear and true.
 
-        Our newest found difference is:
+        </p>
+        <div class="example center">
+            <p><strong>Premise 1:</strong> All informative things are useful.<br/>
+                <span style="text-decoration: underline;">
+                    <strong>Premise 2:</strong> Some websites are not useful.</span> <br/>
+                <strong>Conclusion:</strong> ∴ Some websites are not informative. </p>
 
-        <h2>Annotate Science for more science</h2>
-        <a href="reader.xhtml">Go to the Science Reader</a>
+            (<a href="https://en.wikipedia.org/wiki/Syllogism#Baroco_(AOO-2)">https://en.wikipedia.org/wiki/Syllogism#Baroco_(AOO-2)</a>  )      </div>
 
-        <h2>Flight</h2>
-        To have a flight, watch the actual video. It's composed of all marked phrases, that people on this site marked
-        as relevant difference utterances.
+        <p>
+            As the most people know, there may be some information on websites, that won't ever be useful for you.
+            So the conclusion that was proposed on wikipedia may be forbidden. Every website is informative in some
+            way, even if it's not useful in any way, neither for you nor others. (Asides, what about
+            <a href="https://pr0gramm.com">https://pr0gramm.com</a>?)
+            The formal side of this argument may be correct, but not the more important part of the truth of the
+            premises, thay comes into play, if the more non-monotonic logical nature of thinking forbids the
+            conclusions, that the logician is about to make.
+            So we try to help you, to check everytime if your premises are true or false. But first all the distinctions
+            that we make must go onto the table.
+        </p>
+    <img src="resources/images/tweety.png" alt="Bird often means, something can fly¸ but not everybird flies like dodos and penguins"  class="center lg_img_button"></img>
 
-        <a href="login.xhtml">        <h2>Login</h2>
-        </a>
+    <p>
+       This is because, not to make wrong infences means in the first point to distinguish. To make it easy,
+        if I tell you, Tux is a bird. So you may think, it can fly. But it's going to change your mind about, if this is added:
+        Tux is a bird, but also a penguin is a bird! Did you forgot about this? So Tux, as linux people know, is a
+        penguin.
 
+        </p>
+    <img src="resources/images/tux.jpeg" alt="Tux is of course a bird as you see. No feathers, can't fly.."  class="center lg_img_button"></img>
 
-        <h:outputStylesheet name="css/format.css"/>
-        <h:outputStylesheet name="css/diff_markup.css"/>
-        <h:outputStylesheet name="css/nav.css"/>
-        <h:outputStylesheet name="css/clean.css"/>
+    <p><a href="">
+            To collect such information there was build a tool to mark certain text passages with the parts of distinctions.
+    </a>
+        Two concepts: Bird and penguin, they are called "subjects" and there are explanations like: "has feathers" and
+        "has no feathers".
+        There is a semantical sensitive AI build with <a href="https://allennlp.org/elmo">AllenNLP</a>  to help you marking these things.
+        It learns and marks itself. You can delete it's marks, correct them and make new ones. To do this, select some text
+        and press the
 
-        <video id="myVideo" width="100%" controls="controls">
+</p>
+    <img src="resources/images/annotate.png" alt="annotate button" class="center lg_img_button"></img>
+    <p>
+        annotate icon and adjust the sliders to change the annotations.
+    </p>
+    <h2>Flight</h2>
+    <p>
+        If you want to have flight around to calm down and take the auto pilot video, that makes a guided tour through
+        semantical ordered space, where you can see the semantical compared annotations, that have been made by all
+        contributers.
+
+        <video id="myVideo" width="100%" controls="controls"  class="center">
             <source src="./record_compressed.mp4" type="video/mp4"/>
         </video>
 
+       (It's compressed and not so big)
+    </p>
+
+    <h1>Login</h1>
+    <p>
+        Admins, that start updating the AI from your work and make a new video, use this:
+
+    </p>
+
+    <h:form>
+
+        <script type="text/javascript">
+    function handleLoginRequest(xhr, status, args) {
+        if(args.validationFailed || !args.loggedIn) {
+            PF('dlg').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('dlg').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+</script>
+        <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();" title="login">
+            <p:graphicImage name="images/desperate.png" class="center lg_img_button"/>
+        </h:outputLink>
+
+        <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+        <p:dialog header="Login" widgetVar="dlg" resizable="false">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="username" value="Username:" />
+                <p:inputText id="username" value="#{pedantLogin.user}" required="true" label="username" />
+
+                <h:outputLabel for="password" value="Password:" />
+                <p:password id="password" value="#{pedantLogin.password}" required="true" label="password" />
+
+                <f:facet name="footer">
+                    <p:commandButton value="Login" update="growl" action="#{pedantLogin.login}"
+                                     oncomplete="handleLoginRequest(xhr, status, args)" />
+                </f:facet>
+            </h:panelGrid>
+        </p:dialog>
     </h:form>
+
+
 
 </h:body>
 </html>

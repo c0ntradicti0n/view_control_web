@@ -49,7 +49,7 @@ public class CcPyBean implements Serializable {
 		this.loggedIn = loggedIn;
 	}
 
-	private boolean loggedIn = false;
+	private boolean loggedIn = true;
 
     private  List<String> possibleTags = Arrays.asList("Contrast", "Subject");
 

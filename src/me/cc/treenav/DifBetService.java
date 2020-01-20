@@ -7,12 +7,15 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.util.ArrayList;
 
-@ManagedBean(name = "documentService")
+@ManagedBean(name = "difBetService")
 @ApplicationScoped
 public class DifBetService extends AbstractTextService {
+    @Override
     public ArrayList<String> getPaths ()  {
+        System.out.println("Difbetpaths");
         return fileREST.getDifBetPaths();
     }
+    @Override
     public String loadHtml(String path) {
         return fileREST.getDifBet(path);
     }

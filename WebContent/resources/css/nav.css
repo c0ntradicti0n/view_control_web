@@ -1,5 +1,17 @@
+
 * {
-	font-family: "Arial", Arial, sans-serif;
+	font-family: "Times New Roman", Times, serif;
+    font-weight: normal;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 #controls {
@@ -23,11 +35,23 @@
 	overflow: auto;
 }
 
+.ui-widget,
+.ui-widget .ui-widget {
+    font-size: 12px !important;
+}
+
 .img_button {
 	max-height: 150px;
 	max-width: 200px;
 	width: 120px;
 	height: 120px;
+}
+
+.lg_img_button {
+	max-height: 140px;
+	max-width: 140px;
+	width: 140px;
+	height: 140px;
 }
 
 .md_img_button {

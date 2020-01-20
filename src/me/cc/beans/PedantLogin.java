@@ -66,18 +66,16 @@ public class PedantLogin implements Serializable {
     }
 
     public String login() {
-        String myCurrentDir = System.getProperty("user.dir")
-                + File.separator
-                + System.getProperty("sun.java.command")
-                .substring(0, System.getProperty("sun.java.command").lastIndexOf("."))
-                .replace(".", File.separator);
+        String myCurrentDir =  System.getProperty("user.dir");
+
         System.out.println(myCurrentDir);
 
 
         FacesMessage message = null;
         boolean loggedIn = false;
-
+        System.out.println(admin_user + " " + admin_password);
         if(user != null && user.equals(admin_user) && password != null && password.equals(admin_password)) {
+
             ccPyBean.setLoggedIn(true);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", user);
         } else {

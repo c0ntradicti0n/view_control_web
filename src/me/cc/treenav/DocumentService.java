@@ -16,6 +16,6 @@ public class DocumentService extends AbstractTextService {
 
     @Override
     public String loadHtml(String path) {
-        return fileREST.getDifBet(path);
+        return fileREST.getHTML(path);
     }
 }

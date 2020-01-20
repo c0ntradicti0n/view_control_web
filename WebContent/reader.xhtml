@@ -61,61 +61,66 @@
 
 		<h:form>
 			<p:growl id="msgs" showDetail="true" escape="false" />
-			<h3>Documents</h3>
+			<!--
+                        <h:panelGroup id="metadata" rendered="#{ccPyBean.path!=null}">
+                            <b>Shown Document </b>
+                            <h:outputText id="out" value="#{ccPyBean.path}" />
+                        </h:panelGroup>
+                        -->
+                        <div id="selectionLog" style="display:none;"></div>
 
-			<h:panelGroup id="metadata" rendered="#{ccPyBean.path!=null}">
-				<b>Shown Document </b>
-				<h:outputText id="out" value="#{ccPyBean.path}" />
-			</h:panelGroup>
-			<div id="selectionLog" style="display:none;"></div>
+                        <h5>Uploaded</h5>
+                        <p:tree value="#{DocumentBean.root}" var="doc" selectionMode="single"
+                            selection="#{DocumentBean.singleSelectedNode}">
+                            <p:treeNode icon="ui-icon-document">
+                                <h:outputText value="#{doc.name}" />
+                            </p:treeNode>
+                            <p:ajax event="select"
+                                 listener="#{DocumentBean.displaySelectedNode(DocumentBean.singleSelectedNode)}"
+                                update="text" />
 
-			<p:tree value="#{DocumentBean.root}" var="doc" selectionMode="single"
-				selection="#{DocumentBean.singleSelectedNode}">
-				<p:treeNode icon="ui-icon-document">
-					<h:outputText value="#{doc.name}" />
-				</p:treeNode>
-				<p:ajax event="select"
-					 listener="#{DocumentBean.displaySelectedNode(DocumentBean.singleSelectedNode)}"
-					update="text" />
+                        </p:tree>
+                    </h:form>
+                <h:form>
 
-			</p:tree>
+                        <h5>from differencebetween.net</h5>
 
-			<p:tree value="#{DifBetBean.root}" var="doc" selectionMode="single"
-					selection="#{DocumentBean.singleSelectedNode}">
-				<p:treeNode icon="ui-icon-document">
-					<h:outputText value="#{doc.name}" />
-				</p:treeNode>
-				<p:ajax event="select"
-						listener="#{DifBetBean.displaySelectedNode(DifBetBean.singleSelectedNode)}"
-						update="text" />
+                        <p:tree value="#{difBetBean.root}" var="doc" selectionMode="single"
+                                selection="#{difBetBean.singleSelectedNode}">
+                            <p:treeNode icon="ui-icon-document">
+                                <h:outputText value="#{doc.name}" />
+                            </p:treeNode>
+                            <p:ajax event="select"
+                                    listener="#{difBetBean.displaySelectedNode(difBetBean.singleSelectedNode)}"
+                                    update="text" />
 
-			</p:tree>
-		</h:form>
+                        </p:tree>
+                    </h:form>
 
-		<h:form enctype="multipart/form-data">
-			<p:fileUpload fileUploadListener="#{fileUploadView.upload}"
-				auto="true" label="Upload new Document" />
-		</h:form>
-
-
-
-
-	</div>
-
-
-	<h:panelGroup id="text" rendered="#{ccPyBean.path!=null}">
-
-		<div id="text_window">
-			<h:outputText value="#{ccPyBean.html}" escape="false" />
-		</div>
-
-	</h:panelGroup>
+                    <h:form enctype="multipart/form-data">
+                        <p:fileUpload fileUploadListener="#{fileUploadView.upload}"
+                            auto="true" label="Upload new Document" />
+                    </h:form>
 
 
 
 
+                </div>
+
+
+                <h:panelGroup id="text" rendered="#{ccPyBean.path!=null}">
+
+                    <div id="text_window">
+                        <h:outputText value="#{ccPyBean.html}" escape="false" />
+                    </div>
+
+                </h:panelGroup>
 
 
 
-</h:body>
-</html>
+
+
+
+
+            </h:body>
+            </html>

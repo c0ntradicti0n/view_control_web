@@ -22,11 +22,14 @@ public abstract class AbstractTextBean {
 
     @PostConstruct
     public void init() {
+        initService();
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ccPyBean = (CcPyBean) facesContext.getApplication().createValueBinding("#{ccPyBean}").getValue(facesContext);
         root = service.createCheckboxDocuments();
 
     }
+
+    abstract public void initService();
 
 
     public TreeNode getRoot() {
@@ -62,6 +65,16 @@ public abstract class AbstractTextBean {
 
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Your choices:", builder.toString());
             FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+    }
+
+
+    public void displaySelectedNode(TreeNode node) {
+        if (node != null) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Your choices:", "" + node);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            path = ((Document) node.getData()).getName();
+            ccPyBean.html = service.loadHtml(path);
         }
     }
 
