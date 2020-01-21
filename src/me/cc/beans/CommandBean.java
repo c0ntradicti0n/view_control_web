@@ -40,6 +40,13 @@ public class CommandBean  implements Serializable {
 		return "LogScreen";
 	};
 
+	public String annotation_around() {
+		ccPyBean.annotationREST.stdCall("annotation_around", ccPyBean.getSpot(), dummy_ans, ccPyBean.annotationSets,
+				ccPyBean.AnyAnswerList_Type);
+		return "reader";
+
+	}
+
 	public String annotation_from_here() {
 		ccPyBean.annotationREST.stdCall("annotation_from_here", ccPyBean.getSpot(), dummy_ans, ccPyBean.annotationSets,
 				ccPyBean.AnyAnswerList_Type);

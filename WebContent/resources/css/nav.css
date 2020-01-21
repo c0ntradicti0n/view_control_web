@@ -30,7 +30,7 @@
 
 .ui-tree .ui-tree-container {
 	margin: 0;
-	padding: 3px;
+	padding: 1px;
 	white-space: nowrap;
 	overflow: auto;
 }
@@ -78,4 +78,9 @@
 #text_window {
 	width: 70%;
 	margin: 0;
+}
+
+h5 {
+	padding: 1px;
+	margin: 1px
 }
