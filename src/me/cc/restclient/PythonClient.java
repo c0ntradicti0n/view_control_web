@@ -103,10 +103,11 @@ public class PythonClient {
 	}
 
 
-	public String getDifBet(String path) {
+	public String getDoc(String path, String restPath) {
+
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(url);
-		Response response = target.queryParam("path", path).path("difbet_html").request(MediaType.APPLICATION_JSON).get();
+		Response response = target.queryParam("path", path).path(restPath).request(MediaType.APPLICATION_JSON).get();
 		String jsonString = response.readEntity(String.class);
 		logger.info(jsonString);
 

@@ -151,9 +151,11 @@
 							styleClass="img_button" />
 					</p:commandLink> <p:tooltip id="a4"  for="fc_not_before_after"
 						value="Add annotation to first model, but without adding text from around."
-						showEffect="clip" hideEffect="explode" position="left" /> <p:commandLink
+						showEffect="clip" hideEffect="explode" position="left" />
+					<p:commandLink
 						id="fc_zero"
 						action="#{commandBean.zero_annotation_selection_first_corpus}">
+						<f:ajax onevent="markup"/>
 						<h:graphicImage name="images/zero.png" styleClass="img_button" />
 					</p:commandLink> <p:tooltip id="a9"  for="fc_zero"
 						value="Add annotation to first model, as not to annotated something like this."

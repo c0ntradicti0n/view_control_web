@@ -66,8 +66,9 @@ public class CcPyBean implements Serializable {
 	}
 
 	private List<String> documents;
-	private String path = "";
-	public String html = "";
+	private String path = ""; // which document
+	private String kind = ""; // of which kind of ressource
+	public String html = ""; // what is the content
 	private String inputTextAreaSelectedText;
 
 	private boolean restActive = false;
@@ -255,5 +256,11 @@ public class CcPyBean implements Serializable {
 	}
 
 
+	public String getKind() {
+		return kind;
+	}
 
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
 }

@@ -1,5 +1,5 @@
-span.subject1      {color: red;}
-span.contrast1     {color: blue;}
+span.subject1      {color: #FE5F55;}
+span.contrast1     {color: #3D348B;}
 
 span.subject2      {
     margin: 0.05em;
@@ -24,13 +24,14 @@ span.subject3      { text-decoration: underline;
 }
 span.contrast3     { font-style: oblique; 
 }
-/*
 
-span.privative     {    opacity: 0.9;
-		                mix-blend-mode: difference;
-                       	filter: invert(0.7); 
-                       	}
-  */
+
+span.highlighted   { display: inline;
+                     padding: 1em 0em;
+                     background-color: #D8D52B;
+                     box-decoration-break: clone;
+}
+
 span.threshold     {}  
 
 .indentation     {display:inline-block; 

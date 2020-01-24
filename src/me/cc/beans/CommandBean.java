@@ -30,6 +30,7 @@ public class CommandBean  implements Serializable {
 	
 	public String compAll() {
 		ccPyBean.fileREST.sglCall("recompute_all", "whatever");
+		ccPyBean.fileREST.getDoc(ccPyBean.getPath(), ccPyBean.getKind());
 		return "trainer";
 	}
 	
@@ -37,12 +38,15 @@ public class CommandBean  implements Serializable {
 	public String logs(String which) {
 		ccPyBean.logs_which = which;
 		ccPyBean.setLogs(ccPyBean.annotationREST.getLogs(which));
+
 		return "LogScreen";
 	};
 
 	public String annotation_around() {
 		ccPyBean.annotationREST.stdCall("annotation_around", ccPyBean.getSpot(), dummy_ans, ccPyBean.annotationSets,
 				ccPyBean.AnyAnswerList_Type);
+		ccPyBean.fileREST.getDoc(ccPyBean.getPath(), ccPyBean.getKind());
+
 		return "reader";
 
 	}
@@ -50,6 +54,8 @@ public class CommandBean  implements Serializable {
 	public String annotation_from_here() {
 		ccPyBean.annotationREST.stdCall("annotation_from_here", ccPyBean.getSpot(), dummy_ans, ccPyBean.annotationSets,
 				ccPyBean.AnyAnswerList_Type);
+		ccPyBean.fileREST.getDoc(ccPyBean.getPath(), ccPyBean.getKind());
+
 		return "reader";
 
 	}
@@ -57,6 +63,7 @@ public class CommandBean  implements Serializable {
 	public String take_it_as_is() {
 		ccPyBean.annotationREST.stdCall("take_it_as_is", ccPyBean.getSpot(), dummy_ans, ccPyBean.annotationSets,
 				ccPyBean.AnyAnswerList_Type);
+		ccPyBean.fileREST.getDoc(ccPyBean.getPath(), ccPyBean.getKind());
 		return "reader";
 
 	}
@@ -64,6 +71,7 @@ public class CommandBean  implements Serializable {
 	public String zero_annotation_selection_first_corpus() {
 		ccPyBean.annotationREST.stdCall("zero_annotation_selection_first_corpus", ccPyBean.getSpot(), dummy_ans,
 				ccPyBean.annotationSets, ccPyBean.AnyAnswerList_Type);
+		ccPyBean.fileREST.getDoc(ccPyBean.getPath(), ccPyBean.getKind());
 		return "reader";
 
 	}
@@ -71,6 +79,7 @@ public class CommandBean  implements Serializable {
 	public String annotation_in_between() {
 		ccPyBean.annotationREST.stdCall("annotation_in_between", ccPyBean.getSpot(), dummy_ans, ccPyBean.annotationSets,
 				ccPyBean.AnyAnswerList_Type);
+		ccPyBean.fileREST.getDoc(ccPyBean.getPath(), ccPyBean.getKind());
 		return "reader";
 
 	}
@@ -78,6 +87,7 @@ public class CommandBean  implements Serializable {
 	public String zero_annotation_selection_second_corpus() {
 		ccPyBean.annotationREST.stdCall("zero_annotation_selection_second_corpus", ccPyBean.getSpot(), dummy_ans,
 				ccPyBean.annotationSets, ccPyBean.AnyAnswerList_Type);
+		ccPyBean.fileREST.getDoc(ccPyBean.getPath(), ccPyBean.getKind());
 		return "reader";
 	}
 
@@ -88,7 +98,7 @@ public class CommandBean  implements Serializable {
 	public String migrateCorpus() {
 		String which = "this";
 		ccPyBean.setLogs(ccPyBean.annotationREST.sglCall("migrate_corpus", which));
-		return "trainer";
+		return "reader";
 
 		}
 

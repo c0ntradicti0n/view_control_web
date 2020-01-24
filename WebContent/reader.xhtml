@@ -11,6 +11,10 @@
 
 <h:body>
 	<h:outputScript name="javascript/selection.js" target="body" />
+	<h:outputScript name="javascript/mark.min.js"  target="body" />
+	<h:outputScript name="javascript/mark_new.js" target="body" />
+
+
 
 	<h:outputStylesheet name="css/format.css" />
 	<h:outputStylesheet name="css/diff_markup.css" />
@@ -113,11 +117,12 @@
                 </div>
 
 
-                <h:panelGroup id="text" rendered="#{ccPyBean.path!=null}">
+                <h:panelGroup id="text" rendered="#{ccPyBean.path!=null}" onload="">
 
-                    <div id="text_window">
+                    <div id="text_window" >
                         <h:outputText value="#{ccPyBean.html}" escape="false" />
-                    </div>
+					</div>
+
 
                 </h:panelGroup>
 

@@ -14,8 +14,10 @@ public class DocumentService extends AbstractTextService {
         return fileREST.getPaths();
     }
 
+    public static final String RESTURL = "doc_html";
     @Override
     public String loadHtml(String path) {
-        return fileREST.getHTML(path);
+        setPathKind(path, RESTURL);
+        return fileREST.getDoc(path, RESTURL);
     }
 }

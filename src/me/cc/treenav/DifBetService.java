@@ -10,13 +10,17 @@ import java.util.ArrayList;
 @ManagedBean(name = "difBetService")
 @ApplicationScoped
 public class DifBetService extends AbstractTextService {
+
     @Override
     public ArrayList<String> getPaths ()  {
         System.out.println("Difbetpaths");
         return fileREST.getDifBetPaths();
     }
+
+    public static final String RESTURL = "difbet_html";
     @Override
     public String loadHtml(String path) {
-        return fileREST.getDifBet(path);
+        setPathKind(path, RESTURL);
+        return fileREST.getDoc(path, RESTURL);
     }
 }
