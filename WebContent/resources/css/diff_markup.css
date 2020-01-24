@@ -1,5 +1,7 @@
-span.subject1      {color: #FE5F55;}
-span.contrast1     {color: #3D348B;}
+span.subject1      {color: #FE5F55;
+  font-weight: bold;}
+span.contrast1     {color: #3D348B;
+  font-weight: bold;}
 
 span.subject2      {
     margin: 0.05em;
