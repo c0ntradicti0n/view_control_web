@@ -1,138 +1,153 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Document Reader</title>
+    <title>Document Reader</title>
 </h:head>
 
 
 <h:body>
-	<h:outputScript name="javascript/selection.js" target="body" />
-	<h:outputScript name="javascript/mark.min.js"  target="body" />
-	<h:outputScript name="javascript/mark_new.js" target="body" />
+    <h:outputScript name="javascript/selection.js" target="body"/>
+    <h:outputScript name="javascript/mark.min.js" target="body"/>
+    <h:outputScript name="javascript/mark_new.js" target="body"/>
 
 
+    <h:outputStylesheet name="css/format.css"/>
+    <h:outputStylesheet name="css/diff_markup.css"/>
+    <h:outputStylesheet name="css/nav.css"/>
 
-	<h:outputStylesheet name="css/format.css" />
-	<h:outputStylesheet name="css/diff_markup.css" />
-	<h:outputStylesheet name="css/nav.css" />
-
-	<div id="controls">
-
-
-		<h:form id="xorm">
-			<p:remoteCommand name="rc" action="#{ccPyBean.updateAnnotation}" />
-
-			<p:commandLink id="annotate"
-						   onclick="rc([{'name':'selectedText','value':getSelectionText()}]);">
-				<h:graphicImage name="images/annotate.png" ajax="false"
-								styleClass="sm_img_button" />
-
-			</p:commandLink>
-			<p:tooltip id="toolTipGrow" for="annotate"
-					   value="Select some text with your mouse and teach the semi-AI to recognize it"
-					   showEffect="clip" hideEffect="explode" position="left" />
+    <div id="controls">
 
 
-			<p:commandLink id="train" action="trainer" rendered="#{ccPyBean.loggedIn}">
-				<h:graphicImage name="images/ai.png" ajax="false"
-								styleClass="sm_img_button" />
+        <h:form id="xorm">
+            <p:remoteCommand name="rc" action="#{ccPyBean.updateAnnotation}"/>
 
-			</p:commandLink>
+            <p:commandLink id="annotate"
+                           onclick="rc([{'name':'selectedText','value':getSelectionText()}]);">
+                <h:graphicImage name="images/annotate.png" ajax="false"
+                                styleClass="sm_img_button"/>
 
-			<p:commandLink id="welcome" action="index">
-				<h:graphicImage name="images/welcome.png" ajax="false"
-								styleClass="sm_img_button" />
-			</p:commandLink>
-			<p:tooltip id="toolTipGrowWelc" for="welcome"
-					   value="Go back to welcome page"
-					   showEffect="clip" hideEffect="explode" position="left" />
-
-			<p:commandLink id="login" action="login" rendered="#{!ccPyBean.loggedIn}">
-				<h:graphicImage name="images/desperate.png" ajax="false"
-								styleClass="sm_img_button" />
-
-			</p:commandLink>
-			<p:tooltip id="toolTipGrowLogin" for="login"
-					   value="Login for using the administration buttons (new corpus, model, videos etc.)"
-					   showEffect="clip" hideEffect="explode" position="left" />
-
-		</h:form>
+            </p:commandLink>
+            <p:tooltip id="toolTipGrow" for="annotate"
+                       value="Select some text with your mouse and teach the semi-AI to recognize it"
+                       showEffect="clip" hideEffect="explode" position="left"/>
 
 
-		<h:form>
-			<p:growl id="msgs" showDetail="true" escape="false" />
-			<!--
+            <p:commandLink id="train" action="trainer" rendered="#{ccPyBean.loggedIn}">
+                <h:graphicImage name="images/ai.png" ajax="false"
+                                styleClass="sm_img_button"/>
+
+            </p:commandLink>
+
+            <p:commandLink id="welcome" action="index">
+                <h:graphicImage name="images/welcome.png" ajax="false"
+                                styleClass="sm_img_button"/>
+            </p:commandLink>
+            <p:tooltip id="toolTipGrowWelc" for="welcome"
+                       value="Go back to welcome page"
+                       showEffect="clip" hideEffect="explode" position="left"/>
+
+            <p:commandLink id="login" action="login" rendered="#{!ccPyBean.loggedIn}">
+                <h:graphicImage name="images/desperate.png" ajax="false"
+                                styleClass="sm_img_button"/>
+
+            </p:commandLink>
+            <p:tooltip id="toolTipGrowLogin" for="login"
+                       value="Login for using the administration buttons (new corpus, model, videos etc.)"
+                       showEffect="clip" hideEffect="explode" position="left"/>
+
+        </h:form>
+
+
+        <h:form>
+            <p:growl id="msgs" showDetail="true" escape="false"/>
+            <!--
                         <h:panelGroup id="metadata" rendered="#{ccPyBean.path!=null}">
                             <b>Shown Document </b>
                             <h:outputText id="out" value="#{ccPyBean.path}" />
                         </h:panelGroup>
                         -->
-                        <div id="selectionLog" style="display:none;"></div>
+            <div id="selectionLog" style="display:none;"></div>
 
-                        <h5>Uploaded</h5>
-                        <p:tree value="#{DocumentBean.root}" var="doc" selectionMode="single"
-                            selection="#{DocumentBean.singleSelectedNode}">
-                            <p:treeNode icon="ui-icon-document">
-                                <h:outputText value="#{doc.name}" />
-                            </p:treeNode>
-                            <p:ajax event="select"
-                                 listener="#{DocumentBean.displaySelectedNode(DocumentBean.singleSelectedNode)}"
-                                update="text" />
+            <h5>Uploaded</h5>
+            <p:tree value="#{DocumentBean.root}" var="doc" selectionMode="single"
+                    selection="#{DocumentBean.singleSelectedNode}">
+                <p:treeNode icon="ui-icon-document">
+                    <h:outputText value="#{doc.name}"/>
+                </p:treeNode>
+                <p:ajax event="select"
+                        listener="#{DocumentBean.displaySelectedNode(DocumentBean.singleSelectedNode)}"
+                        update="text"/>
 
-                        </p:tree>
-                    </h:form>
-                <h:form>
+            </p:tree>
+        </h:form>
+        <h:form enctype="multipart/form-data">
+            Please upload only documents, that can legally be here!
 
-					<h5>From <a href="http://www.differencebetween.net">differencebetween.net</a></h5>
+            <p:fileUpload fileUploadListener="#{fileUploadView.upload}"
+                          auto="true" label="Upload new Document"/>
 
-                        <p:tree value="#{difBetBean.root}" var="doc" selectionMode="single"
-                                selection="#{difBetBean.singleSelectedNode}">
-                            <p:treeNode icon="ui-icon-document">
-                                <h:outputText value="#{doc.name}" />
-                            </p:treeNode>
-                            <p:ajax event="select"
-                                    listener="#{difBetBean.displaySelectedNode(difBetBean.singleSelectedNode)}"
-                                    update="text" />
+        </h:form>
+        <h:form>
 
-                        </p:tree>
-                    </h:form>
+            <h5>From <a href="http://www.differencebetween.net">differencebetween.net</a></h5>
 
-                    <h:form enctype="multipart/form-data">
-                        <p:fileUpload fileUploadListener="#{fileUploadView.upload}"
-                            auto="true" label="Upload new Document" />
-						Please upload only documents, that can be legally here!
+            <p:tree value="#{difBetBean.root}" var="doc" selectionMode="single"
+                    selection="#{difBetBean.singleSelectedNode}">
+                <p:treeNode icon="ui-icon-document">
+                    <h:outputText value="#{doc.name}"/>
+                </p:treeNode>
+                <p:ajax event="select"
+                        listener="#{difBetBean.displaySelectedNode(difBetBean.singleSelectedNode)}"
+                        update="text"/>
 
-					</h:form>
-
-		<table><tr><th><h5>Legend</h5></th><th>level/kind</th><th>subject</th><th>contrast</th></tr>
-			<tr><th></th><th>1</th><th><span class="subject level1 subject1">subject</span></th><th><span class="contrast level1 contrast1">contrast</span></th></tr>
-			<tr><th></th><th>2</th><th><span class="subject level2 subject2">subject</span></th><th><span class="contrast level2 contrast2">contrast</span></th></tr>
-			<tr><th></th><th>3</th><th><span class="subject level3 subject3">subject</span></th><th><span class="contrast level3 contrast3">contrast</span></th></tr>
-		</table>
+            </p:tree>
+        </h:form>
 
 
+        <table>
+            <tr>
+                <th><h5>Legend</h5></th>
+                <th>level/kind</th>
+                <th>subject</th>
+                <th>contrast</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>1</th>
+                <th><span class="subject level1 subject1">subject</span></th>
+                <th><span class="contrast level1 contrast1">contrast</span></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>2</th>
+                <th><span class="subject level2 subject2">subject</span></th>
+                <th><span class="contrast level2 contrast2">contrast</span></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>3</th>
+                <th><span class="subject level3 subject3">subject</span></th>
+                <th><span class="contrast level3 contrast3">contrast</span></th>
+            </tr>
+        </table>
 
-                </div>
+
+    </div>
 
 
-                <h:panelGroup id="text" rendered="#{ccPyBean.path!=null}" onload="">
+    <h:panelGroup id="text" rendered="#{ccPyBean.path!=null}" onload="">
 
-                    <div id="text_window" >
-                        <h:outputText value="#{ccPyBean.html}" escape="false" />
-					</div>
-
-
-                </h:panelGroup>
+        <div id="text_window">
+            <h:outputText value="#{ccPyBean.html}" escape="false"/>
+        </div>
 
 
+    </h:panelGroup>
 
 
-
-
-
-            </h:body>
-            </html>
+</h:body>
+</html>
