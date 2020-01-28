@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Corpus Inspector</title>
+</h:head>
+<body>
+<p:growl id="growl" showDetail="true" />
+
+
+<h:form id="sliders">
+    <h:dataTable value="#{ccPyBean.annotationSets}" var="annotationTags">
+        <h:column>
+            <p:separator style="width:100vw" />
+            <table class="sliders">
+                <tr class="sliders">
+                    <td class="sliders">
+                        <h4>
+                            Annotation set no.
+                            <h:outputText
+                                    value="#{ccPyBean.annotationSets.indexOf(annotationTags)}" />
+                        </h4> <h:dataTable value="#{ccPyBean.possibleTags}" var="possibleTag">
+                        <h:column>
+
+                            <p:commandLink
+                                    action="#{commandBean.more_kind(possibleTag, ccPyBean.annotationSets.indexOf(annotationTags))}"
+                                    update="sliders">
+                                <h:graphicImage name="images/more.jpg"
+                                                styleClass="sm_img_button" />
+                            </p:commandLink>
+
+                            <h:outputText value="#{possibleTag}" />
+
+
+                        </h:column>
+                    </h:dataTable>
+                    </td>
+                    <td class="sliders"><h:dataTable value="#{annotationTags}"
+                                                     var="annotationTag">
+                        <h:column>
+
+                            <h3 style="margin-top: 0">
+
+                                <p:commandLink
+                                        action="#{commandBean.less_kind(annotationTag.no, annotationTag._i, annotationTag.kind)}"
+                                        update="sliders">
+                                    <h:graphicImage name="images/less.png"
+                                                    styleClass="sm_img_button" />
+                                </p:commandLink>
+                                <!--
+                    <h:outputText value="#{annotationTag.no}" />
+
+                    <h:outputText value="#{annotationTag._i}" />
+                    -->
+                                <h:outputText value="#{annotationTag.kind}" />
+
+                            </h3>
+
+                            <h:panelGrid columns="1">
+                                <p:inputText id="start" value="#{annotationTag.start}"
+                                             type="hidden" />
+                                <p:inputText id="end" value="#{annotationTag.end}"
+                                             type="hidden" />
+                                <p:inputText id="index" value="#{annotationTag.no}"
+                                             type="hidden" />
+                                <p:inputText id="kind" value="#{annotationTag.kind}"
+                                             type="hidden" />
+
+                                <p:slider for="start" style="width:90vw"
+                                          minValue="#{sliderView.minlen}"
+                                          maxValue="#{sliderView.maxlen}">
+                                    <f:attribute name="i" value="#{annotationTag.no}" />
+                                    <f:attribute name="_i" value="#{annotationTag._i}" />
+
+                                    <p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
+                                            update="growl sample" binding="#{sliderView.sliderStart}" />
+                                </p:slider>
+                                <p:slider for="end" style="width:90vw"
+                                          minValue="#{sliderView.minlen}"
+                                          maxValue="#{sliderView.maxlen}">
+                                    <f:attribute name="i" value="#{annotationTag.no}" />
+                                    <f:attribute name="_i" value="#{annotationTag._i}" />
+
+                                    <p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd1}"
+                                            update="growl sample" binding="#{sliderView.sliderEnd}" />
+                                </p:slider>
+
+                            </h:panelGrid>
+
+                        </h:column>
+                    </h:dataTable></td>
+                </tr>
+            </table>
+        </h:column>
+    </h:dataTable>
+</h:form>
+
+</body>
+</html>

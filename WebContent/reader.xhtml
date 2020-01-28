@@ -73,16 +73,21 @@
             <div id="selectionLog" style="display:none;"></div>
 
             <h5>Uploaded</h5>
-            <p:tree value="#{DocumentBean.root}" var="doc" selectionMode="single"
-                    selection="#{DocumentBean.singleSelectedNode}">
-                <p:treeNode icon="ui-icon-document">
-                    <h:outputText value="#{doc.name}"/>
-                </p:treeNode>
-                <p:ajax event="select"
-                        listener="#{DocumentBean.displaySelectedNode(DocumentBean.singleSelectedNode)}"
-                        update="text"/>
+            <p:scrollPanel style="height:450px;width:500px;">
 
-            </p:tree>
+            <p:tree value="#{DocumentBean.root}" var="doc" selectionMode="single"
+                        selection="#{DocumentBean.singleSelectedNode}"
+                        >
+                    <p:treeNode icon="ui-icon-document">
+                        <h:outputText value="#{doc.name}"/>
+                    </p:treeNode>
+                    <p:ajax event="select"
+                            listener="#{DocumentBean.displaySelectedNode(DocumentBean.singleSelectedNode)}"
+                            update="text"/>
+
+                </p:tree>
+            </p:scrollPanel>
+
         </h:form>
         <h:form enctype="multipart/form-data">
             Please upload only documents, that can legally be here!
