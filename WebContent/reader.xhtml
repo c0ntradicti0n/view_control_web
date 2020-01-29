@@ -72,21 +72,26 @@
                         -->
             <div id="selectionLog" style="display:none;"></div>
 
-            <h5>Uploaded</h5>
-            <p:scrollPanel style="height:450px;width:500px;">
 
-            <p:tree value="#{DocumentBean.root}" var="doc" selectionMode="single"
-                        selection="#{DocumentBean.singleSelectedNode}"
-                        >
-                    <p:treeNode icon="ui-icon-document">
-                        <h:outputText value="#{doc.name}"/>
-                    </p:treeNode>
-                    <p:ajax event="select"
-                            listener="#{DocumentBean.displaySelectedNode(DocumentBean.singleSelectedNode)}"
-                            update="text"/>
+            <p:treeTable value="#{DocumentBean.root}" var="doc"
+                         style="margin-top:0" scrollable="true" scrollHeight="50vh">
+                <p:column headerText="Uploaded documents">
+                    <p:commandLink action="#{DocumentBean.displaySelectedNode(doc.name)}"
+                    update="text">                    <h:outputText value="#{doc.name}" />
+                    </p:commandLink>
+                </p:column>
+            </p:treeTable>
 
-                </p:tree>
-            </p:scrollPanel>
+            <p:treeTable value="#{difBetBean.root}" var="doc"
+                         style="margin-top:0" scrollable="true" scrollHeight="10vh">
+                <p:column headerText="differencebetween.net-documents">
+                    <p:commandLink action="#{difBetBean.displaySelectedNode(doc.name)}"
+                                   update="text">                    <h:outputText value="#{doc.name}" />
+                    </p:commandLink>
+                </p:column>
+            </p:treeTable>
+
+
 
         </h:form>
         <h:form enctype="multipart/form-data">
@@ -96,23 +101,6 @@
                           auto="true" label="Upload new Document"/>
 
         </h:form>
-        <h:form>
-
-            <h5>From <a href="http://www.differencebetween.net">differencebetween.net</a></h5>
-
-            <p:tree value="#{difBetBean.root}" var="doc" selectionMode="single"
-                    selection="#{difBetBean.singleSelectedNode}">
-                <p:treeNode icon="ui-icon-document">
-                    <h:outputText value="#{doc.name}"/>
-                </p:treeNode>
-                <p:ajax event="select"
-                        listener="#{difBetBean.displaySelectedNode(difBetBean.singleSelectedNode)}"
-                        update="text"/>
-
-            </p:tree>
-        </h:form>
-
-
         <table>
             <tr>
                 <th><h5>Legend</h5></th>

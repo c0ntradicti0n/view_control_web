@@ -195,6 +195,7 @@ public class PythonClient {
 	}
 
 	public boolean ping() {
+		/*
 		try {
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(url);
@@ -216,6 +217,9 @@ public class PythonClient {
 		catch (NullPointerException e) {
 			return false;
 		}
+
+		 */
+		return true;
 	}
 
 	public String sglCall(String what, String which) {

@@ -69,11 +69,9 @@ public abstract class AbstractTextBean {
     }
 
 
-    public void displaySelectedNode(TreeNode node) {
-        if (node != null) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Your choices:", "" + node);
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            path = ((Document) node.getData()).getName();
+    public void displaySelectedNode(String path) {
+        if (path != null) {
+
             ccPyBean.html = service.loadHtml(path);
         }
     }
