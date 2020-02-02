@@ -1,9 +1,19 @@
 
-* {
+#text {
 	font-family: "Times New Roman", Times, serif;
     text-decoration: none;
     font-style: normal;
     font-variant: normal;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased !important;
+	-moz-font-smoothing: antialiased !important;
+	text-rendering: optimizelegibility !important;
+	letter-spacing: .03em;
+	color: #333;
+	padding: 0 0 1em 0;
+	text-align: justify;
+	font-family: 'Roboto', sans-serif;
+
 }
 
 .center {
