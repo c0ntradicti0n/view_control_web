@@ -1,32 +1,31 @@
-m = new Mark("#text_window")
+function nomatch() {
+    console.log("not matched");
+}
 
-function highlight_annotation (str)  {
-    console.log("marking " + str)
-    console.log(m.mark(str, {
+function highlight_annotation(str) {
+    m = new Mark((document.querySelector("body")))
+    console.log("marking " + str);
+    m.mark(str, {
         "element": "span",
         "className": "highlighted",
         "accuracy": "exactly",
+        "noMatch": nomatch,
         "separateWordSearch": false,
         "acrossElements": true,
-        "ignorePunctuation":  [    "`", "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")",
-                                   "-", "_", "=", "+", "{", "}", "[", "]", "\\", "|", ":", ";",
-                                   "'", "\"", ",", ".", "<", ">", "/", "?",
-                                  " "
-                             ]
-    }));
-    }
+        "ignorePunctuation": ["`", "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")",
+            "-", "_", "=", "+", "{", "}", "[", "]", "\\", "|", ":", ";", "’",
+            "'", "\"", ",", ".", "<", ">", "/", "?",
+            " "
+        ]
+    });
+}
 
 
 window.new_annotations = ""
-function mark_what_was_recently_annotated(str_liste)  {
-    try {
+
+function mark_what_was_recently_annotated(str_liste) {
         window.new_annotations = str_liste;
         let liste = str_liste.split("`~`");
         liste.forEach((element) => highlight_annotation(element));
-        }
-    catch (e) {
-        let liste = str_liste.split("`~`");
-        console.log(liste);
-        console.log("could not unpack list");
-    }
+
 }

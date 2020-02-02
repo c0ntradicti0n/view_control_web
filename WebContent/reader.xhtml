@@ -11,7 +11,7 @@
 
 <h:body>
     <h:outputScript name="javascript/selection.js" target="body"/>
-    <h:outputScript name="javascript/mark.min.js" target="body"/>
+    <h:outputScript name="javascript/mark.js" target="body"/>
     <h:outputScript name="javascript/mark_new.js" target="body"/>
 
 
@@ -77,7 +77,7 @@
                          style="margin-top:0" scrollable="true" scrollHeight="50vh">
                 <p:column headerText="Uploaded documents">
                     <p:commandLink action="#{DocumentBean.displaySelectedNode(doc.name)}"
-                    update="text">                    <h:outputText value="#{doc.name}" />
+                    update="text" oncomplete="markup()">                    <h:outputText value="#{doc.name}" />
                     </p:commandLink>
                 </p:column>
             </p:treeTable>

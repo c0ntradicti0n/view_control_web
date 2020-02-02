@@ -29,7 +29,7 @@ span.contrast3     { font-style: oblique;
 
 
 span.highlighted   { display: inline;
-                     padding: 1em 0em;
+                     padding: 0em 0em;
                      background-color: #D8D52B;
                      box-decoration-break: clone;
 }

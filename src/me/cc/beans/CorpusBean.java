@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 @ViewScoped
-@ManagedBean(name = "commandBean")
+@ManagedBean(name = "corpusBean")
 public class CorpusBean implements Serializable {
 	CcPyBean ccPyBean;
 	public ArrayList<ArrayList<Distinction>> Distinctions;

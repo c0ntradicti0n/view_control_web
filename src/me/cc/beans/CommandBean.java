@@ -72,6 +72,7 @@ public class CommandBean  implements Serializable {
 		ccPyBean.annotationREST.stdCall("zero_annotation_selection_first_corpus", ccPyBean.getSpot(), dummy_ans,
 				ccPyBean.annotationSets, ccPyBean.AnyAnswerList_Type);
 		ccPyBean.fileREST.getDoc(ccPyBean.getPath(), ccPyBean.getKind());
+		FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("text");
 		return "reader";
 
 	}
