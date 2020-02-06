@@ -32,7 +32,7 @@
 
             </p:commandLink>
             <p:tooltip id="toolTipGrow" for="annotate"
-                       value="Select some text with your mouse and teach the semi-AI to recognize it"
+                       value="Select some text with your mouse and teach our artificial intelligence to recognize it"
                        showEffect="clip" hideEffect="explode" position="left"/>
 
 
@@ -82,18 +82,16 @@
                 </p:column>
             </p:treeTable>
 
-            <p:treeTable value="#{difBetBean.root}" var="doc"
+            <p:treeTable value="#{diffBean.root}" var="doc"
                          style="margin-top:0" scrollable="true" scrollHeight="10vh">
                 <p:column headerText="differencebetween.net-documents">
-                    <p:commandLink action="#{difBetBean.displaySelectedNode(doc.name)}"
+                    <p:commandLink action="#{diffBean.displaySelectedNode(doc.name)}"
                                    update="text">                    <h:outputText value="#{doc.name}" />
                     </p:commandLink>
                 </p:column>
             </p:treeTable>
-
-
-
         </h:form>
+
         <h:form enctype="multipart/form-data">
             Please upload only documents, that can legally be here!
 

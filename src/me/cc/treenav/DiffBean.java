@@ -10,12 +10,11 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
-@ManagedBean(name = "difBetBean")
+@ManagedBean(name = "diffBean")
 @ViewScoped
-public class DifBetBean extends AbstractTextBean implements Serializable {
+public class DiffBean extends AbstractTextBean implements Serializable {
     @Override
     public void initService() {
-        service = new DifBetService();
-
+        service = new DiffService();
     }
 }

@@ -88,22 +88,12 @@ public class CcPyBean implements Serializable {
 	public void setRestActive(boolean restActive) {
 		restActive = restActive;
 	}
-
 	public boolean getAnnoActive() {
 		return annoActive;
 	}
-
 	public void setAnnoActive(boolean annoActive) {
 		annoActive = annoActive;
 	}
-
-
-
-	public TypeReference String_Type =  new TypeReference<String>() { };
-	public TypeReference AS_Type = new TypeReference<ArrayList<ArrayList<Tag>>>() { };
-	public TypeReference Int_Type = new TypeReference<Integer>()  { };
-	public TypeReference AnyAnswerList_Type = new TypeReference<ArrayList<AnyAnswer>>() { };
-	
 	ObjectMapper om = new ObjectMapper();
 	
 	public Spot spot;
@@ -130,11 +120,11 @@ public class CcPyBean implements Serializable {
 		logger.info("Annotating the following text: '" + text + "'");
 		System.out.println("Annotating the following text: '" + text + "'");
 		System.out.println(spot);
-		textlen = (Integer) annotationREST.stdCall("textlen", spot, textlen , null, Int_Type);
+		textlen = (Integer) annotationREST.stdCall("textlen", spot, textlen , null, PythonClient.Int_Type);
 		logger.info("got: " +  textlen);
-		annotationSets = (ArrayList<ArrayList<Tag>>) annotationREST.stdCall("predict", spot, annotationSets, null, AS_Type);
+		annotationSets = (ArrayList<ArrayList<Tag>>) annotationREST.stdCall("predict", spot, annotationSets, null, PythonClient.AS_Type);
 		logger.info("got: " +  Exec.nestedToString(annotationSets));
-		annotationMarkup =  annotationREST.stdCall("markup", spot, annotationMarkup, annotationSets, String_Type);
+		annotationMarkup =  annotationREST.stdCall("markup", spot, annotationMarkup, annotationSets, PythonClient.String_Type);
 		logger.info("got: " +  annotationMarkup);
 		text = getSpot().getText();
 		logger.info("updating the markup thing:" + annotationMarkup);
@@ -144,8 +134,7 @@ public class CcPyBean implements Serializable {
 
 	public void pingStatus ()  {
 		System.out.println("ping");
-		System.out.println("rest: " + restActive + " aa " + annoActive);
-		documents = new ArrayList( Arrays.asList( fileREST.getPaths()));
+		documents = new ArrayList( Arrays.asList(fileREST.getDocsPaths()));
 		if (documents.size()>0)  {
 			restActive = true;
 			annoActive = annotationREST.ping();
@@ -154,12 +143,10 @@ public class CcPyBean implements Serializable {
 		{
 			restActive = false;
 		}
-		System.out.println("rest: " + restActive + " aa " + annoActive);
-
 	}
 
 	public List<String> getDocuments() {
-		documents = new ArrayList( Arrays.asList( fileREST.getPaths()));
+		documents = new ArrayList( Arrays.asList( fileREST.getDocsPaths()));
 		return documents;
 	}
 

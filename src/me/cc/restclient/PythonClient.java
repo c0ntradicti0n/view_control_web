@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
@@ -29,88 +28,67 @@ import java.io.IOException;
 public class PythonClient {
 	static Logger logger = Logger.getLogger(PythonClient.class);
 
+	public final static TypeReference String_Type =  new TypeReference<String>() { };
+	public final static TypeReference AS_Type = new TypeReference<ArrayList<ArrayList<Tag>>>() { };
+	public final static TypeReference Int_Type = new TypeReference<Integer>()  { };
+	public final static TypeReference AnyAnswerList_Type = new TypeReference<ArrayList<AnyAnswer>>() { };
+	public final static TypeReference Topic2PathMap_Type = new TypeReference<HashMap<String, List<String>>>() { };
+	HashMap<String, List<String>> topic2PathMap_obj = new HashMap<String, List<String>>();
+
 	private String url = "";
 	public ObjectMapper objectMapper = new ObjectMapper();
+	private Client client;
+	private WebTarget target;
 
 	public PythonClient(String _url) {
 		url = _url;
+		client = ClientBuilder.newClient();
+		target = client.target(url);
 	}
 
-	public ArrayList<String> getPaths() {
-
-		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(url);
-		Response response = target.path("paths").request(MediaType.APPLICATION_JSON).get();
-		String jsonData = response.readEntity(String.class);
-		logger.info("got paths=" + jsonData);
-
-		ArrayList<String> ret = null;
-		try {
-			ret = objectMapper.readValue(jsonData,
-					TypeFactory.defaultInstance().constructCollectionType(List.class, String.class));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		logger.info(ret);
-		return ret;
+	public HashMap<String, List<String>> getDocsPaths() {
+		HashMap<String, List<String>> paths = stdCall(
+				"docs_paths",
+				null,
+				topic2PathMap_obj,
+				null ,
+				Topic2PathMap_Type );
+		return paths;
 	}
 
-	public ArrayList<String> getDifBetPaths() {
-
-		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(url);
-		Response response = target.path("difbet_paths").request(MediaType.APPLICATION_JSON).get();
-		String jsonData = response.readEntity(String.class);
-		logger.info("got paths=" + jsonData);
-
-		ArrayList<String> ret = null;
-		try {
-			ret = objectMapper.readValue(jsonData,
-					TypeFactory.defaultInstance().constructCollectionType(List.class, String.class));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		logger.info(ret);
-		return ret;
+	public HashMap<String, List<String>> getDiffPaths() {
+		HashMap<String, List<String>> paths = stdCall(
+				"diff_paths",
+				null,
+				topic2PathMap_obj,
+				null ,
+				Topic2PathMap_Type );
+		return paths;
 	}
 
 
 	public String getLogs(String which) {
-
-		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(url);
 		Response response = target.queryParam("which", which).path("get_logs").request(MediaType.APPLICATION_JSON)
 				.get();
 		String jsonString = response.readEntity(String.class);
 		logger.info("got log for " + which);
 		return jsonString;
-
 	}
 
-
-
 	public String getHTML(String path) {
-		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(url);
 		Response response = target.queryParam("path", path).path("html").request(MediaType.APPLICATION_JSON).get();
 		String jsonString = response.readEntity(String.class);
 		logger.info(jsonString);
-
 		int bStart = jsonString.indexOf("<body>") + 6;
 		int bEnd = jsonString.lastIndexOf("</body>");
 		jsonString = jsonString.substring(bStart, bEnd);
 		return jsonString;
 	}
 
-
 	public String getDoc(String path, String restPath) {
-
-		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(url);
 		Response response = target.queryParam("path", path).path(restPath).request(MediaType.APPLICATION_JSON).get();
 		String jsonString = response.readEntity(String.class);
 		logger.info(jsonString);
-
 		int bStart = jsonString.indexOf("<body>") + 6;
 		int bEnd = jsonString.lastIndexOf("</body>");
 		jsonString = jsonString.substring(bStart, bEnd);
@@ -119,14 +97,10 @@ public class PythonClient {
 
 	public void sendTextFile(byte[] bs, String filename) {
 		logger.info(bs.toString());
-		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(url);
-
 		Response response = target.path("docload").queryParam("filename", filename).request(MediaType.APPLICATION_JSON)
 				.post(Entity.json(bs));
 		String jsonString = response.readEntity(String.class);
 		logger.info(jsonString);
-
 		return;
 	}
 
@@ -138,7 +112,6 @@ public class PythonClient {
 		String jsonString = response.readEntity(String.class);
 		logger.info(jsonString);
 		return jsonString;
-
 	}
 
 	public String getMarkup(String text, ArrayList<ArrayList<Tag>> arrayList) {
@@ -157,6 +130,7 @@ public class PythonClient {
 
 	@SuppressWarnings("unchecked")
 	public <_T> _T stdCall(String command, Spot spot, _T SampleTargetTypeObject, Object data, TypeReference type) {
+
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(url);
 

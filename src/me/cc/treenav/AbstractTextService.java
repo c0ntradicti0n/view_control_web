@@ -6,10 +6,12 @@ import org.primefaces.model.CheckboxTreeNode;
 import org.primefaces.model.TreeNode;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractTextService implements Serializable {
     PythonClient fileREST = new PythonClient( "http://127.0.0.1:5555");
@@ -24,23 +26,25 @@ public abstract class AbstractTextService implements Serializable {
     }
 
     public void setPathKind(String path, String kind) {
+        System.out.println(path + " " + kind);
         init();
-        System.out.println(path + " " +kind);
         ccPyBean.setPath(path);
         ccPyBean.setKind(kind);
     }
 
     public TreeNode createCheckboxDocuments() {
+        CheckboxTreeNode key;
         TreeNode root = new CheckboxTreeNode(new Document("Files"), null);
-
-        ArrayList<String> paths = getPaths();
-        for (String p:paths)  {
-            new CheckboxTreeNode(new Document(p), root);
+        HashMap<String, List<String>> topic_paths = getPaths();
+        for (Map.Entry<String, List<String>> entry: topic_paths.entrySet()) {
+            key = new CheckboxTreeNode(new Document(entry.getKey()), root);
+            for (String path : entry.getValue()) {
+                new CheckboxTreeNode(new Document(path), key);
+            }
         }
-
         return root;
     }
 
-    abstract ArrayList<String> getPaths();
+    abstract HashMap<String, List<String>> getPaths();
     abstract String loadHtml(String path);
 }
