@@ -11,7 +11,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>fly</url-pattern>
+		<url-pattern>/fly/*</url-pattern>
 	</servlet-mapping>
 	<filter>
 		<filter-name>PrimeFaces FileUpload Filter</filter-name>
