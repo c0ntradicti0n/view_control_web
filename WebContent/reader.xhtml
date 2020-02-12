@@ -25,6 +25,14 @@
         <h:form id="xorm">
             <p:remoteCommand name="rc" action="#{ccPyBean.updateAnnotation}"/>
 
+            <p:commandLink id="welcome" action="index">
+                <h:graphicImage name="images/welcome.png" ajax="false"
+                                styleClass="sm_img_button"/>
+            </p:commandLink>
+            <p:tooltip id="toolTipGrowWelc" for="welcome"
+                       value="Go back to welcome page"
+                       showEffect="clip" hideEffect="explode" position="left"/>
+
             <p:commandLink id="annotate"
                            onclick="rc([{'name':'selectedText','value':getSelectionText()}]);">
                 <h:graphicImage name="images/annotate.png" ajax="false"
@@ -42,13 +50,15 @@
 
             </p:commandLink>
 
-            <p:commandLink id="welcome" action="index">
-                <h:graphicImage name="images/welcome.png" ajax="false"
+            <p:commandLink id="corpus" action="corpus">
+                <h:graphicImage name="images/corpus.png" ajax="false"
                                 styleClass="sm_img_button"/>
             </p:commandLink>
-            <p:tooltip id="toolTipGrowWelc" for="welcome"
-                       value="Go back to welcome page"
+            <p:tooltip id="corpustt" for="corpus"
+                       value="Inspect corpus"
                        showEffect="clip" hideEffect="explode" position="left"/>
+
+
 
             <p:commandLink id="login" action="login" rendered="#{!ccPyBean.loggedIn}">
                 <h:graphicImage name="images/desperate.png" ajax="false"

@@ -74,6 +74,7 @@ public class CcPyBean implements Serializable {
 	private boolean restActive = false;
 	private boolean annoActive = false;
 	private boolean trainActive = false;
+
 	public static PythonClient annotationREST = new PythonClient("http://127.0.0.1:5000");
 	public PythonClient fileREST  = new PythonClient( "http://127.0.0.1:5555");
 	public PythonClient scienceREST  = new PythonClient( "http://127.0.0.1:5556");

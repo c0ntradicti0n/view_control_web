@@ -62,13 +62,13 @@ public class CommandBean  implements Serializable {
 
 	public String scienceCoords() {
 		String which = "this";
-		ccPyBean.setLogs(ccPyBean.annotationREST.sglCall("science_coords", which));
+		ccPyBean.setLogs(ccPyBean.scienceREST.sglCall("science_coords", which));
 		return "trainer";
 	}
 
 	public String scienceVideo() {
 		String which = "this";
-		ccPyBean.setLogs(ccPyBean.annotationREST.sglCall("science_video", which));
+		ccPyBean.setLogs(ccPyBean.scienceREST.sglCall("science_video", which));
 		return "trainer";
 	}
 

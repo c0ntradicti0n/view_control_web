@@ -87,12 +87,17 @@ public class PythonClient {
 
 	public String getDoc(String path, String restPath) {
 		Response response = target.queryParam("path", path).path(restPath).request(MediaType.APPLICATION_JSON).get();
-		String jsonString = response.readEntity(String.class);
-		logger.info(jsonString);
-		int bStart = jsonString.indexOf("<body>") + 6;
-		int bEnd = jsonString.lastIndexOf("</body>");
-		jsonString = jsonString.substring(bStart, bEnd);
-		return jsonString;
+		String result = response.readEntity(String.class);
+		logger.info(result);
+		int bStart = result.indexOf("<body>") + 6;
+		int bEnd = result.lastIndexOf("</body>");
+		try {
+			result = result.substring(bStart, bEnd);
+		}
+		catch (StringIndexOutOfBoundsException e) {
+			logger.info("could not retrieve " + path);
+		}
+		return result;
 	}
 
 	public void sendTextFile(byte[] bs, String filename) {

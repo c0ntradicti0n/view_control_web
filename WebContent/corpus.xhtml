@@ -10,7 +10,9 @@
 </h:head>
 <body>
 <p:growl id="growl" showDetail="true" />
-
+<h:outputStylesheet name="css/format.css" />
+<h:outputStylesheet name="css/diff_markup.css" />
+<h:outputStylesheet name="css/nav.css" />
 
 <h:form id="sliders">
     <h:dataTable value="#{ccPyBean.annotationSets}" var="annotationTags">
@@ -60,36 +62,7 @@
 
                             </h3>
 
-                            <h:panelGrid columns="1">
-                                <p:inputText id="start" value="#{annotationTag.start}"
-                                             type="hidden" />
-                                <p:inputText id="end" value="#{annotationTag.end}"
-                                             type="hidden" />
-                                <p:inputText id="index" value="#{annotationTag.no}"
-                                             type="hidden" />
-                                <p:inputText id="kind" value="#{annotationTag.kind}"
-                                             type="hidden" />
 
-                                <p:slider for="start" style="width:90vw"
-                                          minValue="#{sliderView.minlen}"
-                                          maxValue="#{sliderView.maxlen}">
-                                    <f:attribute name="i" value="#{annotationTag.no}" />
-                                    <f:attribute name="_i" value="#{annotationTag._i}" />
-
-                                    <p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
-                                            update="growl sample" binding="#{sliderView.sliderStart}" />
-                                </p:slider>
-                                <p:slider for="end" style="width:90vw"
-                                          minValue="#{sliderView.minlen}"
-                                          maxValue="#{sliderView.maxlen}">
-                                    <f:attribute name="i" value="#{annotationTag.no}" />
-                                    <f:attribute name="_i" value="#{annotationTag._i}" />
-
-                                    <p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd1}"
-                                            update="growl sample" binding="#{sliderView.sliderEnd}" />
-                                </p:slider>
-
-                            </h:panelGrid>
 
                         </h:column>
                     </h:dataTable></td>
