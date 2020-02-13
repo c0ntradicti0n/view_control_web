@@ -29,7 +29,6 @@ public class CommandBean  implements Serializable {
 		return "trainer";
 	}
 
-
 	public String mixCorpus() {
 		String which = "this";
 		ccPyBean.setLogs(ccPyBean.annotationREST.sglCall("mix_corpus", which));
