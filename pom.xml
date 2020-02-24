@@ -1,150 +1,164 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>corpuscow</groupId>
-	<artifactId>corpuscow</artifactId>
-	<version>1</version>
-	<packaging>war</packaging>
-	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>corpuscow</groupId>
+    <artifactId>corpuscow</artifactId>
+    <version>1</version>
+    <packaging>war</packaging>
+    <repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
 
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.1</version>
-				<configuration>
-					<warSourceDirectory>WebContent</warSourceDirectory>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-	<dependencies>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-api -->
-		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-api</artifactId>
-			<version>2.2.20</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-impl -->
-		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-impl</artifactId>
-			<version>2.2.20</version>
-		</dependency>
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>7.0</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.2.1</version> <!-- makesure correct version here -->
-		</dependency>
-		<!-- ######################## REST ###################################### -->
-		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.1</version>
-		</dependency>
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
 
-		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet</artifactId>
-			<version>2.26</version>
-		</dependency>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                    <warSourceDirectory>WebContent</warSourceDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-api -->
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>2.2.20</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-impl -->
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>2.2.20</version>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces.extensions</groupId>
+            <artifactId>all-themes</artifactId>
+            <version>1.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.1</version> <!-- makesure correct version here -->
+        </dependency>
+        <!-- ######################## REST ###################################### -->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>2.26</version>
+        </dependency>
 
 
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>2.26</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.inject</groupId>
-			<artifactId>jersey-hk2</artifactId>
-			<version>2.26</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>2.26</version>
-		</dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>2.26</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>2.26</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>2.26</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-jdk-http</artifactId>
-			<version>2.26</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.bundles.repackaged</groupId>
-			<artifactId>jersey-guava</artifactId>
-			<version>2.6</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>2.1</version>
-		</dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-jdk-http</artifactId>
+            <version>2.26</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.bundles.repackaged</groupId>
+            <artifactId>jersey-guava</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.1</version>
+        </dependency>
 
-		<!-- ######################## json #################################### -->
-		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.5.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/net.sf.py4j/py4j -->
-		<dependency>
-			<groupId>net.sf.py4j</groupId>
-			<artifactId>py4j</artifactId>
-			<version>0.10.8.1</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.primefaces.extensions/primefaces-extensions -->
-		<dependency>
-			<groupId>org.primefaces.extensions</groupId>
-			<artifactId>primefaces-extensions</artifactId>
-			<version>7.0.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.web</groupId>
-			<artifactId>el-impl</artifactId>
-			<version>2.2</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>4.0.1</version>
-			<scope>provided</scope>
-		</dependency>
+        <!-- ######################## json #################################### -->
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.5.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sf.py4j/py4j -->
+        <dependency>
+            <groupId>net.sf.py4j</groupId>
+            <artifactId>py4j</artifactId>
+            <version>0.10.8.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.primefaces.extensions/primefaces-extensions -->
+        <dependency>
+            <groupId>org.primefaces.extensions</groupId>
+            <artifactId>primefaces-extensions</artifactId>
+            <version>7.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>el-impl</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 </project>

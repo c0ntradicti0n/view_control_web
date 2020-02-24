@@ -1,9 +1,6 @@
 package me.cc.beans;
 
-import me.cc.model.AnyAnswer;
 import me.cc.model.Distinction;
-import me.cc.model.Tag;
-import me.cc.model.annotationTagsFactory;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -15,13 +12,13 @@ import java.util.ArrayList;
 @ViewScoped
 @ManagedBean(name = "corpusBean")
 public class CorpusBean implements Serializable {
-	CcPyBean ccPyBean;
+	MainControlBean mainControlBean;
 	public ArrayList<ArrayList<Distinction>> Distinctions;
 
 	@PostConstruct
 	public void init() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ccPyBean = (CcPyBean) facesContext.getApplication().createValueBinding("#{ccPyBean}").getValue(facesContext);
+		mainControlBean = (MainControlBean) facesContext.getApplication().createValueBinding("#{mainControlBean}").getValue(facesContext);
 	}
 
 

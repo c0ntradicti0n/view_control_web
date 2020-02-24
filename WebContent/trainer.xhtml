@@ -11,7 +11,7 @@
 
 <h:body>
 
-	<h:outputStylesheet name="css/format.css" />
+	<h:outputStylesheet name="css/reformat.css" />
 	<h:outputStylesheet name="css/diff_markup.css" />
 	<h:outputStylesheet name="css/nav.css" />
 	<h:outputStylesheet name="css/clean.css" />
@@ -38,19 +38,19 @@
 							name="images/ping_on.png" styleClass="sm_img_status" /></td>
 
 					<td><h:graphicImage id="status21"
-							rendered="#{ccPyBean.restActive==false}"
+							rendered="#{mainControlBean.restActive==false}"
 							name="images/ping_off.png" styleClass="sm_img_status" /> <h:graphicImage
-							id="status22" rendered="#{ccPyBean.restActive==true}"
+							id="status22" rendered="#{mainControlBean.restActive==true}"
 							name="images/ping_on.png" styleClass="sm_img_status" /></td>
 					<td><h:graphicImage id="status31"
-							rendered="#{ccPyBean.annoActive==false}"
+							rendered="#{mainControlBean.annoActive==false}"
 							name="images/ping_off.png" styleClass="sm_img_status" /> <h:graphicImage
-							id="status32" rendered="#{ccPyBean.annoActive==true}"
+							id="status32" rendered="#{mainControlBean.annoActive==true}"
 							name="images/ping_on.png" styleClass="sm_img_status" /></td>
 					<td><h:graphicImage id="status41"
-							rendered="#{ccPyBean.trainActive==false}"
+							rendered="#{mainControlBean.trainActive==false}"
 							name="images/ping_off.png" styleClass="sm_img_status" /> <h:graphicImage
-							id="status42" rendered="#{ccPyBean.trainActive==true}"
+							id="status42" rendered="#{mainControlBean.trainActive==true}"
 							name="images/ping_on.png" styleClass="sm_img_status" /></td>
 
 				</tr>

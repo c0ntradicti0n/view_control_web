@@ -1,15 +1,12 @@
 package me.cc.treenav;
 
-import me.cc.beans.CcPyBean;
-import me.cc.model.AnyAnswer;
-import me.cc.restclient.PythonClient;
+import me.cc.beans.MainControlBean;
 import org.apache.log4j.Logger;
 import org.primefaces.model.TreeNode;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import java.util.ArrayList;
 
 public abstract class AbstractTextBean {
     static Logger logger = Logger.getLogger(DocumentService.class);
@@ -21,15 +18,14 @@ public abstract class AbstractTextBean {
     public  TreeNode singleSelectedNode;
     public AbstractTextService service;
 
-    CcPyBean ccPyBean;
+    MainControlBean mainControlBean;
 
     @PostConstruct
     public void init() {
         initService();
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        ccPyBean = (CcPyBean) facesContext.getApplication().createValueBinding("#{ccPyBean}").getValue(facesContext);
+        mainControlBean = (MainControlBean) facesContext.getApplication().createValueBinding("#{mainControlBean}").getValue(facesContext);
         root = service.createCheckboxDocuments();
-
     }
 
     abstract public void initService();
@@ -66,7 +62,7 @@ public abstract class AbstractTextBean {
     public void displaySelectedNode(String path) {
         if (path != null) {
             try {
-                ccPyBean.html = service.loadHtml(path);
+                mainControlBean.html = service.loadHtml(path);
             }
             catch (StringIndexOutOfBoundsException e) {
                 logger.info ("no document to show  for " + path);

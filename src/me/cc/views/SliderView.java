@@ -1,23 +1,17 @@
 package me.cc.views;
 
-import java.util.ArrayList;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
-import javax.faces.view.ViewScoped;
 
 import org.apache.log4j.Logger;
 import org.primefaces.component.slider.Slider;
 import org.primefaces.event.SlideEndEvent;
 
-import me.cc.beans.CcPyBean;
-import me.cc.model.Tag;
+import me.cc.beans.MainControlBean;
 import me.cc.restclient.PythonClient;
 /* */
 @RequestScoped
@@ -43,15 +37,15 @@ public class SliderView {
 	private Slider sliderStart;
 	private Slider sliderEnd;
 	
-	CcPyBean ccPyBean;
+	MainControlBean mainControlBean;
 	
 	@PostConstruct
 	public void init()  {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ccPyBean
-		    = (CcPyBean)facesContext.getApplication()
-		      .createValueBinding("#{ccPyBean}").getValue(facesContext);
-		maxlen = ccPyBean.textlen;
+		mainControlBean
+		    = (MainControlBean)facesContext.getApplication()
+		      .createValueBinding("#{mainControlBean}").getValue(facesContext);
+		maxlen = mainControlBean.textlen;
 	}
 
 	public int getNumber0() {
@@ -60,7 +54,7 @@ public class SliderView {
 
 	public void setNumber0(int number0) {
 		this.number0 = (int) number0;
-		ccPyBean.getAnnotationSets().get(no).get(_i).setStart(number0);
+		mainControlBean.getAnnotationSets().get(no).get(_i).setStart(number0);
 
 	}
 
@@ -70,7 +64,7 @@ public class SliderView {
 
 	public void setNumber1(int number1) {
 		this.number1 = (int) number1;
-		ccPyBean.getAnnotationSets().get(no).get(_i).setEnd(number1);
+		mainControlBean.getAnnotationSets().get(no).get(_i).setEnd(number1);
 	}
 
 	public int getNo() {
@@ -96,14 +90,14 @@ public class SliderView {
 		logger.info("updating slider in set "+ no +" number " + _i);
 
 		setNumber0((int) event.getValue());
-		System.out.println("second before " + n + " after " + number0 + ccPyBean.getAnnotationSets());
+		System.out.println("second before " + n + " after " + number0 + mainControlBean.getAnnotationSets());
 
 		FacesMessage message = new FacesMessage("Slide Ended", "Before n=" + n + " after " + event.getValue());
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		
-		String markup = ccPyBean.annotationREST.stdCall("markup", ccPyBean.spot, ccPyBean.annotationMarkup, ccPyBean.annotationSets, PythonClient.String_Type);
+		String markup = mainControlBean.annotationREST.stdCall("markup", mainControlBean.spot, mainControlBean.annotationMarkup, mainControlBean.annotationSets, PythonClient.String_Type);
 		System.out.println("'" + markup + "'");
-		ccPyBean.setAnnotationMarkup(markup);
+		mainControlBean.setAnnotationMarkup(markup);
 	}
 
 	public void onInputChanged1(ValueChangeEvent event) {
@@ -122,19 +116,19 @@ public class SliderView {
 		logger.info("updating slider in set "+ no +" number " + _i);
 
 		setNumber1((int) event.getValue());
-		System.out.println("second before " + n + " after " + number1+ ccPyBean.getAnnotationSets());
+		System.out.println("second before " + n + " after " + number1+ mainControlBean.getAnnotationSets());
 
 		FacesMessage message = new FacesMessage("Slide Ended", "Before n=" + n + " after " + event.getValue());
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		
-		String markup = ccPyBean.annotationREST.stdCall(
+		String markup = mainControlBean.annotationREST.stdCall(
 				"markup",
-				ccPyBean.spot,
-				ccPyBean.annotationMarkup,
-				ccPyBean.annotationSets,
+				mainControlBean.spot,
+				mainControlBean.annotationMarkup,
+				mainControlBean.annotationSets,
 				PythonClient.String_Type);
 		System.out.println("'" + markup + "'");
-		ccPyBean.setAnnotationMarkup(markup);
+		mainControlBean.setAnnotationMarkup(markup);
 	}
 
 	public Slider getSliderStart() {
@@ -164,19 +158,19 @@ public class SliderView {
 		logger.info("updating slider in set "+ no +" number " + _i);
 
 		setNumber1((int) event.getValue());
-		System.out.println("second before " + n + " after " + number1+ ccPyBean.getAnnotationSets());
+		System.out.println("second before " + n + " after " + number1+ mainControlBean.getAnnotationSets());
 
 		FacesMessage message = new FacesMessage("Slide Ended", "Before n=" + n + " after " + event.getValue());
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		
-		String markup = ccPyBean.annotationREST.stdCall(
+		String markup = mainControlBean.annotationREST.stdCall(
 				"markup",
-				ccPyBean.spot,
-				ccPyBean.annotationMarkup,
-				ccPyBean.annotationSets,
+				mainControlBean.spot,
+				mainControlBean.annotationMarkup,
+				mainControlBean.annotationSets,
 				PythonClient.String_Type);
 		System.out.println("'" + markup + "'");
-		ccPyBean.setAnnotationMarkup(markup);
+		mainControlBean.setAnnotationMarkup(markup);
 	}
 
 	public int getMinlen() {

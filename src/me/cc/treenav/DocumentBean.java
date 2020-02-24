@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.model.TreeNode;
 
-@ManagedBean(name = "DocumentBean")
+@ManagedBean(name = "documentBean")
 @ViewScoped
 public class DocumentBean extends AbstractTextBean implements Serializable {
     @Override

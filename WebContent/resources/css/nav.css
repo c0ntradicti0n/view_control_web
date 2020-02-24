@@ -1,95 +1,98 @@
-
-#text {
-	font-family: "Times New Roman", Times, serif;
-    text-decoration: none;
-    font-style: normal;
-    font-variant: normal;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-font-smoothing: antialiased !important;
-	-moz-font-smoothing: antialiased !important;
-	text-rendering: optimizelegibility !important;
-	letter-spacing: .03em;
-	color: #333;
-	padding: 0 0 1em 0;
-	text-align: justify;
-	font-family: 'Roboto', sans-serif;
-
+* {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-font-smoothing: antialiased !important;
+    color: #333;
 }
 
 .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
 #controls {
-	position: fixed;
-	clear: both;
-	float: right;
-	width: 30%;
-	top: 0;
-	right: 0;
+    position: fixed;
+    clear: both;
+    float: right;
+    width: 30%;
+    top: 0;
+    right: 0;
 }
 
 .ui-tree {
-	width: 100%;
-	position: relative;
+    width: 100%;
+    position: relative;
 }
 
 .ui-tree .ui-tree-container {
-	margin: 0;
-	padding: 1px;
-	white-space: nowrap;
-	overflow: auto;
+    margin: 0;
+    padding: 1px;
+    white-space: nowrap;
+    overflow: auto;
 }
 
-.ui-widget,
-.ui-widget .ui-widget {
+.ui-widget {
     font-size: 12px !important;
 }
 
+.ui-fileupload-content {
+    padding: 0px !important;
+}
+
+.ui-corner-bottom {
+    display: none !important;
+}
+
 .img_button {
-	max-height: 150px;
-	max-width: 200px;
-	width: 120px;
-	height: 120px;
+    max-height: 5%;
+    max-width: 5%;
+    width: 5%;
+    height: 5%;
 }
 
 .lg_img_button {
-	max-height: 140px;
-	max-width: 140px;
-	width: 140px;
-	height: 140px;
+    max-height: 7%;
+    max-width: 7%;
+    width: 7%;
+    height: 7%;
 }
 
 .md_img_button {
-	max-height: 70px;
-	max-width: 70px;
-	width: 70px;
-	height: 70px;
+    max-height: 4%;
+    max-width: 4%;
+    width: 4%;
+    height: 4%;
 }
 
 .sm_img_button {
-	max-height: 150px;
-	max-width: 200px;
-	width: 30px;
-	height: 30px;
+	max-height: 1.5vh;
+	max-width: 1.5vh;
+	width: 1.5vh;
+	height: 1.5%vh;
 }
 
 .sm_img_status {
-	max-height: 70px;
-	max-width: 70px;
-	width: 40px;
-	height: 40px;
+	max-height: 10vh;
+	max-width: 10vh;
+	width: 10vh;
+	height: 10vh;
+}
+
+.mc_img_status {
+    max-height: 10vh;
+    max-width: 10vh;
+    width: 10vh;
+    height: 10vh;
 }
 
 #text_window {
-	width: 70%;
-	margin: 0;
+    width: 70%;
+    margin: 0;
 }
 
 h5 {
-	padding: 1px;
-	margin: 1px
+    padding: 1px;
+    margin: 1px
 }

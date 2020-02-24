@@ -1,11 +1,8 @@
 package me.cc.beans;
 
 import org.apache.log4j.Logger;
-import org.primefaces.model.TreeNode;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,33 +10,28 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import me.cc.model.AnyAnswer;
 import me.cc.model.Spot;
 import me.cc.model.Tag;
 import me.cc.model.annotationTagsFactory;
 import me.cc.restclient.PythonClient;
 import me.cc.run.Exec;
-import me.cc.treenav.Document;
 
 @SessionScoped
-@ManagedBean(name = "ccPyBean")
-public class CcPyBean implements Serializable {
+@ManagedBean(name = "mainControlBean")
+public class MainControlBean implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	static Logger logger = Logger.getLogger(CcPyBean.class);
+	static Logger logger = Logger.getLogger(MainControlBean.class);
 
 	public boolean isLoggedIn() {
 		return loggedIn;
@@ -70,6 +62,7 @@ public class CcPyBean implements Serializable {
 	private String kind = ""; // of which kind of ressource
 	public String html = ""; // what is the content
 	private String inputTextAreaSelectedText;
+	public Spot spot;
 
 	private boolean restActive = false;
 	private boolean annoActive = false;
@@ -78,14 +71,9 @@ public class CcPyBean implements Serializable {
 	public static PythonClient annotationREST = new PythonClient("http://127.0.0.1:5000");
 	public PythonClient fileREST  = new PythonClient( "http://127.0.0.1:5555");
 	public PythonClient scienceREST  = new PythonClient( "http://127.0.0.1:5556");
-
-
-
-
 	public boolean getRestActive() {
 		return restActive;
 	}
-
 	public void setRestActive(boolean restActive) {
 		restActive = restActive;
 	}
@@ -96,12 +84,10 @@ public class CcPyBean implements Serializable {
 		annoActive = annoActive;
 	}
 	ObjectMapper om = new ObjectMapper();
-	
-	public Spot spot;
-
 	public String logs;
 	public String logs_which;
-	
+
+
 	public String updateAnnotation() {
 		pingStatus ();
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();

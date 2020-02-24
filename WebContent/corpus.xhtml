@@ -10,12 +10,12 @@
 </h:head>
 <body>
 <p:growl id="growl" showDetail="true" />
-<h:outputStylesheet name="css/format.css" />
+<h:outputStylesheet name="css/reformat.css" />
 <h:outputStylesheet name="css/diff_markup.css" />
 <h:outputStylesheet name="css/nav.css" />
 
 <h:form id="sliders">
-    <h:dataTable value="#{ccPyBean.annotationSets}" var="annotationTags">
+    <h:dataTable value="#{mainControlBean.annotationSets}" var="annotationTags">
         <h:column>
             <p:separator style="width:100vw" />
             <table class="sliders">
@@ -24,12 +24,12 @@
                         <h4>
                             Annotation set no.
                             <h:outputText
-                                    value="#{ccPyBean.annotationSets.indexOf(annotationTags)}" />
-                        </h4> <h:dataTable value="#{ccPyBean.possibleTags}" var="possibleTag">
+                                    value="#{mainControlBean.annotationSets.indexOf(annotationTags)}" />
+                        </h4> <h:dataTable value="#{mainControlBean.possibleTags}" var="possibleTag">
                         <h:column>
 
                             <p:commandLink
-                                    action="#{commandBean.more_kind(possibleTag, ccPyBean.annotationSets.indexOf(annotationTags))}"
+                                    action="#{commandBean.more_kind(possibleTag, mainControlBean.annotationSets.indexOf(annotationTags))}"
                                     update="sliders">
                                 <h:graphicImage name="images/more.jpg"
                                                 styleClass="sm_img_button" />

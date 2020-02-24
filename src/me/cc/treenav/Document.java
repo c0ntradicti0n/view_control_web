@@ -10,6 +10,7 @@ public class Document implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
+	private boolean isTopic = false;
     
     public Document(String name) {
     	this.name = name;
@@ -27,4 +28,12 @@ public class Document implements Serializable {
     public String toString() {
         return name;
     }
-}  
+
+    public boolean getIsTopic() {
+        return isTopic;
+    }
+
+    public void setTopic(boolean topic) {
+        isTopic = topic;
+    }
+}

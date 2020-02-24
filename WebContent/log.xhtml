@@ -11,7 +11,7 @@
 
 <h:body>
 
-	<h:outputStylesheet name="css/format.css" />
+	<h:outputStylesheet name="css/reformat.css" />
 	<h:outputStylesheet name="css/diff_markup.css" />
 	<h:outputStylesheet name="css/nav.css" />
 	<h:outputStylesheet name="css/clean.css" />
@@ -19,9 +19,9 @@
 
 	<h:form>
 		<h:panelGroup id="active">
-			<h1>logging  <h:outputText id="which" value="#{ccPyBean.logs_which}" /></h1>
+			<h1>logging  <h:outputText id="which" value="#{mainControlBean.logs_which}" /></h1>
 			<pre>
-			<h:outputText id="txt" value="#{ccPyBean.logs}"  styleClass="log"  />
+			<h:outputText id="txt" value="#{mainControlBean.logs}" styleClass="log"  />
 			</pre>
 		</h:panelGroup>
 	</h:form>

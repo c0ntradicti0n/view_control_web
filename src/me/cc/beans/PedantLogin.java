@@ -1,6 +1,5 @@
 package me.cc.beans;
 
-import me.cc.model.AnyAnswer;
 import org.apache.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
@@ -12,7 +11,6 @@ import javax.faces.context.FacesContext;
 
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Properties;
 
 @SessionScoped
@@ -24,7 +22,7 @@ public class PedantLogin implements Serializable {
     private String password;
     private String _user;
     private String _password;
-    CcPyBean ccPyBean;
+    MainControlBean mainControlBean;
     private String admin_user;
     private String admin_password;
 
@@ -32,7 +30,7 @@ public class PedantLogin implements Serializable {
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        ccPyBean = (CcPyBean) facesContext.getApplication().createValueBinding("#{ccPyBean}").getValue(facesContext);
+        mainControlBean = (MainControlBean) facesContext.getApplication().createValueBinding("#{mainControlBean}").getValue(facesContext);
         read_config();
 
     }
@@ -76,21 +74,21 @@ public class PedantLogin implements Serializable {
         System.out.println(admin_user + " " + admin_password);
         if(user != null && user.equals(admin_user) && password != null && password.equals(admin_password)) {
 
-            ccPyBean.setLoggedIn(true);
+            mainControlBean.setLoggedIn(true);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", user);
         } else {
-            ccPyBean.setLoggedIn(false);
+            mainControlBean.setLoggedIn(false);
             message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Invalid credentials");
         }
 
         FacesContext.getCurrentInstance().addMessage(null, message);
-        PrimeFaces.current().ajax().addCallbackParam("loggedIn", ccPyBean.isLoggedIn());
+        PrimeFaces.current().ajax().addCallbackParam("loggedIn", mainControlBean.isLoggedIn());
 
         return "reader";
     }
 
     public String logout() {
-        ccPyBean.setLoggedIn(false);
+        mainControlBean.setLoggedIn(false);
 
         return "reader";
     }
