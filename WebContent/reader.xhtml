@@ -134,12 +134,13 @@
     </div>
 
     <h:panelGroup id="text" rendered="#{mainControlBean.path!=null}" onload="">
-        <h:outputText value="document/#{mainControlBean.path}" /> <br />
-        <h:outputText value="document/#{mainControlBean.path.replace('.', '_').replace(' ', '_').replace('-', '_')}json.css" />
-        <h:outputStylesheet name="document_css/#{mainControlBean.path.replace('.', '_').replace(' ', '_').replace('-', '_')}json.css"/>
+        <!-- <h:outputText value="document/#{mainControlBean.path.replace('.', '_').replace(' ', '_').replace('-', '_')}" /> <br />
+        <h:outputText value="document/#{mainControlBean.path.replace('.', '_').replace(' ', '_').replace('-', '_')}_json.css" /> -->
+        <h:outputStylesheet
+                name="document_css/#{mainControlBean.path.replace('.', '_').replace(' ', '_').replace('-', '_')}_json.css"/>
         <h:panelGroup
                 id="text_window"
-                pt:data-include="document/#{mainControlBean.path}"
+                pt:data-include="document/#{mainControlBean.path.replace('.', '_').replace(' ', '_').replace('-', '_')}"
                 layout="block"
                 style="display:block">
             <!-- <iframe id="imagepgframe" name="imagepgframe" frameborder="0"
