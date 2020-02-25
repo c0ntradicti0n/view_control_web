@@ -17,93 +17,69 @@
 	<h:outputStylesheet name="css/clean.css" />
 
 	<a href="reader.xhtml">Go to the Science reader</a>
-
+    <br/>
 	<h:form>
 		<h:panelGroup id="active">
-			<table style="width: 100%" class="sliders">
+			<table style="width: 100%">
 
-				<tr class="sliders">
+				<tr>
 					<th>which prog</th>
-					<th>JavaFace</th>
+					<th>JSF</th>
 					<th>CorpusCookApp</th>
 					<th>CorpusCook</th>
 					<th>Distinctiopus</th>
 					<th>ScienceMap</th>
 					<th>ScienceVideo</th>
-
 				</tr>
-				<tr class="sliders">
-					<td>active?</td>
-					<td><h:graphicImage id="status1" rendered="true"
-							name="images/ping_on.png" styleClass="sm_img_status" /></td>
-
-					<td><h:graphicImage id="status21"
-							rendered="#{mainControlBean.restActive==false}"
-							name="images/ping_off.png" styleClass="sm_img_status" /> <h:graphicImage
-							id="status22" rendered="#{mainControlBean.restActive==true}"
-							name="images/ping_on.png" styleClass="sm_img_status" /></td>
-					<td><h:graphicImage id="status31"
-							rendered="#{mainControlBean.annoActive==false}"
-							name="images/ping_off.png" styleClass="sm_img_status" /> <h:graphicImage
-							id="status32" rendered="#{mainControlBean.annoActive==true}"
-							name="images/ping_on.png" styleClass="sm_img_status" /></td>
-					<td><h:graphicImage id="status41"
-							rendered="#{mainControlBean.trainActive==false}"
-							name="images/ping_off.png" styleClass="sm_img_status" /> <h:graphicImage
-							id="status42" rendered="#{mainControlBean.trainActive==true}"
-							name="images/ping_on.png" styleClass="sm_img_status" /></td>
-
-				</tr>
-				<tr class="sliders">
+				<tr>
 					<td>commands</td>
 					<td></td>
-
 					<td><p:commandLink id="rc" action="#{commandBean.compAll}">
-							<h:graphicImage name="images/redo_all.png" ajax="false"
-								styleClass="img_button" />
+							<h:graphicImage name="images/002-education.svg" ajax="false"
+								styleClass="lg_img_button" />
 						</p:commandLink> <p:tooltip id="toolTipGsdrow9" for="rc"
 							value="Start annotation service to recompute all documents"
 							showEffect="clip" hideEffect="explode" position="left" /></td>
 					<td><p:commandLink id="rc14" action="#{commandBean.mixCorpus}">
-							<h:graphicImage name="images/sorts.png" ajax="false"
-								styleClass="img_button" />
+							<h:graphicImage name="images/014-education.svg" ajax="false"
+								styleClass="lg_img_button" />
 						</p:commandLink> <p:tooltip id="toolTipGrvfow124" for="rc14"
 							value="Mix corpus commits to train/test/valid" showEffect="clip"
 							hideEffect="explode" position="left" /> <br /> <p:commandLink
 							id="rc13" action="#{commandBean.migrateCorpus}">
-							<h:graphicImage name="images/migrate.png" ajax="false"
-								styleClass="img_button" />
+							<h:graphicImage name="images/005-distance learning.svg" ajax="false"
+								styleClass="lg_img_button" />
 						</p:commandLink> <p:tooltip id="toolTipGrow12vf3" for="rc13"
 							value="Migrate corpus from CorpusCook to Distinctiopus"
 							showEffect="clip" hideEffect="explode" position="left" /></td>
 					<td><p:commandLink id="r24c"
 							action="#{commandBean.startTraining}">
-							<h:graphicImage name="images/train.png" ajax="false"
-								styleClass="img_button" />
+							<h:graphicImage name="images/022-machine learning.svg" ajax="false"
+								styleClass="lg_img_button" />
 						</p:commandLink> <p:tooltip id="qwdfe" for="r24c" value="Start the training"
 							showEffect="clip" hideEffect="explode" position="left" /> <br />
 						<p:commandLink id="r242c" action="#{commandBean.stopTraining}">
 							<h:graphicImage name="images/train_stop.png" ajax="false"
-								styleClass="img_button" />
+								styleClass="lg_img_button" />
 						</p:commandLink> <p:tooltip id="qwdfet" for="r242c" value="Kill the training processes while running"
 							showEffect="clip" hideEffect="explode" position="left" /> <br />
 						<p:commandLink id="rc21" action="#{commandBean.migrateModel}">
-							<h:graphicImage name="images/migrate_model.png" ajax="false"
-								styleClass="img_button" />
+							<h:graphicImage name="images/018-key.svg" ajax="false"
+								styleClass="lg_img_button" />
 						</p:commandLink> <p:tooltip id="toolTvipGrow12" for="rc21"
 							value="Deploy AI model after training to CorpusCook back"
 							showEffect="clip" hideEffect="explode" position="left" /></td>
 					<td>
 					<p:commandLink id="r24cmap"
 							action="#{commandBean.scienceMap}">
-							<h:graphicImage name="images/combine.png" ajax="false"
-								styleClass="img_button" />
+							<h:graphicImage name="images/003-collaboration.svg" ajax="false"
+								styleClass="lg_img_button" />
 						</p:commandLink> <p:tooltip id="qwdfef" for="r24cmap" value="Combine all marked difference statements"
 							showEffect="clip" hideEffect="explode" position="left" /> <br />
 					<p:commandLink id="r24cmapp"
 							action="#{commandBean.scienceCoords}">
 							<h:graphicImage name="images/projection.png" ajax="false"
-								styleClass="img_button" />
+								styleClass="lg_img_button" />
 						</p:commandLink> <p:tooltip id="qwdfefgh" for="r24cmapp" value="Project them to 3D space"
 							showEffect="clip" hideEffect="explode" position="left" /> <br />
 					
@@ -112,68 +88,12 @@
 					<p:commandLink id="r24cvid"
 							action="#{commandBean.scienceVideo}">
 							<h:graphicImage name="images/video_cut.png" ajax="false"
-								styleClass="img_button" />
+								styleClass="lg_img_button" />
 						</p:commandLink> <p:tooltip id="qwdfefghh" for="r24cvid" value="Generate a journey"
 							showEffect="clip" hideEffect="explode" position="left" /> <br />
 					</td>
-
 				</tr>
-				<tr class="sliders">
-					<td>logs</td>
-					<td><p:commandLink id="rcx4"
-							action="#{commandBean.logs('face')}">
-							<h:graphicImage name="images/logs.png" ajax="false"
-								styleClass="img_button" />
-						</p:commandLink></td>
-
-					<td><p:commandLink id="rcx5"
-							action="#{commandBean.logs('ccapp')}">
-							<h:graphicImage name="images/logs.png" ajax="false"
-								styleClass="img_button" />
-						</p:commandLink></td>
-					<td><p:commandLink id="rcx6"
-							action="#{commandBean.logs('cc')}">
-							<h:graphicImage name="images/logs.png" ajax="false"
-								styleClass="img_button" />
-						</p:commandLink></td>
-					<td><p:commandLink id="rcx7"
-							action="#{commandBean.logs('dist')}">
-							<h:graphicImage name="images/logs.png" ajax="false"
-								styleClass="img_button" />
-						</p:commandLink></td>
-					<td><p:commandLink id="rcx9"
-							action="#{commandBean.logs('scmap')}">
-							<h:graphicImage name="images/logs.png" ajax="false"
-								styleClass="img_button" />
-						</p:commandLink></td>
-					<td><p:commandLink id="rcx8"
-							action="#{commandBean.logs('scvid')}">
-							<h:graphicImage name="images/logs.png" ajax="false"
-								styleClass="img_button" />
-						</p:commandLink></td>
-
-				</tr>
-
 			</table>
-			<p:tooltip id="toolTipGrow1" for="status1"
-				value="Servelet status on, if this page is visible"
-				showEffect="clip" hideEffect="explode" position="left" />
-			<p:tooltip id="toolTipGrow2" for="status21" value="Rest status off"
-				showEffect="clip" hideEffect="explode" position="left" />
-			<p:tooltip id="toolTipGrow3" for="status22" value="Rest status on"
-				showEffect="clip" hideEffect="explode" position="left" />
-			<p:tooltip id="toolTipGrow4" for="status31"
-				value="Prediction status off" showEffect="clip" hideEffect="explode"
-				position="left" />
-			<p:tooltip id="toolTipGrow5" for="status32"
-				value="Prediction status on" showEffect="clip" hideEffect="explode"
-				position="left" />
-			<p:tooltip id="toolTipGrow6" for="status41" value="Train status off"
-				showEffect="clip" hideEffect="explode" position="left" />
-			<p:tooltip id="toolTipGrow7" for="status42" value="Train status on"
-				showEffect="clip" hideEffect="explode" position="left" />
-
-
 		</h:panelGroup>
 	</h:form>
 

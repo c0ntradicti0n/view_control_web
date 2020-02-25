@@ -12,6 +12,18 @@
     width: 50%;
 }
 
+td img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td a, td p {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #controls {
     position: fixed;
     clear: both;
@@ -45,21 +57,21 @@
     display: none !important;
 }
 
-.img_button {
-    max-height: 5%;
-    max-width: 5%;
-    width: 5%;
-    height: 5%;
+.md_img_button {
+    max-height: 5vh;
+    max-width: 5vh;
+    width: 5vh;
+    height: 5vh;
 }
 
 .lg_img_button {
-    max-height: 7%;
-    max-width: 7%;
-    width: 7%;
-    height: 7%;
+    max-height: 7vh;
+    max-width: 7vh;
+    width: 7vh;
+    height: 7vh;
 }
 
-.md_img_button {
+.ui-button-icon-only {
     max-height: 4%;
     max-width: 4%;
     width: 4%;

@@ -25,45 +25,57 @@
         <h:form id="xorm">
             <p:remoteCommand name="rc" action="#{mainControlBean.updateAnnotation}"/>
 
-            <p:commandLink id="welcome" action="index">
-                <h:graphicImage name="images/welcome.png" ajax="false"
-                                styleClass="ui-button-icon-only"/>
-            </p:commandLink>
-            <p:tooltip id="toolTipGrowWelc" for="welcome"
-                       value="Go back to welcome page"
-                       showEffect="clip" hideEffect="explode" position="left"/>
+            <table style="width:100%">
+                <tr>
+                    <td>
+                        <p:commandLink id="annotate"
+                                       onclick="rc([{'name':'selectedText','value':getSelectionText()}]);">
+                            <h:graphicImage name="images/001-learning.svg" ajax="false"
+                                            styleClass="md_img_button"/>
+                        </p:commandLink>
+                        <p:tooltip id="toolTipGrow" for="annotate"
+                                   value="Select some text with your mouse and teach our artificial intelligence to recognize it"
+                                   showEffect="clip" hideEffect="explode" position="left"/>
+                    </td>
+                    <td>
+                        <p:commandLink id="train" action="trainer" rendered="#{mainControlBean.loggedIn}">
+                            <h:graphicImage name="images/004-reason.svg" ajax="false"
+                                            styleClass="md_img_button"/>
+                        </p:commandLink>
+                        <p:tooltip id="traint" for="train"
+                                   value="Controls to produce the video, mix corpus for training etc."
+                                   showEffect="clip" hideEffect="explode" position="left"/>
+                    </td>
+                    <td>
+                        <p:commandLink id="corpus" action="corpus">
+                            <h:graphicImage name="images/010-flash card.svg" ajax="false"
+                                            styleClass="md_img_button"/>
+                        </p:commandLink>
+                        <p:tooltip id="corpustt" for="corpus"
+                                   value="Inspect corpus"
+                                   showEffect="clip" hideEffect="explode" position="left"/>
+                    </td>
+                    <td>
+                        <p:commandLink id="login" action="login" rendered="#{!mainControlBean.loggedIn}">
+                            <h:graphicImage name="images/desperate.png" ajax="false"
+                                            styleClass="ui-button-icon-only"/>
 
-            <p:commandLink id="annotate"
-                           onclick="rc([{'name':'selectedText','value':getSelectionText()}]);">
-                <h:graphicImage name="images/annotate.png" ajax="false"
-                                styleClass="ui-button-icon-only"/>
-            </p:commandLink>
-            <p:tooltip id="toolTipGrow" for="annotate"
-                       value="Select some text with your mouse and teach our artificial intelligence to recognize it"
-                       showEffect="clip" hideEffect="explode" position="left"/>
-
-
-            <p:commandLink id="train" action="trainer" rendered="#{mainControlBean.loggedIn}">
-                <h:graphicImage name="images/ai.png" ajax="false"
-                                styleClass="ui-button-icon-only"/>
-            </p:commandLink>
-
-            <p:commandLink id="corpus" action="corpus">
-                <h:graphicImage name="images/corpus.png" ajax="false"
-                                styleClass="ui-button-icon-only"/>
-            </p:commandLink>
-            <p:tooltip id="corpustt" for="corpus"
-                       value="Inspect corpus"
-                       showEffect="clip" hideEffect="explode" position="left"/>
-
-            <p:commandLink id="login" action="login" rendered="#{!mainControlBean.loggedIn}">
-                <h:graphicImage name="images/desperate.png" ajax="false"
-                                styleClass="ui-button-icon-only"/>
-
-            </p:commandLink>
-            <p:tooltip id="toolTipGrowLogin" for="login"
-                       value="Login for using the administration buttons (new corpus, model, videos etc.)"
-                       showEffect="clip" hideEffect="explode" position="left"/>
+                        </p:commandLink>
+                        <p:tooltip id="toolTipGrowLogin" for="login"
+                                   value="Login for using the administration buttons (new corpus, model, videos etc.)"
+                                   showEffect="clip" hideEffect="explode" position="left"/>
+                    </td>
+                    <td>
+                        <p:commandLink id="welcome" action="index">
+                            <h:graphicImage name="images/016-training.svg" ajax="false"
+                                            styleClass="md_img_button"/>
+                        </p:commandLink>
+                        <p:tooltip id="toolTipGrowWelc" for="welcome"
+                                   value="Go back to welcome page"
+                                   showEffect="clip" hideEffect="explode" position="left"/>
+                    </td>
+                </tr>
+            </table>
         </h:form>
 
         <h:form>
@@ -77,12 +89,13 @@
             <div id="selectionLog" style="display:none;"></div>
 
             <p:treeTable value="#{documentBean.root}" var="doc"
-                         style="margin-top:0" scrollable="true" scrollHeight="50vh">
+                         style="margin-top:0" scrollable="true" scrollHeight="25vh">
                 <p:column headerText="Uploaded documents">
                     <h:outputText rendered="#{doc.getIsTopic()}" value="#{doc.name}" styleClass="ui-widget"/>
                     <p:commandLink rendered="#{!doc.getIsTopic()}"
+                                   ajax='false'
                                    action="#{documentBean.displaySelectedNode(doc.name)}"
-                                   update="text" oncomplete="markup()"> <h:outputText value="#{doc.name}"/>
+                                   oncomplete="markup()"> <h:outputText value="#{doc.name}"/>
                     </p:commandLink>
                 </p:column>
             </p:treeTable>
@@ -94,18 +107,18 @@
         </h:form>
         <h:form>
             <p:treeTable value="#{diffBean.root}" var="doc"
-                         style="margin-top:0" scrollable="true" scrollHeight="10vh">
+                         style="margin-top:0" scrollable="true" scrollHeight="25vh">
                 <p:column headerText="Scraped webpages from differencebetween.net">
                     <h:outputText rendered="#{doc.getIsTopic()}" value="#{doc.name}" styleClass="ui-widget"/>
                     <p:commandLink rendered="#{!doc.getIsTopic()}" action="#{diffBean.displaySelectedNode(doc.name)}"
-                                   update="text"> <h:outputText value="#{doc.name}"/>
+                                   ajax='false'> <h:outputText value="#{doc.name}"/>
                     </p:commandLink>
                 </p:column>
             </p:treeTable>
         </h:form>
 
 
-        <table>
+        <table style="width:100%">
             <tr>
                 <th><h5>Legend</h5></th>
                 <th>level/kind</th>
@@ -133,14 +146,15 @@
         </table>
     </div>
 
-    <h:panelGroup id="text" rendered="#{mainControlBean.path!=null}" onload="">
+    <h:panelGroup id="text" rendered="#{mainControlBean.path.length()!=0}" onload="">
         <!-- <h:outputText value="document/#{mainControlBean.path.replace('.', '_').replace(' ', '_').replace('-', '_')}.html" /> <br />
         <h:outputText value="document/#{mainControlBean.path.replace('.', '_').replace(' ', '_').replace('-', '_')}_json.css" /> -->
+
         <h:outputStylesheet
                 name="document_css/#{mainControlBean.path.replace('.', '_').replace(' ', '_').replace('-', '_')}_json.css"/>
         <h:panelGroup
                 id="text_window"
-                pt:data-include="document/#{mainControlBean.path.replace('.', '_').replace(' ', '_').replace('-', '_')}.html"
+                pt:data-include="#{mainControlBean.getLocalDocument()}"
                 layout="block"
                 style="display:block">
             <!-- <iframe id="imagepgframe" name="imagepgframe" frameborder="0"
@@ -150,6 +164,26 @@
         </h:panelGroup>
     </h:panelGroup>
 
+    <h:panelGroup id="info_text" rendered="#{mainControlBean.path.length()==0}">
+        <h:panelGroup
+                id="info_text_window"
+                pt:data-include="info.html"
+                layout="block"
+                style="display:block">
+            <!-- <iframe id="imagepgframe" name="imagepgframe" frameborder="0"
+                     scrolling="auto" src="document/0013htmlpdf2htmlEX.html">
+                  ZYour browser does not support iframes.
+             </iframe> -->
+        </h:panelGroup>
+    </h:panelGroup>
+    <h:outputText value="#{mainControlBean.path}"/>
+
+    <h:panelGroup id="fallback_text" rendered="#{!mainControlBean.isLocalExists()}"
+                  style="display:block; width:60%">
+        <div id="fallback_text_window">
+            <h:outputText value="#{mainControlBean.html}" escape="false"/>
+        </div>
+    </h:panelGroup>
 
 </h:body>
 </html>

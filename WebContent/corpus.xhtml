@@ -32,7 +32,7 @@
                                     action="#{commandBean.more_kind(possibleTag, mainControlBean.annotationSets.indexOf(annotationTags))}"
                                     update="sliders">
                                 <h:graphicImage name="images/more.jpg"
-                                                styleClass="sm_img_button" />
+                                                styleClass="ui-button-icon-only" />
                             </p:commandLink>
 
                             <h:outputText value="#{possibleTag}" />
@@ -51,7 +51,7 @@
                                         action="#{commandBean.less_kind(annotationTag.no, annotationTag._i, annotationTag.kind)}"
                                         update="sliders">
                                     <h:graphicImage name="images/less.png"
-                                                    styleClass="sm_img_button" />
+                                                    styleClass="ui-button-icon-only" />
                                 </p:commandLink>
                                 <!--
                     <h:outputText value="#{annotationTag.no}" />

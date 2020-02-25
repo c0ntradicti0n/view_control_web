@@ -65,11 +65,11 @@
             <artifactId>all-themes</artifactId>
             <version>1.0.8</version>
         </dependency>
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.2.1</version> <!-- makesure correct version here -->
-        </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>[1.3.3,)</version>
+            </dependency>
         <!-- ######################## REST ###################################### -->
         <dependency>
             <groupId>javax.ws.rs</groupId>
@@ -121,8 +121,8 @@
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.5.2</version>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.10.2</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <dependency>

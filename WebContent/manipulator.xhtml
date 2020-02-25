@@ -3,13 +3,16 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
 	<title>Annotation Manipulation</title>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
 </h:head>
 
 
-<h:body>
+<h:body >
+	<div style="font-family: 'Roboto', sans-serif !important;">
 	<h:outputStylesheet name="css/reformat.css" />
 	<h:outputStylesheet name="css/diff_markup.css" />
 	<h:outputStylesheet name="css/nav.css" />
@@ -25,17 +28,17 @@
 				<table class="sliders">
 					<tr class="sliders">
 						<td class="sliders">
-							<h4>
-								Annotation set no.
+							<h5>
+								Annotation set
 								<h:outputText
 									value="#{mainControlBean.annotationSets.indexOf(annotationTags)}" />
-							</h4> <h:dataTable value="#{mainControlBean.possibleTags}" var="possibleTag">
+							</h5> <h:dataTable value="#{mainControlBean.possibleTags}" var="possibleTag">
 								<h:column>
 
 									<p:commandLink
 										action="#{commandBean.more_kind(possibleTag, mainControlBean.annotationSets.indexOf(annotationTags))}"
 										update="sliders">
-										<h:graphicImage name="images/more.jpg"
+										<h:graphicImage name="images/plus.svg"
 											styleClass="sm_img_button" />
 									</p:commandLink>
 
@@ -49,13 +52,13 @@
 								var="annotationTag">
 								<h:column>
 
-									<h3 style="margin-top: 0">
+									<h5 style="margin-top: 0">
 
 										<p:commandLink
 											action="#{commandBean.less_kind(annotationTag.no, annotationTag._i, annotationTag.kind)}"
 											update="sliders">
-											<h:graphicImage name="images/less.png"
-												styleClass="sm_img_button" />
+											<h:graphicImage name="images/minus.svg"
+												styleClass="sm_img_button" style="margin-left:0px"/>
 										</p:commandLink>
 										<!--
 							<h:outputText value="#{annotationTag.no}" />
@@ -64,7 +67,7 @@
 							-->
 										<h:outputText value="#{annotationTag.kind}" />
 
-									</h3>
+									</h5>
 
 									<h:panelGrid columns="1">
 										<p:inputText id="start" value="#{annotationTag.start}"
@@ -83,7 +86,7 @@
 											<f:attribute name="_i" value="#{annotationTag._i}" />
 
 											<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd0}"
-												update="growl sample" binding="#{sliderView.sliderStart}" />
+												update="sample" binding="#{sliderView.sliderStart}" />
 										</p:slider>
 										<p:slider for="end" style="width:90vw"
 											minValue="#{sliderView.minlen}"
@@ -92,7 +95,7 @@
 											<f:attribute name="_i" value="#{annotationTag._i}" />
 
 											<p:ajax event="slideEnd" listener="#{sliderView.onSlideEnd1}"
-												update="growl sample" binding="#{sliderView.sliderEnd}" />
+												update="sample" binding="#{sliderView.sliderEnd}" />
 										</p:slider>
 
 									</h:panelGrid>
@@ -106,27 +109,27 @@
 	</h:form>
 
 	<h:form>
-		<table class="sliders">
+		<table class="sliders" style="width:50hv">
 			<tr class="sliders">
 				<th class="sliders">
-					<h4>Add an annotation set</h4>
+					<h5>Add annotation set</h5>
 				</th>
 				<th class="sliders">
-					<h4>First Corpus (taking text before and after into account)</h4>
+					<h5>Add to Corpus</h5>
 				</th>
 				<th class="sliders">
-					<h4>Second Corpus (regarding the snippet overall)</h4>
+					<h5>Back</h5>
 				</th>
 			</tr>
-			<tr class="sliders">
-				<td class="sliders"><h:dataTable
+			<tr  class="sliders">
+				<td  class="sliders"><h:dataTable
                         value="#{mainControlBean.possibleTags}" var="possibleTag">
 						<h:column>
 							<p:commandLink id="id${possibleTag}"
 							 action="#{commandBean.more_set(possibleTag)}"
 								update="sliders">
-								<h:graphicImage name="images/more.jpg"
-									styleClass="md_img_button" />
+								<h:graphicImage name="images/plus.svg"
+									styleClass="sm_img_button" />
 																<h:outputText value="#{possibleTag}" />
 									
 							</p:commandLink>
@@ -134,48 +137,25 @@
 						</h:column>
 					</h:dataTable></td>
 
-				<td><p:commandLink id="fc_before_after"
+				<td  class="sliders"><p:commandLink id="fc_before_after"
 						action="#{commandBean.annotation_around}">
-						<h:graphicImage name="images/here.png" styleClass="img_button" />
+						<h:graphicImage name="images/good.svg" styleClass="md_img_button" />
 					</p:commandLink> <p:tooltip id="a2"  for="fc_before_after"
 						value="Add annotation to first model, some foregoing and following text is added to the annotated text as unannotated."
-						showEffect="clip" hideEffect="explode" position="left" /> <p:commandLink
-						id="fc_after" action="#{commandBean.annotation_from_here}">
-						<h:graphicImage name="images/from_here.png"
-							styleClass="img_button" />
-					</p:commandLink> <p:tooltip id="a5" for="fc_after"
-						value="Add annotation to first model, some following text is added to the annotated text as unannotated."
-						showEffect="clip" hideEffect="explode" position="left" /> <p:commandLink
-						id="fc_not_before_after" action="#{commandBean.take_it_as_is}">
-						<h:graphicImage name="images/annotate_icon.png"
-							styleClass="img_button" />
-					</p:commandLink> <p:tooltip id="a4"  for="fc_not_before_after"
-						value="Add annotation to first model, but without adding text from around."
 						showEffect="clip" hideEffect="explode" position="left" />
 
 					<p:commandLink
 						id="fc_zero"
-						action="#{commandBean.zero_annotation_selection_first_corpus}"
-						>
+						action="#{commandBean.zero_annotation_selection_first_corpus}">
 						<f:ajax onevent="markup()"/>
-						<h:graphicImage name="images/zero.png" styleClass="img_button" />
+						<h:graphicImage name="images/none.svg" styleClass="md_img_button" />
 					</p:commandLink> <p:tooltip id="a9"  for="fc_zero"
 						value="Add annotation to first model, as not to annotated something like this."
 						showEffect="clip" hideEffect="explode" position="left" /></td>
 
-				<td class="sliders"><p:commandLink id="sc"
-						action="#{commandBean.annotation_in_between}">
-						<h:graphicImage name="images/between.png" styleClass="img_button" />
-					</p:commandLink> <p:tooltip id="a8"  for="sc" value="Add annotation to second model."
-						showEffect="clip" hideEffect="explode" position="left" /> <p:commandLink
-						id="sc_zero"
-						action="#{commandBean.zero_annotation_selection_second_corpus}">
-						<h:graphicImage name="images/zero.png" styleClass="img_button" />
-					</p:commandLink> <p:tooltip id="a7"  for="sc_zero"
-						value="Add annotation to first model, as not to annotated something like this."
-						showEffect="clip" hideEffect="explode" position="left" /></td>
-				<td><p:commandLink id="cancel" action="#{commandBean.trash}">
-						<h:graphicImage name="images/ignore.jpg" styleClass="img_button" />
+
+				<td class="sliders" ><p:commandLink id="cancel" action="#{commandBean.trash}">
+						<h:graphicImage name="images/ignore.svg" styleClass="md_img_button" />
 					</p:commandLink> <p:tooltip id="a6"  for="cancel" value="Cancel annotation"
 						showEffect="clip" hideEffect="explode" position="left" /></td>
 			</tr>
@@ -185,6 +165,6 @@
 
 	</h:form>
 
-
+	</div>
 </h:body>
 </html>

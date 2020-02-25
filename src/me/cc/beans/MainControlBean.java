@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,6 +33,16 @@ public class MainControlBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	static Logger logger = Logger.getLogger(MainControlBean.class);
+
+	public boolean isLocalExists() {
+		return localExists;
+	}
+
+	public void setLocalExists(boolean localExists) {
+		this.localExists = localExists;
+	}
+
+	private boolean localExists;
 
 	public boolean isLoggedIn() {
 		return loggedIn;
@@ -237,4 +248,14 @@ public class MainControlBean implements Serializable {
 	public void setKind(String kind) {
 		this.kind = kind;
 	}
+
+    public String getLocalDocument() {
+		String localPath = "document/" +
+				path.replace('.', '_').replace(' ', '_').replace('-', '_') +
+			".html";
+		File lf = new File(localPath);
+		this.localExists = lf.exists();
+		return localPath;
+
+    }
 }

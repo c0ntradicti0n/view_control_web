@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Usage</title>
+    <style type="text/css">
+        ul.simple {
+            list-style-type: lower-alpha;
+        }
+
+        li {
+            width: 60%; /* or width is certain by parent element */
+            white-space: normal; /* be sure its not 'nowrap'! ! ! :/ */
+        }
+    </style>
+</head>
+<body>
+<h1>How to use</h1>
+<ol class="simple">
+    <li>Look for a document, that fits your interests by opening a collection of documents from the tree tables on the
+        right side.
+    </li>
+    <li>Read as you like</li>
+    <li>If you find a peaces of text explaining a difference, mark it.</li>
+    <li>Soon there will be a notebook for every user, to save your own notes</li>
+    <li>Watch out in the video for your notes:
+
+        <video id="myVideo" width="100%" controls="controls" class="center">
+            <source src="./record_compressed.mp4" type="video/mp4"/>
+        </video>
+
+    </li>
+
+    <li>Clone and download the flight simulator to run and fly it yourselve.
+        <a href="https://github.com/c0ntradicti0n/hal">hal</a>
+        run it (on Ubuntu 18.04, install Java 8 and Maven before):
+
+        <pre><code>
+                git clone https://github.com/c0ntradicti0n/hal.git
+                cd hal
+                mvn package
+                java -jar target/hal-1-jar-with-dependencies.jar --web
+            </code></pre>
+        Use the arrows for rotating yourself and the 'a', 's', 'd', 'w' keys for flying.
+    </li>
+</ol>
+<a href="acknowledgements.xhtml">Acknowledgments</a>
+
+</body>
+</html>
