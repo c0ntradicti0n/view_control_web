@@ -135,8 +135,8 @@
 
     <h:panelGroup id="text" rendered="#{mainControlBean.path!=null}" onload="">
         <h:outputText value="document/#{mainControlBean.path}" /> <br />
-        <h:outputText value="document/#{mainControlBean.path}.json.css" />
-        <h:outputStylesheet name="document_css/#{mainControlBean.path}.json.css"/>
+        <h:outputText value="document/#{mainControlBean.path.replace('.', '_').replace(' ', '_').replace('-', '_')}json.css" />
+        <h:outputStylesheet name="document_css/#{mainControlBean.path.replace('.', '_').replace(' ', '_').replace('-', '_')}json.css"/>
         <h:panelGroup
                 id="text_window"
                 pt:data-include="document/#{mainControlBean.path}"
