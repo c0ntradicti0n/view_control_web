@@ -249,13 +249,28 @@ public class MainControlBean implements Serializable {
 		this.kind = kind;
 	}
 
-    public String getLocalDocument() {
-		String localPath = "document/" +
-				path.replace('.', '_').replace(' ', '_').replace('-', '_') +
-			".html";
+    public String localEscapedPath(String type) {
+		String localPath = this.path;
+		switch (type) {
+			case "html": {
+				localPath = "document/" + localPath + ".html";
+				break;
+			}
+			case "css": {
+				localPath = "document_css/" + localPath + "_json.css";
+				break;
+			}
+		}
 		File lf = new File(localPath);
 		this.localExists = lf.exists();
+		logger.info(type + " file " + localPath + " exists. " + this.localExists);
 		return localPath;
-
     }
+
+	public String getLocalDocumentHTML() {
+		return localEscapedPath("html");
+	}
+	public String getLocalDocumentCSS() {
+		return localEscapedPath("css");
+	}
 }
