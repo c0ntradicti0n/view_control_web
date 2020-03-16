@@ -250,22 +250,29 @@ public class MainControlBean implements Serializable {
 	}
 
     public String localEscapedPath(String type) {
-		String localPath = this.path;
+		String localPath = webEscape(this.path);
+		String realPath = "";
 		switch (type) {
 			case "html": {
 				localPath = "document/" + localPath + ".html";
+				realPath = localPath;
 				break;
 			}
 			case "css": {
 				localPath = "document_css/" + localPath + "_json.css";
+				realPath = "resources/"+localPath;
 				break;
 			}
 		}
-		File lf = new File(localPath);
+		File lf = new File(realPath);
 		this.localExists = lf.exists();
-		logger.info(type + " file " + localPath + " exists. " + this.localExists);
+		logger.info(type + " file " + realPath + " exists. " + this.localExists);
 		return localPath;
     }
+
+	private String webEscape(String path) {
+		return path.replaceAll("[\\n\\t\\:\\$ \\\\\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)\\-\\+\\=\\'\\;\\<\\>\\?\\/\\~\\`\\.\\,\\;]", "_");
+	}
 
 	public String getLocalDocumentHTML() {
 		return localEscapedPath("html");
