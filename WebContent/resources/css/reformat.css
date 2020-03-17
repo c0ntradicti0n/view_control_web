@@ -74,7 +74,14 @@ table.sliders, th.sliders, td.sliders {
     border: 1px solid black;
     }
 
-ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
 	background-color: initial!important;
 	background-image: initial!important;
 }
+
+.ui-treetable-scrollable-header {
+	overflow:  initial!important;
+
+}
+
+

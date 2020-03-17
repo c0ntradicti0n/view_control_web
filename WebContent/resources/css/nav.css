@@ -1,3 +1,13 @@
+#text {
+    max-width: 70% !important;
+    width: 70% !important;
+    display:inline-block;ssh roedel
+    vertical-align: left;
+    word-wrap: break-word;
+    overflow: visible;
+}
+
+
 * {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased !important;
