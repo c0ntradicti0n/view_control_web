@@ -5,10 +5,10 @@ import java.util.List;
 
 public class annotationTagsFactory {
 	public static ArrayList<ArrayList<Tag>> produce(int n, List<String> tags) {
-		ArrayList<ArrayList<Tag>> annotationSets = new ArrayList<ArrayList<Tag>>();
+		ArrayList<ArrayList<Tag>> annotationSets = new ArrayList<>();
 
 		for (int i = 0; i < n; i++) {
-			ArrayList<Tag> annotationSet = new ArrayList<Tag>();
+			ArrayList<Tag> annotationSet = new ArrayList<>();
 			for (String tag : tags) {
 				annotationSet.add(new Tag(i, tag));
 			}
@@ -26,7 +26,6 @@ public class annotationTagsFactory {
 		    	t.setNo(_set);
 		    	t.set_i(_a);
 		    	_a += 1;
-
 		    }
 		    _set += 1;
 		}

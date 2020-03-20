@@ -29,7 +29,9 @@ public class PythonClient {
 	static Logger logger = Logger.getLogger(PythonClient.class);
 
 	public final static TypeReference String_Type =  new TypeReference<String>() { };
-	public final static TypeReference AS_Type = new TypeReference<ArrayList<ArrayList<Tag>>>() { };
+	public final static TypeReference AnnotationSet_Type = new TypeReference<ArrayList<ArrayList<Tag>>>() { };
+	public final static TypeReference ListString_Type = new TypeReference<ArrayList<String>>() { };
+
 	public final static TypeReference Int_Type = new TypeReference<Integer>()  { };
 	public final static TypeReference AnyAnswerList_Type = new TypeReference<ArrayList<AnyAnswer>>() { };
 	public final static TypeReference Topic2PathMap_Type = new TypeReference<HashMap<String, List<String>>>() { };

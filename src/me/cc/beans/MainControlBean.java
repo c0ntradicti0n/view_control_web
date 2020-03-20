@@ -108,11 +108,17 @@ public class MainControlBean implements Serializable {
 		logger.info("Annotating the following text: '" + text + "'");
 		System.out.println("Annotating the following text: '" + text + "'");
 		System.out.println(spot);
-		textlen = (Integer) annotationREST.stdCall("textlen", spot, textlen , null, PythonClient.Int_Type);
+		ArrayList<String> tokens = new ArrayList<>();
+		tokens = annotationREST.stdCall(
+				"tokenize", spot, tokens, null, PythonClient.ListString_Type);
+		textlen = tokens.size();
 		logger.info("got: " +  textlen);
-		annotationSets = (ArrayList<ArrayList<Tag>>) annotationREST.stdCall("predict", spot, annotationSets, null, PythonClient.AS_Type);
+		annotationSets = annotationREST.stdCall(
+				"predict", spot, annotationSets, tokens, PythonClient.AnnotationSet_Type);
 		logger.info("got: " +  Exec.nestedToString(annotationSets));
-		annotationMarkup =  annotationREST.stdCall("markup", spot, annotationMarkup, annotationSets, PythonClient.String_Type);
+
+		annotationMarkup =  annotationREST.stdCall(
+				"markup", spot, annotationMarkup, new ArrayList[]{tokens, annotationSets}, PythonClient.AnnotationSet_Type);
 		logger.info("got: " +  annotationMarkup);
 		text = getSpot().getText();
 		logger.info("updating the markup thing:" + annotationMarkup);
