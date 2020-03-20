@@ -23,7 +23,8 @@ import me.cc.model.Tag;
 import me.cc.model.annotationTagsFactory;
 import me.cc.restclient.PythonClient;
 import me.cc.run.Exec;
-import me.cc.setup.*
+import me.cc.setup.PortConfig;
+
 @SessionScoped
 @ManagedBean(name = "mainControlBean")
 public class MainControlBean implements Serializable {
