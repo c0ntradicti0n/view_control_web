@@ -72,7 +72,7 @@ public class MainControlBean implements Serializable {
 	private List<String> documents;
 	private String path = ""; // which document
 	private String kind = ""; // of which kind of ressource
-	public String html = ""; // what is the content
+	public String html  = ""; // what is the content
 	private String inputTextAreaSelectedText;
 	public Spot spot;
 
@@ -81,24 +81,13 @@ public class MainControlBean implements Serializable {
 	private boolean trainActive = false;
 
 	public static PythonClient annotationREST = new PythonClient("http://127.0.0.1:" + PortConfig.app_port);
-	public PythonClient fileREST  = new PythonClient( "http://127.0.0.1:" + PortConfig.doc_port);
-	public PythonClient scienceREST  = new PythonClient( "http://127.0.0.1:" + PortConfig.science_port);
-	public boolean getRestActive() {
-		return restActive;
-	}
-	public void setRestActive(boolean restActive) {
-		restActive = restActive;
-	}
-	public boolean getAnnoActive() {
-		return annoActive;
-	}
-	public void setAnnoActive(boolean annoActive) {
-		annoActive = annoActive;
-	}
+	public static PythonClient fileREST  = new PythonClient( "http://127.0.0.1:" + PortConfig.doc_port);
+	public static PythonClient scienceREST  = new PythonClient( "http://127.0.0.1:" + PortConfig.science_port);
+
 	ObjectMapper om = new ObjectMapper();
+
 	public String logs;
 	public String logs_which;
-
 
 	public String updateAnnotation() {
 		pingStatus ();

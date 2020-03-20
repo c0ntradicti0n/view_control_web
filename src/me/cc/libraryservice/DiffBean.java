@@ -1,13 +1,7 @@
-package me.cc.treenav;
+package me.cc.libraryservice;
 
-import org.primefaces.model.TreeNode;
-
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
 @ManagedBean(name = "diffBean")
@@ -15,6 +9,6 @@ import java.io.Serializable;
 public class DiffBean extends AbstractTextBean implements Serializable {
     @Override
     public void initService() {
-        service = new DiffService();
+        service = new DiffService(this.getMainControlBean());
     }
 }

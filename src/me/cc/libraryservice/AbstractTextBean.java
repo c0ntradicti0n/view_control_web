@@ -1,4 +1,4 @@
-package me.cc.treenav;
+package me.cc.libraryservice;
 
 import me.cc.beans.MainControlBean;
 import org.apache.log4j.Logger;
@@ -6,6 +6,7 @@ import org.primefaces.model.TreeNode;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 public abstract class AbstractTextBean {
@@ -18,13 +19,29 @@ public abstract class AbstractTextBean {
     public  TreeNode singleSelectedNode;
     public AbstractTextService service;
 
-    MainControlBean mainControlBean;
+    public MainControlBean getMainControlBean() {
+        return mainControlBean;
+    }
+
+    public void setMainControlBean(MainControlBean mainControlBean) {
+        this.mainControlBean = mainControlBean;
+    }
+
+    @ManagedProperty(value = "#{mainControlBean}")
+    private MainControlBean mainControlBean;
+
+    public static Logger getLogger() {
+        return logger;
+    }
+
+    public static void setLogger(Logger logger) {
+        AbstractTextBean.logger = logger;
+    }
 
     @PostConstruct
     public void init() {
         initService();
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        mainControlBean = (MainControlBean) facesContext.getApplication().createValueBinding("#{mainControlBean}").getValue(facesContext);
         root = service.createCheckboxDocuments();
     }
 
@@ -41,7 +58,7 @@ public abstract class AbstractTextBean {
     public void setService(AbstractTextService service) {
         this.service = service;
     }
-    public AbstractTextService getService( ) {
+    public AbstractTextService getService() {
         return service;
     }
 
