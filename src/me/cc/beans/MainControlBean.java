@@ -23,7 +23,7 @@ import me.cc.model.Tag;
 import me.cc.model.annotationTagsFactory;
 import me.cc.restclient.PythonClient;
 import me.cc.run.Exec;
-
+import me.cc.setup.*
 @SessionScoped
 @ManagedBean(name = "mainControlBean")
 public class MainControlBean implements Serializable {
@@ -79,9 +79,9 @@ public class MainControlBean implements Serializable {
 	private boolean annoActive = false;
 	private boolean trainActive = false;
 
-	public static PythonClient annotationREST = new PythonClient("http://127.0.0.1:5000");
-	public PythonClient fileREST  = new PythonClient( "http://127.0.0.1:5555");
-	public PythonClient scienceREST  = new PythonClient( "http://127.0.0.1:5556");
+	public static PythonClient annotationREST = new PythonClient("http://127.0.0.1:" + PortConfig.app_port);
+	public PythonClient fileREST  = new PythonClient( "http://127.0.0.1:" + PortConfig.doc_port);
+	public PythonClient scienceREST  = new PythonClient( "http://127.0.0.1:" + PortConfig.science_port);
 	public boolean getRestActive() {
 		return restActive;
 	}

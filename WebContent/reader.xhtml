@@ -90,11 +90,11 @@
             <p:treeTable value="#{documentBean.root}" var="doc"
                          style="margin-top:0" scrollable="true" scrollHeight="25vh">
                 <p:column headerText="Uploaded documents">
-                    <h:outputText rendered="#{doc.getIsTopic()}" value="#{doc.name}" styleClass="ui-widget"/>
+                    <h:outputText rendered="#{doc.getIsTopic()}" value="#{doc.name}"  pt:data-cy="#{doc.name}" styleClass="ui-widget"/>
                     <p:commandLink rendered="#{!doc.getIsTopic()}"
                                    ajax='false'
                                    action="#{documentBean.displaySelectedNode(doc.name)}"
-                                   oncomplete="markup()"> <h:outputText value="#{doc.name}"/>
+                                   oncomplete="markup()" pt:cy-data="#{doc.name}"> <h:outputText value="#{doc.name}"/>
                     </p:commandLink>
                 </p:column>
             </p:treeTable>
@@ -102,7 +102,7 @@
         <h:form enctype="multipart/form-data">
             <h:outputText value="Please upload only documents, that can legally be here!" styleClass="ui-widget"/>
             <p:fileUpload fileUploadListener="#{fileUploadView.upload}"
-                          auto="true" label="Upload new Document"/>
+                          auto="true" label="Upload new Document" pt:data-cy="upload"/>
         </h:form>
         <h:form>
             <p:treeTable value="#{diffBean.root}" var="doc"
