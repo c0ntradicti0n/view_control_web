@@ -11,8 +11,8 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class DocumentBean extends AbstractTextBean implements Serializable {
     @Override
-    public void initService() {
-        service = new DocumentService(this.getMainControlBean());
+    public void initService(MainControlBean mainControlBean) {
+        service = new DocumentService(mainControlBean);
 
     }
 }

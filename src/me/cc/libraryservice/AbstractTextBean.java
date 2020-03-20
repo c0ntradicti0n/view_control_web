@@ -40,12 +40,12 @@ public abstract class AbstractTextBean {
 
     @PostConstruct
     public void init() {
-        initService();
+        initService(this.mainControlBean);
         FacesContext facesContext = FacesContext.getCurrentInstance();
         root = service.createCheckboxDocuments();
     }
 
-    abstract public void initService();
+    abstract public void initService(MainControlBean mainControlBean);
     public TreeNode getRoot() {
         return root;
     }

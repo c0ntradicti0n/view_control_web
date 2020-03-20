@@ -63,12 +63,6 @@ public class MainControlBean implements Serializable {
 	public String text = "---- Text not set ----";
 	public Integer textlen;
 
-	@PostConstruct
-	public void init() {
-		System.out.println(annotationSets);
-		pingStatus ();
-	}
-
 	private List<String> documents;
 	private String path = ""; // which document
 	private String kind = ""; // of which kind of ressource
