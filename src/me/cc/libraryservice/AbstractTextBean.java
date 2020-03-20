@@ -1,13 +1,19 @@
 package me.cc.libraryservice;
 
 import me.cc.beans.MainControlBean;
+import me.cc.restclient.PythonClient;
+import me.cc.setup.PortConfig;
 import org.apache.log4j.Logger;
+import org.primefaces.model.CheckboxTreeNode;
 import org.primefaces.model.TreeNode;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractTextBean {
     static Logger logger = Logger.getLogger(DocumentService.class);
@@ -19,16 +25,8 @@ public abstract class AbstractTextBean {
     public  TreeNode singleSelectedNode;
     public AbstractTextService service;
 
-    public MainControlBean getMainControlBean() {
-        return mainControlBean;
-    }
+    public static PythonClient fileREST       = new PythonClient( "http://127.0.0.1:" + PortConfig.doc_port);
 
-    public void setMainControlBean(MainControlBean mainControlBean) {
-        this.mainControlBean = mainControlBean;
-    }
-
-    @ManagedProperty(value = "#{mainControlBean}")
-    private MainControlBean mainControlBean;
 
     public static Logger getLogger() {
         return logger;
@@ -40,12 +38,9 @@ public abstract class AbstractTextBean {
 
     @PostConstruct
     public void init() {
-        initService(this.mainControlBean);
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        root = service.createCheckboxDocuments();
+        root = createCheckboxDocuments();
     }
 
-    abstract public void initService(MainControlBean mainControlBean);
     public TreeNode getRoot() {
         return root;
     }
@@ -79,20 +74,31 @@ public abstract class AbstractTextBean {
     public void displaySelectedNode(String path) {
         if (path != null) {
             try {
-                mainControlBean.html = service.loadHtml(path);
+                //mainControlBean.html = service.loadHtml(path);
             }
             catch (StringIndexOutOfBoundsException e) {
-                logger.info ("no document to show  for " + path);
+                logger.info ("no document to show for " + path);
             }
         }
     }
 
-    public TreeNode getSingleSelectedNode() {
-        return singleSelectedNode;
+
+
+    public TreeNode createCheckboxDocuments() {
+        CheckboxTreeNode key;
+        TreeNode root = new CheckboxTreeNode(new Document("Files"), null);
+        HashMap<String, List<String>> topic_paths = getPaths();
+        Document pseudoTopicDocument;
+        for (Map.Entry<String, List<String>> entry: topic_paths.entrySet()) {
+            pseudoTopicDocument = new Document(entry.getKey());
+            pseudoTopicDocument.setTopic(true);
+            key = new CheckboxTreeNode(pseudoTopicDocument, root);
+            for (String path : entry.getValue()) {
+                new CheckboxTreeNode(new Document(path), key);
+            }
+        }
+        return root;
     }
 
-    public void setSingleSelectedNode(TreeNode singleSelectedNode) {
-        this.singleSelectedNode = singleSelectedNode;
-    }
-
+    abstract HashMap<String, List<String>> getPaths();
 }

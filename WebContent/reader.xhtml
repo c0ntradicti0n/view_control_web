@@ -93,7 +93,7 @@
                     <h:outputText rendered="#{doc.getIsTopic()}" value="#{doc.name}"  pt:data-cy="#{doc.name}" styleClass="ui-widget"/>
                     <p:commandLink rendered="#{!doc.getIsTopic()}"
                                    ajax='false'
-                                   action="#{documentBean.displaySelectedNode(doc.name)}"
+                                   action="#{mainControlBean.setPathKind(doc.name, DocumentBean.RESTURL)}"
                                    oncomplete="markup()" pt:cy-data="#{doc.name}"> <h:outputText value="#{doc.name}"/>
                     </p:commandLink>
                 </p:column>
@@ -109,7 +109,8 @@
                          style="margin-top:0" scrollable="true" scrollHeight="25vh">
                 <p:column headerText="Scraped webpages from differencebetween.net">
                     <h:outputText rendered="#{doc.getIsTopic()}" value="#{doc.name}" styleClass="ui-widget"/>
-                    <p:commandLink rendered="#{!doc.getIsTopic()}" action="#{diffBean.displaySelectedNode(doc.name)}"
+                    <p:commandLink rendered="#{!doc.getIsTopic()}"
+                                   action="#{mainControlBean.setPathKind(doc.name, DiffBean.RESTURL)}"
                                    ajax='false'> <h:outputText value="#{doc.name}"/>
                     </p:commandLink>
                 </p:column>

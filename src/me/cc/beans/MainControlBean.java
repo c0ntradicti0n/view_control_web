@@ -75,8 +75,8 @@ public class MainControlBean implements Serializable {
 	private boolean trainActive = false;
 
 	public static PythonClient annotationREST = new PythonClient("http://127.0.0.1:" + PortConfig.app_port);
-	public static PythonClient fileREST  = new PythonClient( "http://127.0.0.1:" + PortConfig.doc_port);
-	public static PythonClient scienceREST  = new PythonClient( "http://127.0.0.1:" + PortConfig.science_port);
+	public static PythonClient fileREST       = new PythonClient( "http://127.0.0.1:" + PortConfig.doc_port);
+	public static PythonClient scienceREST    = new PythonClient( "http://127.0.0.1:" + PortConfig.science_port);
 
 	ObjectMapper om = new ObjectMapper();
 
@@ -148,6 +148,12 @@ public class MainControlBean implements Serializable {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+
+	public void setPathKind(String path, String kind) {
+		setPath(path);
+		setKind(kind);
 	}
 
 	public String getHtml() {
